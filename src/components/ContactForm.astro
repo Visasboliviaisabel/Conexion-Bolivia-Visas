@@ -1,0 +1,114 @@
+---
+import { business } from "../data/business";
+import type { Translations } from "../i18n/translations";
+
+interface Props {
+  labels: Pick<
+    Translations["contact"],
+    "nameLabel" | "emailLabel" | "messageLabel" | "submitLabel" | "formSending" | "formSuccess" | "formError"
+  >;
+}
+
+const { labels } = Astro.props;
+---
+
+<form class="form" id="contact-form" method="POST" action={business.formAction}>
+  <input type="hidden" name="access_key" value={business.web3formsAccessKey} />
+  <input type="hidden" name="subject" value="New inquiry — Conexión Bolivia Visas" />
+  <input type="hidden" name="from_name" value="Conexión Bolivia Website" />
+  <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <label>
+    {labels.nameLabel}
+    <input type="text" name="name" required />
+  </label>
+  <label>
+    {labels.emailLabel}
+    <input type="email" name="email" required />
+  </label>
+  <label>
+    {labels.messageLabel}
+    <textarea name="message" required></textarea>
+  </label>
+  <button class="button button-secondary" type="submit">{labels.submitLabel}</button>
+  <p class="form-result" id="form-result" role="status" aria-live="polite" hidden></p>
+</form>
+
+<script
+  is:inline
+  define:vars={{
+    formSending: labels.formSending,
+    formSuccess: labels.formSuccess,
+    formError: labels.formError,
+  }}
+>
+  const form = document.getElementById("contact-form");
+  const result = document.getElementById("form-result");
+
+  if (form && result) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      result.hidden = false;
+      result.textContent = formSending;
+      result.className = "form-result form-result--pending";
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then(async (response) => {
+          const json = await response.json();
+          if (response.status === 200) {
+            result.textContent = formSuccess;
+            result.className = "form-result form-result--success";
+            form.reset();
+          } else {
+            result.textContent = json.message || formError;
+            result.className = "form-result form-result--error";
+          }
+        })
+        .catch(() => {
+          result.textContent = formError;
+          result.className = "form-result form-result--error";
+        });
+    });
+  }
+</script>
+
+<style>
+  .botcheck {
+    display: none;
+  }
+
+  .form-result {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-radius: 0.65rem;
+    font-weight: 500;
+  }
+
+  .form-result--pending {
+    background: var(--brand-pale);
+    color: var(--brand);
+  }
+
+  .form-result--success {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+  }
+
+  .form-result--error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+</style>

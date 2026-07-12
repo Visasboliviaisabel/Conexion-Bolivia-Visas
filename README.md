@@ -1,6 +1,24 @@
 # Conexión Bolivia Visas
 
-Sitio web estático para asesoría de visas a Bolivia desde Cusco. Construido con [Astro](https://astro.build) y desplegado en GitHub Pages.
+Sitio web estático para asesoría de visas a Bolivia desde Cusco. Construido con [Astro](https://astro.build) y desplegado en [Vercel](https://vercel.com).
+
+**Producción:** https://conexion-bolivia-visas.vercel.app
+
+## Idiomas
+
+| URL | Idioma |
+|-----|--------|
+| `/es/` | Español (predeterminado) |
+| `/en/` | English |
+| `/zh/` | 中文 (simplificado) |
+| `/zh-tw/` | 繁體中文 |
+| `/ar/` | العربية (RTL) |
+| `/pt/` | Português |
+| `/ru/` | Русский |
+
+Cada idioma tiene páginas propias con slugs localizados (ej. `/es/contacto/`, `/en/contact/`, `/pt/contato/`).
+
+Las traducciones (excepto ES/EN de su sitio actual) están en `src/i18n/translations.ts` y pueden editarse sin tocar el código de las páginas.
 
 ## Desarrollo local
 
@@ -11,43 +29,30 @@ npm run dev
 
 Abre [http://localhost:4321](http://localhost:4321).
 
-## Publicar en GitHub Pages
+## Publicar cambios
 
-1. Crea un repositorio en GitHub llamado `conexion-bolivia-visas`.
-2. Conecta este proyecto y haz push a `main`:
+1. Edita el sitio localmente y prueba con `npm run dev`.
+2. Guarda y sube a GitHub:
 
 ```bash
-git init
 git add .
-git commit -m "Initial site setup"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/conexion-bolivia-visas.git
-git push -u origin main
+git commit -m "Describe your change"
+git push
 ```
 
-3. En GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-4. Tras el primer push, el workflow `.github/workflows/deploy.yml` publicará el sitio.
+3. Vercel detecta el push y despliega automáticamente a producción.
 
-## Dominio personalizado
+## Dominio personalizado del cliente
 
 Cuando tengas el dominio del cliente:
 
-1. En GitHub Pages, agrega el dominio en **Settings → Pages → Custom domain**.
-2. Crea `public/CNAME` con el dominio (por ejemplo `www.tudominio.com`).
-3. Actualiza `site` y `base` en `astro.config.mjs`:
-
-```js
-export default defineConfig({
-  site: "https://www.tudominio.com",
-  base: "/",
-});
-```
-
-4. Configura DNS en el registrador del dominio apuntando a GitHub Pages.
+1. En Vercel: **Project → Settings → Domains** → agrega el dominio.
+2. Actualiza `site` en `astro.config.mjs` al dominio final (por ejemplo `https://www.tudominio.com`).
+3. Configura DNS en el registrador del dominio según las instrucciones de Vercel.
 
 ## Formulario de contacto
 
-El formulario en `/contacto/` usa [Formspree](https://formspree.io). Crea una cuenta gratuita, obtén tu endpoint y reemplaza la URL en `src/pages/contacto/index.astro`.
+El formulario usa [Web3Forms](https://web3forms.com) (250 envíos gratis/mes). La clave de acceso está en `src/data/business.ts`. Los envíos llegan al email configurado en tu cuenta Web3Forms.
 
 ## Estructura
 

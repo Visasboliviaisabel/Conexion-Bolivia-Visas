@@ -1,8 +1,31 @@
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
-// Update site URL after GitHub Pages is live (e.g. https://yourusername.github.io/conexion-bolivia-visas)
 export default defineConfig({
-  site: "https://yourusername.github.io",
-  base: "/conexion-bolivia-visas",
+  site: "https://conexion-bolivia-visas.vercel.app",
+  base: "/",
   output: "static",
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es", "en", "zh", "zh-tw", "ar", "pt", "ru"],
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "es",
+        locales: {
+          es: "es",
+          en: "en-US",
+          zh: "zh-CN",
+          "zh-tw": "zh-TW",
+          ar: "ar",
+          pt: "pt-BR",
+          ru: "ru",
+        },
+      },
+    }),
+  ],
 });

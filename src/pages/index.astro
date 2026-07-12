@@ -1,55 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { localePath } from "../i18n/config";
 ---
 
-<BaseLayout title="Conexión Bolivia Visas | Visa a Bolivia desde Cusco">
-  <section class="hero">
-    <div class="container">
-      <div class="hero-card">
-        <p class="eyebrow">Conexión Bolivia</p>
-        <h1>Trámite de visa a Bolivia, rápido y confiable</h1>
-        <p class="lead">
-          Asesoría personalizada desde Cusco. Te guiamos con los requisitos, documentos y
-          coordinación frente al consulado para que tu viaje a Bolivia sea más sencillo.
-        </p>
-        <div class="button-row">
-          <a class="button button-primary" href={`${import.meta.env.BASE_URL}contacto/`}>Contáctanos</a>
-          <a class="button button-secondary" href={`${import.meta.env.BASE_URL}servicios/`}>Ver servicios</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2>Requisitos generales</h2>
-      <ul class="list-check">
-        <li>Pasaporte vigente con al menos 6 meses de validez</li>
-        <li>Fotografía tamaño pasaporte con fondo blanco</li>
-        <li>Certificado de fiebre amarilla (si aplica)</li>
-        <li>Itinerario de viaje y reserva de hotel</li>
-        <li>Estado de cuenta bancario</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2>Nuestros servicios</h2>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Asesoría de visa</h3>
-          <p>Te acompañamos paso a paso en la preparación de tu solicitud.</p>
-        </article>
-        <article class="card">
-          <h3>Visas de trabajo y estudio</h3>
-          <p>Orientación para trámites especiales según tu motivo de viaje.</p>
-        </article>
-        <article class="card">
-          <h3>Entrega de documentos</h3>
-          <p>Coordinamos la entrega de documentación faltante cuando lo necesites.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0;url=${localePath("es")}`} />
+    <link rel="canonical" href={localePath("es")} />
+    <title>Conexión Bolivia Visas</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={localePath("es")}>Conexión Bolivia Visas</a>…</p>
+  </body>
+</html>

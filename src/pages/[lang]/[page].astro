@@ -1,0 +1,134 @@
+---
+import I18nLayout from "../../layouts/I18nLayout.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import { localeList, locales } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+import { getTranslations } from "../../i18n/translations";
+import { business } from "../../data/business";
+
+export function getStaticPaths() {
+  const paths: { params: { lang: string; page: string }; props: { pageType: "services" | "contact" } }[] = [];
+
+  for (const lang of localeList) {
+    paths.push({
+      params: { lang, page: locales[lang].slugs.services },
+      props: { pageType: "services" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.contact },
+      props: { pageType: "contact" },
+    });
+  }
+
+  return paths;
+}
+
+const locale = Astro.params.lang as Locale;
+const { pageType } = Astro.props;
+const t = getTranslations(locale);
+---
+
+{pageType === "services" ? (
+  <I18nLayout locale={locale} page="services">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{t.nav.services}</p>
+        <h1>{t.services.title}</h1>
+        <p class="lead">{t.services.subtitle}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid-3">
+        {t.services.cards.map((card) => (
+          <article class="card">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2>{t.services.faqTitle}</h2>
+        {t.services.faqs.map((faq) => (
+          <div class="card faq-item">
+            <h3>{faq.q}</h3>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="text-align: center;">
+        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+          {t.home.ctaWhatsapp}
+        </a>
+      </div>
+    </section>
+  </I18nLayout>
+) : (
+  <I18nLayout locale={locale} page="contact">
+    <section class="section">
+      <div class="container">
+        <h1>{t.contact.title}</h1>
+        <p class="lead">{t.contact.subtitle}</p>
+
+        <div class="whatsapp-banner">
+          <h2>{t.contact.whatsappTitle}</h2>
+          <p>{t.contact.whatsappText}</p>
+          <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+            {t.contact.whatsappCta}
+          </a>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h2>{t.contact.formTitle}</h2>
+            <ContactForm
+              labels={{
+                nameLabel: t.contact.nameLabel,
+                emailLabel: t.contact.emailLabel,
+                messageLabel: t.contact.messageLabel,
+                submitLabel: t.contact.submitLabel,
+                formSending: t.contact.formSending,
+                formSuccess: t.contact.formSuccess,
+                formError: t.contact.formError,
+              }}
+            />
+          </div>
+
+          <div>
+            <div class="card">
+              <h3>{t.contact.locationTitle}</h3>
+              <p>{t.contact.locationText}</p>
+              <p>{business.address.full}</p>
+              <p><a href={`tel:${business.phone}`}>{business.phone}</a></p>
+              <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+            </div>
+            <div class="card" style="margin-top: 1rem;">
+              <h3>{t.contact.hoursTitle}</h3>
+              <p>{t.contact.hoursWeekdays}</p>
+              <p>{t.contact.hoursWeekends}</p>
+            </div>
+            <p style="margin-top: 1rem;">
+              <a class="button button-secondary" href={business.mapsUrl} target="_blank" rel="noopener noreferrer">
+                {t.contact.directionsCta}
+              </a>
+            </p>
+            <iframe
+              class="map-embed"
+              src={business.mapsEmbed}
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Conexión Bolivia office location"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  </I18nLayout>
+)}

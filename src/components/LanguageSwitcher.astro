@@ -1,0 +1,50 @@
+---
+import type { Locale, PageKey } from "../i18n/config";
+import { localeList, localePath } from "../i18n/config";
+import { locales } from "../i18n/config";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+---
+
+<div class="lang-switcher">
+  <label class="lang-label" for="lang-select">
+    <span aria-hidden="true">🌐</span>
+  </label>
+  <select id="lang-select" class="lang-select" aria-label="Select language">
+    {localeList.map((loc) => (
+      <option value={localePath(loc, page)} selected={loc === locale}>
+        {locales[loc].label}
+      </option>
+    ))}
+  </select>
+</div>
+
+<script>
+  const select = document.getElementById("lang-select") as HTMLSelectElement | null;
+  select?.addEventListener("change", () => {
+    if (select.value) window.location.href = select.value;
+  });
+</script>
+
+<style>
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .lang-select {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+    background: white;
+    color: var(--text);
+    cursor: pointer;
+  }
+</style>

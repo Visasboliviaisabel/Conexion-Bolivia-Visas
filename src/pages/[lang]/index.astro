@@ -1,0 +1,87 @@
+---
+import I18nLayout from "../../layouts/I18nLayout.astro";
+import PhotoGallery from "../../components/PhotoGallery.astro";
+import { localeList, localePath } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+import { getTranslations } from "../../i18n/translations";
+import { business } from "../../data/business";
+
+export function getStaticPaths() {
+  return localeList.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = getTranslations(locale);
+---
+
+<I18nLayout locale={locale} page="home">
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">{t.home.eyebrow}</p>
+      <h1>{t.home.title}</h1>
+      <p class="lead">{t.home.heroText}</p>
+      <ul class="highlights">
+        {t.home.highlights.map((item) => <li>{item}</li>)}
+      </ul>
+      <div class="button-row">
+        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+          {t.home.ctaWhatsapp}
+        </a>
+        <a class="button button-outline" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>{t.home.requirementsTitle}</h2>
+        <ul class="list-check">
+          {t.home.requirements.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <img src="/images/salar-sunset.png" alt="Salar de Uyuni salt flats at sunset, Bolivia" loading="lazy" width="600" height="450" />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container split">
+      <img src="/images/team.png" alt="Conexión Bolivia team at the Cusco office" loading="lazy" width="600" height="450" />
+      <div>
+        <h2>{t.home.salarTitle}</h2>
+        <p>{t.home.salarText}</p>
+        <div class="card faq-item">
+          <h3>{t.home.faqQuestion}</h3>
+          <p>{t.home.faqAnswer}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PhotoGallery
+    title={t.home.galleryTitle}
+    subtitle={t.home.gallerySubtitle}
+    gallery={t.home.gallery}
+  />
+
+  <section class="section">
+    <div class="container">
+      <h2>{t.home.servicesTitle}</h2>
+      <p class="lead">{t.home.servicesSubtitle}</p>
+      <div class="grid-3" style="margin-top: 1.5rem;">
+        {t.home.serviceCards.map((card) => (
+          <article class="card">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="button-row">
+        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+          {t.home.ctaWhatsapp}
+        </a>
+        <a class="button button-secondary" href={localePath(locale, "services")}>{t.nav.services}</a>
+      </div>
+    </div>
+  </section>
+</I18nLayout>

@@ -1,0 +1,135 @@
+---
+import type { Translations } from "../i18n/translations";
+
+interface Props {
+  gallery: Translations["home"]["gallery"];
+  title: string;
+  subtitle: string;
+}
+
+const { gallery, title, subtitle } = Astro.props;
+
+const photos = [
+  { src: "/images/gallery-office-entrance.png", ...gallery.entrance, layout: "wide" },
+  { src: "/images/gallery-office-happy.png", ...gallery.happy, layout: "tall" },
+  { src: "/images/gallery-passports.png", ...gallery.passports, layout: "square" },
+] as const;
+---
+
+<section class="section gallery-section">
+  <div class="container">
+    <div class="gallery-header">
+      <h2>{title}</h2>
+      <p class="lead">{subtitle}</p>
+    </div>
+
+    <div class="gallery-grid">
+      {photos.map((photo) => (
+        <figure class={`gallery-card gallery-card--${photo.layout}`}>
+          <div class="gallery-image-wrap">
+            <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+          </div>
+          <figcaption>{photo.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section {
+    background: linear-gradient(180deg, var(--brand-pale) 0%, var(--bg) 100%);
+  }
+
+  .gallery-header {
+    text-align: center;
+    max-width: 52ch;
+    margin-inline: auto;
+  }
+
+  .gallery-header .lead {
+    margin-inline: auto;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .gallery-card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .gallery-image-wrap {
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: var(--surface);
+  }
+
+  .gallery-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .gallery-card:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-card figcaption {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 0 0.25rem;
+  }
+
+  .gallery-card--wide {
+    grid-column: span 7;
+  }
+
+  .gallery-card--wide .gallery-image-wrap {
+    aspect-ratio: 16 / 10;
+  }
+
+  .gallery-card--tall {
+    grid-column: span 5;
+    grid-row: span 2;
+  }
+
+  .gallery-card--tall .gallery-image-wrap {
+    aspect-ratio: 3 / 4;
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .gallery-card--square {
+    grid-column: span 7;
+  }
+
+  .gallery-card--square .gallery-image-wrap {
+    aspect-ratio: 16 / 9;
+  }
+
+  @media (max-width: 900px) {
+    .gallery-card--wide,
+    .gallery-card--tall,
+    .gallery-card--square {
+      grid-column: span 12;
+      grid-row: span 1;
+    }
+
+    .gallery-card--tall .gallery-image-wrap {
+      aspect-ratio: 4 / 5;
+      min-height: auto;
+    }
+  }
+</style>

@@ -1,0 +1,426 @@
+---
+import type { Locale, PageKey } from "../i18n/config";
+import { localeList, locales, localePath } from "../i18n/config";
+import { getTranslations } from "../i18n/translations";
+import { business } from "../data/business";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const t = getTranslations(locale);
+const meta = t.meta[page === "home" ? "home" : page];
+const { dir, hreflang } = locales[locale];
+const canonical = new URL(localePath(locale, page), Astro.site);
+
+const alternateLinks = localeList.map((loc) => ({
+  hreflang: locales[loc].hreflang,
+  href: new URL(localePath(loc, page), Astro.site).href,
+}));
+
+const xDefault = new URL(localePath("es", page), Astro.site).href;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: business.name,
+  description: meta.description,
+  url: Astro.site?.href,
+  telephone: business.phone,
+  email: business.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    postalCode: business.address.postalCode,
+    addressCountry: "PE",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -13.5259912,
+    longitude: -71.947803,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "19:00",
+    },
+  ],
+  sameAs: [business.social.facebook, business.social.youtube, business.social.tiktok],
+};
+---
+
+<!doctype html>
+<html lang={hreflang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonical.href} />
+    {alternateLinks.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:locale" content={hreflang} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href={localePath(locale)}>
+          <img
+            class="logo-image"
+            src="/images/logo-horizontal.png"
+            alt="Visas Bolivia Conexión Bolivia"
+            width="160"
+            height="48"
+            decoding="async"
+          />
+        </a>
+        <nav aria-label="Main">
+          <a href={localePath(locale)} aria-current={page === "home" ? "page" : undefined}>{t.nav.home}</a>
+          <a href={localePath(locale, "services")} aria-current={page === "services" ? "page" : undefined}>{t.nav.services}</a>
+          <a href={localePath(locale, "contact")} aria-current={page === "contact" ? "page" : undefined}>{t.nav.contact}</a>
+        </nav>
+        <LanguageSwitcher locale={locale} page={page} />
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>{business.name}</strong>
+          <p>{t.footer.tagline}</p>
+          <p class="footer-address">{business.address.full}</p>
+        </div>
+        <div>
+          <p><a href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">{business.phone}</a></p>
+          <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+          <div class="social-links">
+            <a href={business.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href={business.social.youtube} target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href={business.social.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">© {new Date().getFullYear()} {business.shortName}. {t.footer.rights}</p>
+    </footer>
+
+    <WhatsAppButton label={t.whatsappFloat} />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --brand-dark: #0d2b45;
+    --brand: #34698f;
+    --brand-light: #a7c6e0;
+    --brand-pale: #e6f1f9;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #0d2b45;
+    --muted: #475569;
+    --border: #e2e8f0;
+    --shadow: 0 10px 30px rgba(13, 43, 69, 0.08);
+    --whatsapp: #25d366;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main { flex: 1; }
+
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    width: min(1100px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo:hover { text-decoration: none; }
+
+  .logo-image {
+    display: block;
+    height: 48px;
+    width: auto;
+    max-width: min(200px, 42vw);
+    object-fit: contain;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: var(--muted);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  nav a[aria-current="page"] {
+    color: var(--brand-dark);
+  }
+
+  .hero {
+    position: relative;
+    padding: 5rem 0 4rem;
+    color: white;
+    background: linear-gradient(135deg, rgba(13, 43, 69, 0.88), rgba(52, 105, 143, 0.82)),
+      url("/images/salar-mirror.png") center / cover no-repeat;
+  }
+
+  .hero .lead { color: #e6f1f9; }
+
+  .eyebrow {
+    color: var(--brand-light);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  h1, h2, h3 {
+    line-height: 1.15;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    max-width: 62ch;
+  }
+
+  .button-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.35rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .button:hover { text-decoration: none; }
+
+  .button-primary {
+    background: var(--whatsapp);
+    color: white;
+  }
+
+  .button-primary:hover { filter: brightness(0.95); }
+
+  .button-secondary {
+    background: white;
+    color: var(--brand-dark);
+    border-color: var(--border);
+  }
+
+  .button-outline {
+    background: transparent;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .section { padding: 3.5rem 0; }
+  .section-alt { background: var(--brand-pale); }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card, .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+  }
+
+  .highlights {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .highlights li {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .list-check {
+    padding-left: 1.2rem;
+  }
+
+  .list-check li { margin-bottom: 0.5rem; }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .split img {
+    width: 100%;
+    border-radius: 1rem;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+
+  .faq-item + .faq-item { margin-top: 1rem; }
+
+  .site-footer {
+    background: var(--brand-dark);
+    color: #e2e8f0;
+    padding: 2.5rem 0 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .site-footer a { color: var(--brand-light); }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .footer-address { color: #94a3b8; font-size: 0.9rem; }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .copyright {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 2rem 0 0;
+  }
+
+  .form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    font: inherit;
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .map-embed {
+    width: 100%;
+    border: 0;
+    border-radius: 1rem;
+    min-height: 300px;
+  }
+
+  .whatsapp-banner {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .split { grid-template-columns: 1fr; }
+    .hero { padding: 3.5rem 0 2.5rem; }
+    nav { order: 3; width: 100%; }
+  }
+</style>
