@@ -10,9 +10,9 @@ interface Props {
 const { gallery, title, subtitle } = Astro.props;
 
 const photos = [
-  { src: "/images/gallery-office-entrance.png", ...gallery.entrance, layout: "wide" },
-  { src: "/images/gallery-office-happy.png", ...gallery.happy, layout: "tall" },
-  { src: "/images/gallery-passports.png", ...gallery.passports, layout: "square" },
+  { src: "/images/gallery-office-entrance.png", ...gallery.entrance, layout: "wide", position: "center 18%" },
+  { src: "/images/gallery-office-happy.png", ...gallery.happy, layout: "tall", position: "center 22%" },
+  { src: "/images/gallery-passports.png", ...gallery.passports, layout: "square", position: "center 30%" },
 ] as const;
 ---
 
@@ -27,7 +27,13 @@ const photos = [
       {photos.map((photo) => (
         <figure class={`gallery-card gallery-card--${photo.layout}`}>
           <div class="gallery-image-wrap">
-            <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              loading="lazy"
+              decoding="async"
+              style={`object-position: ${photo.position};`}
+            />
           </div>
           <figcaption>{photo.caption}</figcaption>
         </figure>
@@ -116,7 +122,7 @@ const photos = [
   }
 
   .gallery-card--square .gallery-image-wrap {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 5 / 4;
   }
 
   @media (max-width: 900px) {

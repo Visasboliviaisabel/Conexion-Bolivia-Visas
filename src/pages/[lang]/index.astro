@@ -40,13 +40,17 @@ const t = getTranslations(locale);
           {t.home.requirements.map((item) => <li>{item}</li>)}
         </ul>
       </div>
-      <img src="/images/salar-sunset.png" alt="Salar de Uyuni salt flats at sunset, Bolivia" loading="lazy" width="600" height="450" />
+      <div class="split-image-wrap split-image-wrap--landscape">
+        <img src="/images/salar-sunset.png" alt="Salar de Uyuni salt flats at sunset, Bolivia" loading="lazy" width="600" height="450" />
+      </div>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container split">
-      <img src="/images/team.png" alt="Conexión Bolivia team at the Cusco office" loading="lazy" width="600" height="450" />
+      <div class="split-image-wrap split-image-wrap--portrait">
+        <img src="/images/team.png" alt="Conexión Bolivia team at the Cusco office" loading="lazy" width="600" height="750" />
+      </div>
       <div>
         <h2>{t.home.salarTitle}</h2>
         <p>{t.home.salarText}</p>
