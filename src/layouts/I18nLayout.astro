@@ -6,6 +6,7 @@ import { business } from "../data/business";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   locale: Locale;
@@ -129,6 +130,7 @@ const structuredData = {
 
     <WhatsAppButton label={t.whatsappFloat} />
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>
 
