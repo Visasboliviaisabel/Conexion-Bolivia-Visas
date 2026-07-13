@@ -5,6 +5,7 @@ import { getTranslations } from "../i18n/translations";
 import { business } from "../data/business";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   locale: Locale;
@@ -127,6 +128,7 @@ const structuredData = {
     </footer>
 
     <WhatsAppButton label={t.whatsappFloat} />
+    <Analytics />
   </body>
 </html>
 
