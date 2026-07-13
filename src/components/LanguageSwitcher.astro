@@ -13,12 +13,13 @@ const { locale, page } = Astro.props;
 
 <div class="lang-switcher">
   <label class="lang-label" for="lang-select">
-    <span aria-hidden="true">🌐</span>
+    <span class="lang-globe" aria-hidden="true">🌐</span>
+    <span class="sr-only">Language</span>
   </label>
   <select id="lang-select" class="lang-select" aria-label="Select language">
     {localeList.map((loc) => (
       <option value={localePath(loc, page)} selected={loc === locale}>
-        {locales[loc].label}
+        {locales[loc].flag} {locales[loc].label}
       </option>
     ))}
   </select>
@@ -38,6 +39,28 @@ const { locale, page } = Astro.props;
     gap: 0.35rem;
   }
 
+  .lang-label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+
+  .lang-globe {
+    font-size: 1.15rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .lang-select {
     border: 1px solid var(--border);
     border-radius: 0.5rem;
@@ -46,5 +69,6 @@ const { locale, page } = Astro.props;
     background: white;
     color: var(--text);
     cursor: pointer;
+    min-width: 10.5rem;
   }
 </style>
