@@ -85,18 +85,18 @@ const structuredData = {
   </head>
   <body>
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="header-inner">
         <a class="logo" href={localePath(locale)}>
           <img
             class="logo-image"
             src="/images/logo-horizontal.png"
             alt="Visas Bolivia Conexión Bolivia"
-            width="160"
-            height="48"
+            width="246"
+            height="72"
             decoding="async"
           />
         </a>
-        <nav aria-label="Main">
+        <nav class="header-nav" aria-label="Main">
           <a href={localePath(locale)} aria-current={page === "home" ? "page" : undefined}>{t.nav.home}</a>
           <a href={localePath(locale, "services")} aria-current={page === "services" ? "page" : undefined}>{t.nav.services}</a>
           <a href={localePath(locale, "contact")} aria-current={page === "contact" ? "page" : undefined}>{t.nav.contact}</a>
@@ -191,10 +191,11 @@ const structuredData = {
   .header-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 0;
-    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    max-width: none;
+    padding-block: 0.2rem;
+    padding-inline: clamp(1rem, 3vw, 2rem);
   }
 
   .logo {
@@ -202,32 +203,41 @@ const structuredData = {
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    margin-left: 2.25rem;
   }
 
   .logo:hover { text-decoration: none; }
 
   .logo-image {
     display: block;
-    height: 48px;
+    height: 72px;
     width: auto;
-    max-width: min(200px, 42vw);
+    max-width: min(300px, 52vw);
     object-fit: contain;
   }
 
-  nav {
+  .header-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 1.25rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
+    justify-content: center;
+    z-index: 1;
   }
 
-  nav a {
+  .header-nav a {
     color: var(--muted);
     font-weight: 500;
     text-decoration: none;
+    white-space: nowrap;
   }
 
-  nav a:hover,
-  nav a[aria-current="page"] {
+  .header-nav a:hover,
+  .header-nav a[aria-current="page"] {
     color: var(--brand-dark);
   }
 
@@ -236,6 +246,9 @@ const structuredData = {
     align-items: center;
     gap: 0.75rem;
     margin-left: auto;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
   }
 
   .hero {
@@ -452,7 +465,23 @@ const structuredData = {
   @media (max-width: 768px) {
     .split { grid-template-columns: 1fr; }
     .hero { padding: 3.5rem 0 2.5rem; }
-    nav { order: 3; width: 100%; }
-    .header-actions { order: 2; }
+    .header-inner {
+      flex-wrap: wrap;
+      row-gap: 0.75rem;
+    }
+    .header-nav {
+      position: static;
+      transform: none;
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      padding-top: 0.15rem;
+    }
+    .header-actions {
+      margin-left: auto;
+    }
+    .logo {
+      margin-left: 0;
+    }
   }
 </style>
