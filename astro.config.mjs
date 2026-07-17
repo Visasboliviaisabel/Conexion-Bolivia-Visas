@@ -7,7 +7,7 @@ export default defineConfig({
   output: "static",
   i18n: {
     defaultLocale: "es",
-    locales: ["es", "en", "zh", "zh-tw", "ar", "pt", "ru"],
+    locales: ["es", "en", "zh", "zh-tw", "ar", "pt", "ru", "id", "uk", "sr"],
     routing: {
       prefixDefaultLocale: true,
     },
@@ -24,6 +24,9 @@ export default defineConfig({
           ar: "ar",
           pt: "pt-BR",
           ru: "ru",
+          id: "id",
+          uk: "uk",
+          sr: "sr",
         },
       },
     }),

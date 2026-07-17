@@ -1,12 +1,17 @@
 import type { Locale } from "./config";
+import { guideContent, guideMeta, guideNav } from "./guide-translations";
+import type { GuideContent } from "./guide-translations";
+import { chinaContactCopy, isChinaLocale } from "./china-translations";
+import type { ChinaContactCopy } from "./china-translations";
 
 export type Translations = {
   meta: {
     home: { title: string; description: string };
     services: { title: string; description: string };
     contact: { title: string; description: string };
+    guide: { title: string; description: string };
   };
-  nav: { home: string; services: string; contact: string };
+  nav: { home: string; services: string; contact: string; guide: string };
   home: {
     eyebrow: string;
     title: string;
@@ -66,9 +71,16 @@ export type Translations = {
     rights: string;
   };
   whatsappFloat: string;
+  guide: GuideContent;
+  china?: ChinaContactCopy;
 };
 
-export const translations: Record<Locale, Translations> = {
+type BaseTranslations = Omit<Translations, "guide"> & {
+  meta: Omit<Translations["meta"], "guide">;
+  nav: Omit<Translations["nav"], "guide">;
+};
+
+export const translations: Record<Locale, BaseTranslations> = {
   es: {
     meta: {
       home: {
@@ -841,8 +853,366 @@ export const translations: Record<Locale, Translations> = {
     footer: { tagline: "Быстрая и надёжная помощь с визой в Боливию из Куско", rights: "Все права защищены" },
     whatsappFloat: "WhatsApp",
   },
+
+  id: {
+    meta: {
+      home: {
+        title: "Visa Bolivia Cusco | Syarat & Proses Cepat – Conexión Bolivia",
+        description:
+          "Urus visa Bolivia di Cusco, Peru dengan cepat dan aman. Kantor di depan konsulat Bolivia. Ideal untuk wisatawan ke Salar de Uyuni.",
+      },
+      services: {
+        title: "Layanan Visa Bolivia Cusco | Conexión Bolivia",
+        description:
+          "Bantuan visa turis, kerja, dan studi ke Bolivia. Layanan pengiriman dokumen di Cusco, Peru.",
+      },
+      contact: {
+        title: "Kontak Visa Bolivia Cusco | Conexión Bolivia",
+        description:
+          "Hubungi kami via WhatsApp atau formulir. Kantor kami di depan Konsulat Bolivia di Cusco, Peru.",
+      },
+    },
+    nav: { home: "Beranda", services: "Layanan", contact: "Kontak" },
+    home: {
+      eyebrow: "Visa Bolivia di Cusco",
+      title: "Conexión Bolivia – Mara Isabel",
+      subtitle: "Visa Bolivia Anda — cepat dan aman",
+      heroText:
+        "Urus visa Bolivia dengan cepat dan aman dari Cusco, Peru. Kami membimbing Anda langkah demi langkah di depan konsulat agar perjalanan bebas hambatan — ideal untuk wisatawan menuju Salar de Uyuni dan selatan Bolivia.",
+      ctaWhatsapp: "Hubungi kami via WhatsApp",
+      ctaContact: "Kirim pertanyaan",
+      highlights: [
+        "Proses cepat dan efisien",
+        "Panduan personal untuk wisatawan",
+        "Lokasi strategis di depan konsulat",
+      ],
+      requirementsTitle: "Syarat visa Bolivia di Cusco",
+      requirements: [
+        "Paspor valid (minimal 6 bulan)",
+        "Foto paspor dengan latar belakang putih",
+        "Vaksin demam kuning (jika diperlukan)",
+        "Itinerary perjalanan",
+        "Reservasi hotel",
+        "Bukti keuangan (rekening koran)",
+      ],
+      salarTitle: "Menuju Salar de Uyuni?",
+      salarText:
+        "Ribuan wisatawan melalui Cusco menuju Salar de Uyuni dan dataran tinggi Bolivia. Kami bantu Anda mendapatkan visa tanpa repot agar perjalanan lebih menyenangkan.",
+      faqTitle: "Pertanyaan umum",
+      faqQuestion: "Bisakah visa diproses di hari yang sama?",
+      faqAnswer:
+        "Ya. Jika Anda datang ke kantor kami di Cusco dengan semua dokumen, prosesnya sekitar 30 menit. Jika dokumen dikirim terlebih dahulu via email atau WhatsApp, pengambilan visa hanya sekitar 10 menit.",
+      servicesTitle: "Layanan kami",
+      servicesSubtitle: "Panduan ahli untuk masuk Bolivia tanpa kendala",
+      serviceCards: [
+        { title: "Bantuan visa", text: "Kami membimbing proses pengurusan visa Bolivia Anda." },
+        { title: "Visa kerja & studi", text: "Panduan jika Anda ingin bekerja atau studi di Bolivia." },
+        { title: "Pengiriman dokumen", text: "Pengiriman dokumen yang masih kurang untuk perjalanan Anda." },
+      ],
+      galleryTitle: "Wisatawan bahagia, visa siap",
+      gallerySubtitle:
+        "Wisatawan dari seluruh dunia mempercayai Conexión Bolivia untuk masuk Bolivia tanpa kendala.",
+      gallery: {
+        entrance: {
+          alt: "Grup wisatawan di depan kantor Visas Bolivia di Cusco",
+          caption: "Kantor kami di Cusco, di depan konsulat",
+        },
+        happy: {
+          alt: "Pelanggan puas dengan visa mereka di kantor Conexión Bolivia",
+          caption: "Pelanggan bahagia dengan visa yang disetujui",
+        },
+        passports: {
+          alt: "Wisatawan internasional menunjukkan paspor dengan visa Bolivia",
+          caption: "Wisatawan dari Taiwan dengan visa siap",
+        },
+      },
+    },
+    services: {
+      title: "Layanan kami",
+      subtitle: "Bantuan visa profesional untuk wisatawan ke Bolivia",
+      cards: [
+        { title: "Bantuan visa", text: "Panduan langkah demi langkah untuk visa turis Bolivia." },
+        { title: "Visa kerja & studi", text: "Orientasi untuk pengajuan visa kerja atau studi." },
+        { title: "Pengiriman dokumen", text: "Koordinasi pengiriman dokumen perjalanan yang kurang." },
+      ],
+      faqTitle: "Pertanyaan yang sering diajukan",
+      faqs: [
+        { q: "Layanan apa yang tersedia?", a: "Bantuan visa Bolivia, visa kerja dan studi, serta pengiriman dokumen." },
+        { q: "Di mana lokasi kantor?", a: "Di depan Konsulat Bolivia di Cusco, Clorinda Matto de Turner 308." },
+        { q: "Berapa lama prosesnya?", a: "Bisa selesai di hari yang sama. Jika dokumen dikirim terlebih dahulu, pengambilan sekitar 10 menit." },
+        { q: "Dokumen apa yang diperlukan?", a: "Tergantung jenis visa, umumnya paspor, foto, itinerary, booking hotel, dan rekening koran." },
+      ],
+    },
+    contact: {
+      title: "Hubungi kami",
+      subtitle: "Kami siap membantu pengurusan visa Bolivia Anda",
+      whatsappTitle: "WhatsApp — cara tercepat",
+      whatsappText: "Kirim pesan sekarang untuk respons cepat. Ini saluran utama kami.",
+      whatsappCta: "Buka WhatsApp",
+      formTitle: "Atau kirim pesan",
+      nameLabel: "Nama lengkap",
+      emailLabel: "Alamat email",
+      messageLabel: "Pesan",
+      submitLabel: "Kirim pertanyaan",
+      formSending: "Mengirim…",
+      formSuccess: "Terima kasih! Kami akan segera merespons.",
+      formError: "Terjadi kesalahan. Silakan coba via WhatsApp.",
+      locationTitle: "Lokasi",
+      locationText: "Di depan Konsulat Bolivia di Cusco",
+      hoursTitle: "Jam operasional",
+      hoursWeekdays: "Senin–Jumat: 08.00 – 19.00",
+      hoursWeekends: "Sabtu & Minggu: hanya darurat, dengan janji via WhatsApp",
+      directionsCta: "Petunjuk arah di Google Maps",
+    },
+    footer: {
+      tagline: "Bantuan visa Bolivia cepat dan terpercaya dari Cusco",
+      rights: "Hak cipta dilindungi",
+    },
+    whatsappFloat: "WhatsApp",
+  },
+
+  uk: {
+    meta: {
+      home: {
+        title: "Віза Болівія Куско | Швидке оформлення – Conexión Bolivia",
+        description:
+          "Швидке оформлення візи в Болівію з Куско, Перу. Експертна допомога навпроти консульства. Ідеально для мандрівників на Салар-де-Уюні.",
+      },
+      services: {
+        title: "Послуги з візи в Болівію Куско | Conexión Bolivia",
+        description:
+          "Допомога з туристичними, робочими та студентськими візами. Доставка документів у Куско, Перу.",
+      },
+      contact: {
+        title: "Контакти | Віза Болівія Куско – Conexión Bolivia",
+        description:
+          "Зв'яжіться з нами через WhatsApp або форму. Офіс навпроти консульства Болівії в Куско, Перу.",
+      },
+    },
+    nav: { home: "Головна", services: "Послуги", contact: "Контакти" },
+    home: {
+      eyebrow: "Віза в Болівію в Куско",
+      title: "Conexión Bolivia – Mara Isabel",
+      subtitle: "Ваша віза в Болівію — швидко та надійно",
+      heroText:
+        "Оформіть візу в Болівію швидко та безпечно з Куско, Перу. Ми супроводжуємо вас крок за кроком біля консульства, щоб подорож пройшла без помилок і затримок — ідеально для мандрівників на Салар-де-Уюні та південь Болівії.",
+      ctaWhatsapp: "Написати в WhatsApp",
+      ctaContact: "Надіслати запит",
+      highlights: [
+        "Швидке та ефективне оформлення",
+        "Персональна допомога туристам",
+        "Зручне розташування навпроти консульства",
+      ],
+      requirementsTitle: "Вимоги для візи в Болівію в Куско",
+      requirements: [
+        "Дійсний закордонний паспорт (мінімум 6 місяців)",
+        "Фото паспортного зразка на білому тлі",
+        "Щеплення від жовтої лихоманки (за потреби)",
+        "Маршрут подорожі",
+        "Бронювання готелю",
+        "Підтвердження фінансів (виписка з банку)",
+      ],
+      salarTitle: "Їдете на Салар-де-Уюні?",
+      salarText:
+        "Тисячі мандрівників проїжджають через Куско до Салар-де-Уюні та болівійського нагір'я. Ми допоможемо отримати візу без зайвих складнощів.",
+      faqTitle: "Поширене запитання",
+      faqQuestion: "Чи можна отримати візу в той самий день?",
+      faqAnswer:
+        "Так. Якщо прийти до нашого офісу в Куско з усіма документами, оформлення займає близько 30 хвилин. Якщо надіслати документи заздалегідь електронною поштою або WhatsApp, отримання візи займає близько 10 хвилин.",
+      servicesTitle: "Наші послуги",
+      servicesSubtitle: "Експертна допомога для в'їзду в Болівію без ускладнень",
+      serviceCards: [
+        { title: "Допомога з візою", text: "Супроводжуємо вас у процесі отримання візи в Болівію." },
+        { title: "Робочі та студентські візи", text: "Консультації для роботи або навчання в Болівії." },
+        { title: "Доставка документів", text: "Доставка документів, яких не вистачає для подорожі." },
+      ],
+      galleryTitle: "Щасливі мандрівники, візи готові",
+      gallerySubtitle:
+        "Туристи з усього світу довіряють Conexión Bolivia для безпроблемного в'їзду в Болівію.",
+      gallery: {
+        entrance: {
+          alt: "Група мандрівників біля офісу Visas Bolivia в Куско",
+          caption: "Наш офіс у Куско, навпроти консульства",
+        },
+        happy: {
+          alt: "Задоволені клієнти з візами в офісі Conexión Bolivia",
+          caption: "Щасливі клієнти зі схваленими візами",
+        },
+        passports: {
+          alt: "Міжнародні мандрівники з паспортами та візою в Болівію",
+          caption: "Мандрівники з Тайваню з готовими візами",
+        },
+      },
+    },
+    services: {
+      title: "Наші послуги",
+      subtitle: "Професійна допомога з візами для мандрівників у Болівію",
+      cards: [
+        { title: "Допомога з візою", text: "Покроковий супровід оформлення туристичної візи в Болівію." },
+        { title: "Робочі та студентські візи", text: "Консультації щодо робочих та студентських віз." },
+        { title: "Доставка документів", text: "Координація доставки документів, яких не вистачає." },
+      ],
+      faqTitle: "Часті запитання",
+      faqs: [
+        { q: "Які послуги ви надаєте?", a: "Допомога з візою в Болівію, робочі та студентські візи, доставка документів." },
+        { q: "Де ви знаходитесь?", a: "Навпроти консульства Болівії в Куско, Clorinda Matto de Turner 308." },
+        { q: "Скільки часу займає оформлення?", a: "Можна оформити в той самий день. При попередній відправці документів отримання займає близько 10 хвилин." },
+        { q: "Які документи потрібні?", a: "Залежить від типу візи, але зазвичай паспорт, фото, маршрут, бронювання готелю та банківська виписка." },
+      ],
+    },
+    contact: {
+      title: "Контакти",
+      subtitle: "Ми допоможемо вам з візою в Болівію",
+      whatsappTitle: "WhatsApp — найшвидший спосіб",
+      whatsappText: "Напишіть нам зараз для швидкої відповіді. Це наш основний канал зв'язку.",
+      whatsappCta: "Відкрити WhatsApp",
+      formTitle: "Або надішліть повідомлення",
+      nameLabel: "Повне ім'я",
+      emailLabel: "Електронна пошта",
+      messageLabel: "Повідомлення",
+      submitLabel: "Надіслати запит",
+      formSending: "Надсилання…",
+      formSuccess: "Дякуємо! Ми скоро відповімо.",
+      formError: "Щось пішло не так. Спробуйте WhatsApp.",
+      locationTitle: "Адреса",
+      locationText: "Навпроти консульства Болівії в Куско",
+      hoursTitle: "Години роботи",
+      hoursWeekdays: "Пн–Пт: 8:00 – 19:00",
+      hoursWeekends: "Сб і Нд: лише екстрені випадки, за записом у WhatsApp",
+      directionsCta: "Маршрут у Google Maps",
+    },
+    footer: {
+      tagline: "Швидка та надійна допомога з візою в Болівію з Куско",
+      rights: "Усі права захищені",
+    },
+    whatsappFloat: "WhatsApp",
+  },
+
+  sr: {
+    meta: {
+      home: {
+        title: "Viza Bolivija Kusko | Brza i sigurna – Conexión Bolivia",
+        description:
+          "Brzo rešavanje vize za Boliviju iz Kuska, Peru. Stručna pomoć ispred konzulata. Idealno za putnike ka Salar de Uyuni.",
+      },
+      services: {
+        title: "Usluge vize Bolivija Kusko | Conexión Bolivia",
+        description:
+          "Pomoć sa turističkim, radnim i studentskim vizama za Boliviju. Dostava dokumenata u Kusku, Peru.",
+      },
+      contact: {
+        title: "Kontakt | Viza Bolivija Kusko – Conexión Bolivia",
+        description:
+          "Kontaktirajte nas putem WhatsApp-a ili formulara. Kancelarija ispred konzulata Bolivije u Kusku, Peru.",
+      },
+    },
+    nav: { home: "Početna", services: "Usluge", contact: "Kontakt" },
+    home: {
+      eyebrow: "Viza Bolivija u Kusku",
+      title: "Conexión Bolivia – Mara Isabel",
+      subtitle: "Vaša viza za Boliviju — brzo i sigurno",
+      heroText:
+        "Rešite vizu za Boliviju brzo i sigurno iz Kuska, Peru. Vodimo vas korak po korak ispred konzulata da putujete bez grešaka i kašnjenja — idealno za putnike ka Salar de Uyuni i južnoj Boliviji.",
+      ctaWhatsapp: "Pišite nam na WhatsApp",
+      ctaContact: "Pošaljite upit",
+      highlights: [
+        "Brza i efikasna obrada",
+        "Personalizovana pomoć turistima",
+        "Strategijska lokacija ispred konzulata",
+      ],
+      requirementsTitle: "Uslovi za vizu Bolivije u Kusku",
+      requirements: [
+        "Važeći pasoš (minimum 6 meseci)",
+        "Fotografija pasoškog formata sa belom pozadinom",
+        "Vakcina protiv žute groznice (ako je potrebno)",
+        "Plan putovanja",
+        "Rezervacija hotela",
+        "Dokaz o finansijama (izvod iz banke)",
+      ],
+      salarTitle: "Idete ka Salar de Uyuni?",
+      salarText:
+        "Hiljade putnika prolazi kroz Kusko na putu ka Salar de Uyuni i bolivijskom visoravni. Pomažemo vam da dobijete vizu bez komplikacija.",
+      faqTitle: "Često pitanje",
+      faqQuestion: "Mogu li dobiti vizu istog dana?",
+      faqAnswer:
+        "Da. Ako dođete u našu kancelariju u Kusku sa svim dokumentima, proces traje oko 30 minuta. Ako pošaljete dokumenta unapred putem emaila ili WhatsApp-a, preuzimanje vize traje oko 10 minuta.",
+      servicesTitle: "Naše usluge",
+      servicesSubtitle: "Stručna pomoć za ulazak u Boliviju bez komplikacija",
+      serviceCards: [
+        { title: "Pomoć sa vizom", text: "Vodimo vas kroz proces dobijanja vize za Boliviju." },
+        { title: "Radne i studentske vize", text: "Savetovanje za rad ili studije u Boliviji." },
+        { title: "Dostava dokumenata", text: "Dostava dokumenata koji nedostaju za vaše putovanje." },
+      ],
+      galleryTitle: "Srećni putnici, vize spremne",
+      gallerySubtitle:
+        "Turisti iz celog sveta veruju Conexión Bolivia za ulazak u Boliviju bez komplikacija.",
+      gallery: {
+        entrance: {
+          alt: "Grupa putnika ispred kancelarije Visas Bolivia u Kusku",
+          caption: "Naša kancelarija u Kusku, ispred konzulata",
+        },
+        happy: {
+          alt: "Zadovoljni klijenti sa vizama u kancelariji Conexión Bolivia",
+          caption: "Srećni klijenti sa odobrenim vizama",
+        },
+        passports: {
+          alt: "Međunarodni putnici pokazuju pasoše sa vizom Bolivije",
+          caption: "Putnici iz Tajvana sa spremnim vizama",
+        },
+      },
+    },
+    services: {
+      title: "Naše usluge",
+      subtitle: "Profesionalna pomoć sa vizama za putnike u Boliviju",
+      cards: [
+        { title: "Pomoć sa vizom", text: "Korak-po-korak vodič za turističku vizu Bolivije." },
+        { title: "Radne i studentske vize", text: "Savetovanje za radne ili studentske vize." },
+        { title: "Dostava dokumenata", text: "Koordiniramo dostavu nedostajućih dokumenata." },
+      ],
+      faqTitle: "Često postavljana pitanja",
+      faqs: [
+        { q: "Koje usluge nudite?", a: "Pomoć sa vizom za Boliviju, radne i studentske vize, i dostava dokumenata." },
+        { q: "Gde se nalazite?", a: "Ispred konzulata Bolivije u Kusku, Clorinda Matto de Turner 308." },
+        { q: "Koliko traje proces?", a: "Moguće je istog dana. Sa unapred poslatim dokumentima, preuzimanje traje oko 10 minuta." },
+        { q: "Šta mi je potrebno?", a: "Zavisi od tipa vize, ali obično pasoš, fotografija, plan puta, rezervacija hotela i izvod iz banke." },
+      ],
+    },
+    contact: {
+      title: "Kontakt",
+      subtitle: "Tu smo da vam pomognemo sa vizom za Boliviju",
+      whatsappTitle: "WhatsApp — najbrži način",
+      whatsappText: "Pošaljite poruku odmah za brzi odgovor. Ovo je naš glavni kanal komunikacije.",
+      whatsappCta: "Otvori WhatsApp",
+      formTitle: "Ili pošaljite poruku",
+      nameLabel: "Puno ime",
+      emailLabel: "Email adresa",
+      messageLabel: "Poruka",
+      submitLabel: "Pošalji upit",
+      formSending: "Slanje…",
+      formSuccess: "Hvala! Javićemo vam se uskoro.",
+      formError: "Nešto je pošlo po zlu. Pokušajte putem WhatsApp-a.",
+      locationTitle: "Lokacija",
+      locationText: "Ispred konzulata Bolivije u Kusku",
+      hoursTitle: "Radno vreme",
+      hoursWeekdays: "Ponedeljak–petak: 8:00 – 19:00",
+      hoursWeekends: "Subota i nedelja: samo hitni slučajevi, po dogovoru putem WhatsApp-a",
+      directionsCta: "Uputstva na Google Maps",
+    },
+    footer: {
+      tagline: "Brza i pouzdana pomoć sa vizom za Boliviju iz Kuska",
+      rights: "Sva prava zadržana",
+    },
+    whatsappFloat: "WhatsApp",
+  },
 };
 
 export function getTranslations(locale: Locale): Translations {
-  return translations[locale];
+  const base = translations[locale];
+  return {
+    ...base,
+    meta: { ...base.meta, guide: guideMeta[locale] },
+    nav: { ...base.nav, guide: guideNav[locale] },
+    guide: guideContent[locale],
+    ...(isChinaLocale(locale) ? { china: chinaContactCopy[locale] } : {}),
+  };
 }

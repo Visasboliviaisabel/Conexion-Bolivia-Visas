@@ -26,6 +26,11 @@ export const business = {
     youtube: "https://www.youtube.com/channel/UCmqg9iPI1pKm2CMGoQmHKSg",
     tiktok: "https://www.tiktok.com/@visasboliviaencusco",
   },
+  china: {
+    xiaohongshu: "https://xhslink.com/m/5tONrMhAr0q",
+    wechatId: null as string | null,
+    wechatQrImage: null as string | null,
+  },
   formAction: "https://api.web3forms.com/submit",
   web3formsAccessKey: "ea8a4d1e-0199-4183-8138-56ed65862a10",
 } as const;

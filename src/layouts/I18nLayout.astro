@@ -6,15 +6,17 @@ import { business } from "../data/business";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import HeaderSocialIcons from "../components/HeaderSocialIcons.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import { isChinaLocale } from "../i18n/china-translations";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   locale: Locale;
   page: PageKey;
+  faqSchema?: { q: string; a: string }[];
 }
 
-const { locale, page } = Astro.props;
+const { locale, page, faqSchema } = Astro.props;
 const t = getTranslations(locale);
 const meta = t.meta[page === "home" ? "home" : page];
 const { dir, hreflang } = locales[locale];
@@ -55,8 +57,25 @@ const structuredData = {
       closes: "19:00",
     },
   ],
-  sameAs: [business.social.facebook, business.social.youtube, business.social.tiktok],
+  sameAs: [
+    business.social.facebook,
+    business.social.youtube,
+    business.social.tiktok,
+    ...(isChinaLocale(locale) ? [business.china.xiaohongshu] : []),
+  ],
 };
+
+const faqStructuredData = faqSchema
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqSchema.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -77,11 +96,14 @@ const structuredData = {
     <meta property="og:url" content={canonical.href} />
     <meta property="og:locale" content={hreflang} />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {faqStructuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+    )}
   </head>
   <body>
     <header class="site-header">
@@ -99,10 +121,11 @@ const structuredData = {
         <nav class="header-nav" aria-label="Main">
           <a href={localePath(locale)} aria-current={page === "home" ? "page" : undefined}>{t.nav.home}</a>
           <a href={localePath(locale, "services")} aria-current={page === "services" ? "page" : undefined}>{t.nav.services}</a>
+          <a href={localePath(locale, "guide")} aria-current={page === "guide" ? "page" : undefined}>{t.nav.guide}</a>
           <a href={localePath(locale, "contact")} aria-current={page === "contact" ? "page" : undefined}>{t.nav.contact}</a>
         </nav>
         <div class="header-actions">
-          <HeaderSocialIcons />
+          <HeaderSocialIcons locale={locale} />
           <LanguageSwitcher locale={locale} page={page} />
         </div>
       </div>
@@ -123,6 +146,9 @@ const structuredData = {
           <p><a href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">{business.phone}</a></p>
           <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
           <div class="social-links">
+            {isChinaLocale(locale) && (
+              <a href={business.china.xiaohongshu} target="_blank" rel="noopener noreferrer">小红书</a>
+            )}
             <a href={business.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
             <a href={business.social.youtube} target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href={business.social.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a>

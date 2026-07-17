@@ -1,18 +1,24 @@
 ---
 import I18nLayout from "../../layouts/I18nLayout.astro";
 import ContactForm from "../../components/ContactForm.astro";
-import { localeList, locales } from "../../i18n/config";
+import ChinaContact from "../../components/ChinaContact.astro";
+import { localeList, locales, localePath } from "../../i18n/config";
 import type { Locale } from "../../i18n/config";
+import { isChinaLocale } from "../../i18n/china-translations";
 import { getTranslations } from "../../i18n/translations";
 import { business } from "../../data/business";
 
 export function getStaticPaths() {
-  const paths: { params: { lang: string; page: string }; props: { pageType: "services" | "contact" } }[] = [];
+  const paths: { params: { lang: string; page: string }; props: { pageType: "services" | "contact" | "guide" } }[] = [];
 
   for (const lang of localeList) {
     paths.push({
       params: { lang, page: locales[lang].slugs.services },
       props: { pageType: "services" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.guide },
+      props: { pageType: "guide" },
     });
     paths.push({
       params: { lang, page: locales[lang].slugs.contact },
@@ -69,6 +75,62 @@ const t = getTranslations(locale);
       </div>
     </section>
   </I18nLayout>
+) : pageType === "guide" ? (
+  <I18nLayout locale={locale} page="guide" faqSchema={t.guide.faqs}>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{t.nav.guide}</p>
+        <h1>{t.guide.title}</h1>
+        <p class="lead">{t.guide.subtitle}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="lead">{t.guide.intro}</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2>{t.guide.stepsTitle}</h2>
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          {t.guide.steps.map((step, i) => (
+            <article class="card">
+              <p class="eyebrow">{i + 1}</p>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>{t.guide.faqTitle}</h2>
+        {t.guide.faqs.map((faq) => (
+          <div class="card faq-item">
+            <h3>{faq.q}</h3>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container whatsapp-banner">
+        <h2>{t.guide.ctaTitle}</h2>
+        <p>{t.guide.ctaText}</p>
+        <div class="button-row">
+          <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+            {t.home.ctaWhatsapp}
+          </a>
+          <a class="button button-secondary" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+        </div>
+      </div>
+    </section>
+  </I18nLayout>
 ) : (
   <I18nLayout locale={locale} page="contact">
     <section class="section">
@@ -76,13 +138,27 @@ const t = getTranslations(locale);
         <h1>{t.contact.title}</h1>
         <p class="lead">{t.contact.subtitle}</p>
 
-        <div class="whatsapp-banner">
-          <h2>{t.contact.whatsappTitle}</h2>
-          <p>{t.contact.whatsappText}</p>
-          <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
-            {t.contact.whatsappCta}
-          </a>
-        </div>
+        {isChinaLocale(locale) && t.china ? (
+          <ChinaContact copy={t.china} />
+        ) : (
+          <div class="whatsapp-banner">
+            <h2>{t.contact.whatsappTitle}</h2>
+            <p>{t.contact.whatsappText}</p>
+            <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.contact.whatsappCta}
+            </a>
+          </div>
+        )}
+
+        {isChinaLocale(locale) && (
+          <div class="whatsapp-banner" style="margin-top: 1.5rem;">
+            <h2>{t.contact.whatsappTitle}</h2>
+            <p>{t.china?.whatsappNote ?? t.contact.whatsappText}</p>
+            <a class="button button-secondary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.contact.whatsappCta}
+            </a>
+          </div>
+        )}
 
         <div class="split">
           <div class="panel">

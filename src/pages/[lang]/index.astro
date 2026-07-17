@@ -1,8 +1,10 @@
 ---
 import I18nLayout from "../../layouts/I18nLayout.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
+import ChinaContact from "../../components/ChinaContact.astro";
 import { localeList, localePath } from "../../i18n/config";
 import type { Locale } from "../../i18n/config";
+import { isChinaLocale } from "../../i18n/china-translations";
 import { getTranslations } from "../../i18n/translations";
 import { business } from "../../data/business";
 
@@ -24,13 +26,32 @@ const t = getTranslations(locale);
         {t.home.highlights.map((item) => <li>{item}</li>)}
       </ul>
       <div class="button-row">
-        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
-          {t.home.ctaWhatsapp}
-        </a>
-        <a class="button button-outline" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+        {isChinaLocale(locale) && t.china ? (
+          <>
+            <a class="button button-primary" href={business.china.xiaohongshu} target="_blank" rel="noopener noreferrer">
+              {t.china.xhsCta}
+            </a>
+            <a class="button button-outline" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+          </>
+        ) : (
+          <>
+            <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.home.ctaWhatsapp}
+            </a>
+            <a class="button button-outline" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+          </>
+        )}
       </div>
     </div>
   </section>
+
+  {isChinaLocale(locale) && t.china && (
+    <section class="section section-alt">
+      <div class="container">
+        <ChinaContact copy={t.china} />
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="container split">
@@ -58,6 +79,9 @@ const t = getTranslations(locale);
           <h3>{t.home.faqQuestion}</h3>
           <p>{t.home.faqAnswer}</p>
         </div>
+        <p style="margin-top: 1rem;">
+          <a class="button button-secondary" href={localePath(locale, "guide")}>{t.nav.guide} →</a>
+        </p>
       </div>
     </div>
   </section>
@@ -81,10 +105,21 @@ const t = getTranslations(locale);
         ))}
       </div>
       <div class="button-row">
-        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
-          {t.home.ctaWhatsapp}
-        </a>
-        <a class="button button-secondary" href={localePath(locale, "services")}>{t.nav.services}</a>
+        {isChinaLocale(locale) && t.china ? (
+          <>
+            <a class="button button-primary" href={business.china.xiaohongshu} target="_blank" rel="noopener noreferrer">
+              {t.china.xhsCta}
+            </a>
+            <a class="button button-secondary" href={localePath(locale, "services")}>{t.nav.services}</a>
+          </>
+        ) : (
+          <>
+            <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.home.ctaWhatsapp}
+            </a>
+            <a class="button button-secondary" href={localePath(locale, "services")}>{t.nav.services}</a>
+          </>
+        )}
       </div>
     </div>
   </section>
