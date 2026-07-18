@@ -2,6 +2,7 @@
 import I18nLayout from "../../layouts/I18nLayout.astro";
 import ContactForm from "../../components/ContactForm.astro";
 import ChinaContact from "../../components/ChinaContact.astro";
+import ContactPrimaryButton from "../../components/ContactPrimaryButton.astro";
 import { localeList, locales, localePath } from "../../i18n/config";
 import type { Locale } from "../../i18n/config";
 import { isChinaLocale } from "../../i18n/china-translations";
@@ -69,9 +70,11 @@ const t = getTranslations(locale);
 
     <section class="section">
       <div class="container" style="text-align: center;">
-        <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
-          {t.home.ctaWhatsapp}
-        </a>
+        <ContactPrimaryButton
+          locale={locale}
+          whatsappLabel={t.home.ctaWhatsapp}
+          wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+        />
       </div>
     </section>
   </I18nLayout>
@@ -123,9 +126,11 @@ const t = getTranslations(locale);
         <h2>{t.guide.ctaTitle}</h2>
         <p>{t.guide.ctaText}</p>
         <div class="button-row">
-          <a class="button button-primary" href={business.whatsappUrl} target="_blank" rel="noopener noreferrer">
-            {t.home.ctaWhatsapp}
-          </a>
+          <ContactPrimaryButton
+            locale={locale}
+            whatsappLabel={t.home.ctaWhatsapp}
+            wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+          />
           <a class="button button-secondary" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
         </div>
       </div>

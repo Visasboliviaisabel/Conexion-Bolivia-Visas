@@ -10,6 +10,7 @@ export type ChinaContactCopy = {
   wechatText: string;
   wechatPending: string;
   wechatCta: string;
+  ctaWechat: string;
   whatsappNote: string;
 };
 
@@ -29,8 +30,9 @@ export const chinaContactCopy: Record<ChinaLocale, ChinaContactCopy> = {
     xhsCta: "打开小红书",
     wechatTitle: "微信 — 最快咨询方式",
     wechatText: "添加我们的微信，发送您的国籍和旅行日期，我们即时回复签证要求和流程。",
-    wechatPending: "微信账号即将上线，请先通过小红书联系我们。",
+    wechatPending: "微信二维码暂时无法显示，请通过小红书或下方表单联系我们。",
     wechatCta: "复制微信号",
+    ctaWechat: "微信联系我们",
     whatsappNote: "港澳台及海外用户仍可使用 WhatsApp 联系我们。",
   },
   "zh-tw": {
@@ -41,8 +43,9 @@ export const chinaContactCopy: Record<ChinaLocale, ChinaContactCopy> = {
     xhsCta: "開啟小紅書",
     wechatTitle: "微信 — 最快諮詢方式",
     wechatText: "添加我們的微信，發送您的國籍和旅行日期，我們即時回覆簽證要求和流程。",
-    wechatPending: "微信帳號即將上線，請先透過小紅書聯絡我們。",
+    wechatPending: "微信 QR 碼暫時無法顯示，請透過小紅書或下方表單聯絡我們。",
     wechatCta: "複製微信號",
+    ctaWechat: "微信聯絡我們",
     whatsappNote: "港澳台及海外用戶仍可使用 WhatsApp 聯絡我們。",
   },
 };

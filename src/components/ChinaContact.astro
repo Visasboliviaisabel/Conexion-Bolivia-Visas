@@ -4,53 +4,31 @@ import type { ChinaContactCopy } from "../i18n/china-translations";
 
 interface Props {
   copy: ChinaContactCopy;
-  compact?: boolean;
 }
 
-const { copy, compact = false } = Astro.props;
+const { copy } = Astro.props;
 const { xiaohongshu, wechatId, wechatQrImage } = business.china;
 const hasWechat = Boolean(wechatId || wechatQrImage);
 ---
 
-<section class:list={["china-contact", compact && "china-contact--compact"]}>
-  {!compact && (
-    <div class="china-contact-intro">
-      <h2>{copy.bannerTitle}</h2>
-      <p>{copy.bannerText}</p>
-    </div>
-  )}
-
-  <div class="china-contact-grid">
-    <article class="china-card china-card--xhs">
-      <div class="china-card-badge">小红书</div>
-      <h3>{copy.xhsTitle}</h3>
-      <p>{copy.xhsText}</p>
-      <a
-        class="button button-xhs"
-        href={xiaohongshu}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {copy.xhsCta}
-      </a>
-    </article>
-
-    <article class="china-card china-card--wechat">
-      <div class="china-card-badge">微信</div>
-      <h3>{copy.wechatTitle}</h3>
-      {hasWechat ? (
-        <>
-          <p>{copy.wechatText}</p>
-          {wechatQrImage && (
-            <img
-              class="wechat-qr"
-              src={wechatQrImage}
-              alt="WeChat QR code"
-              width="160"
-              height="160"
-              loading="lazy"
-            />
-          )}
+<div class="wechat-banner" id="wechat">
+  <h2>{copy.wechatTitle}</h2>
+  {hasWechat ? (
+    <>
+      <p>{copy.wechatText}</p>
+      <div class="wechat-banner-body">
+        {wechatQrImage && (
+          <img
+            class="wechat-qr"
+            src={wechatQrImage}
+            alt="WeChat QR code for VisasBoliviaCusco"
+            width="477"
+            height="477"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <div class="wechat-banner-actions">
           {wechatId && (
             <p class="wechat-id">
               <strong>{wechatId}</strong>
@@ -61,117 +39,95 @@ const hasWechat = Boolean(wechatId || wechatQrImage);
               {copy.wechatCta}
             </button>
           )}
-        </>
-      ) : (
-        <p class="wechat-pending">{copy.wechatPending}</p>
-      )}
-    </article>
-  </div>
+        </div>
+      </div>
+    </>
+  ) : (
+    <p class="wechat-pending">{copy.wechatPending}</p>
+  )}
+</div>
 
-  <p class="china-whatsapp-note">{copy.whatsappNote}</p>
-</section>
+<div class="xhs-banner">
+  <h2>{copy.xhsTitle}</h2>
+  <p>{copy.xhsText}</p>
+  <a
+    class="button button-xhs"
+    href={xiaohongshu}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {copy.xhsCta}
+  </a>
+</div>
 
 <script>
   document.querySelectorAll("[data-wechat-id]").forEach((button) => {
     button.addEventListener("click", async () => {
       const id = button.getAttribute("data-wechat-id");
       if (!id) return;
+      const original = button.textContent ?? "";
+      button.setAttribute("data-original-label", original);
       try {
         await navigator.clipboard.writeText(id);
         button.textContent = "✓";
         setTimeout(() => {
-          button.textContent = button.getAttribute("data-original-label") ?? id;
+          button.textContent = button.getAttribute("data-original-label") ?? original;
         }, 2000);
       } catch {
         /* clipboard unavailable */
       }
     });
-    button.setAttribute("data-original-label", button.textContent ?? "");
   });
 </script>
 
 <style>
-  .china-contact {
-    margin-block: 1.5rem;
+  .wechat-banner {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
   }
 
-  .china-contact-intro h2 {
-    margin-bottom: 0.5rem;
+  .wechat-banner h2 {
+    margin-top: 0;
   }
 
-  .china-contact-intro p {
+  .wechat-banner p {
     color: var(--muted);
     max-width: 65ch;
   }
 
-  .china-contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
+  .wechat-banner-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
     margin-top: 1.25rem;
   }
 
-  .china-contact--compact .china-contact-grid {
-    margin-top: 0;
+  .wechat-qr {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: white;
+    padding: 0.35rem;
   }
 
-  .china-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
+  .wechat-banner-actions {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
-  }
-
-  .china-card-badge {
-    display: inline-flex;
-    align-self: flex-start;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    color: white;
-  }
-
-  .china-card--xhs .china-card-badge {
-    background: #ff2442;
-  }
-
-  .china-card--wechat .china-card-badge {
-    background: #07c160;
-  }
-
-  .china-card h3 {
-    margin: 0;
-    font-size: 1.1rem;
-  }
-
-  .china-card p {
-    margin: 0;
-    color: var(--muted);
-    flex: 1;
-  }
-
-  .button-xhs {
-    background: #ff2442;
-    color: white;
-    border: none;
-    align-self: flex-start;
-  }
-
-  .button-xhs:hover {
-    filter: brightness(0.95);
   }
 
   .button-wechat {
     background: #07c160;
     color: white;
     border: none;
-    align-self: flex-start;
     cursor: pointer;
     font: inherit;
     display: inline-flex;
@@ -182,24 +138,63 @@ const hasWechat = Boolean(wechatId || wechatQrImage);
     font-weight: 600;
   }
 
-  .wechat-qr {
-    align-self: flex-start;
-    border-radius: 0.75rem;
-    border: 1px solid var(--border);
-  }
-
   .wechat-id {
+    margin: 0;
     color: var(--text) !important;
     font-size: 1.05rem;
   }
 
   .wechat-pending {
     font-style: italic;
+    color: var(--muted);
   }
 
-  .china-whatsapp-note {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+  .xhs-banner {
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .xhs-banner h2 {
+    margin-top: 0;
+  }
+
+  .xhs-banner p {
     color: var(--muted);
+    max-width: 65ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .button-xhs {
+    background: #ff2442;
+    color: white;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.35rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .button-xhs:hover {
+    text-decoration: none;
+    filter: brightness(0.95);
+  }
+
+  @media (max-width: 480px) {
+    .wechat-banner-body {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .wechat-qr {
+      width: min(220px, 100%);
+      height: auto;
+      aspect-ratio: 1;
+    }
   }
 </style>

@@ -1,0 +1,37 @@
+---
+import { isChinaLocale } from "../i18n/china-translations";
+import { localePath } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+import { business } from "../data/business";
+
+interface Props {
+  locale: Locale;
+  whatsappLabel: string;
+  wechatLabel: string;
+  class?: string;
+}
+
+const {
+  locale,
+  whatsappLabel,
+  wechatLabel,
+  class: className = "button button-primary",
+} = Astro.props;
+---
+
+{
+  isChinaLocale(locale) ? (
+    <a class={className} href={`${localePath(locale, "contact")}#wechat`}>
+      {wechatLabel}
+    </a>
+  ) : (
+    <a
+      class={className}
+      href={business.whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {whatsappLabel}
+    </a>
+  )
+}

@@ -148,11 +148,8 @@ def process_team() -> None:
 
 
 def main() -> None:
-    process_gallery_office_happy()
-    process_gallery_office_entrance()
-    process_gallery_passports()
     process_team()
-    print("Cropped gallery and team images.")
+    print("Cropped team image.")
 
 
 if __name__ == "__main__":

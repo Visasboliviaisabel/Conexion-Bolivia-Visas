@@ -9,6 +9,7 @@ import { getReviewText } from "../data/reviews.types";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import HeaderSocialIcons from "../components/HeaderSocialIcons.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import WeChatButton from "../components/WeChatButton.astro";
 import { isChinaLocale } from "../i18n/china-translations";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -204,7 +205,11 @@ const faqStructuredData = faqSchema
       <p class="copyright">© {new Date().getFullYear()} {business.shortName}. {t.footer.rights}</p>
     </footer>
 
-    <WhatsAppButton label={t.whatsappFloat} />
+    {isChinaLocale(locale) ? (
+      <WeChatButton locale={locale} label={t.china?.ctaWechat ?? t.whatsappFloat} />
+    ) : (
+      <WhatsAppButton label={t.whatsappFloat} />
+    )}
     <Analytics />
     <SpeedInsights />
   </body>

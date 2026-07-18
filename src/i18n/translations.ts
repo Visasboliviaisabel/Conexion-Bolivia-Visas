@@ -337,7 +337,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       },
       contact: {
         title: "联系我们 | 库斯科玻利维亚签证",
-        description: "通过WhatsApp或表单联系我们。办公室位于库斯科玻利维亚领事馆对面。",
+        description: "通过微信或表单联系我们。办公室位于库斯科玻利维亚领事馆对面。",
       },
     },
     nav: { home: "首页", services: "服务", contact: "联系" },
@@ -347,7 +347,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       subtitle: "玻利维亚签证 — 快速安全",
       heroText:
         "在库斯科快速安全地办理玻利维亚签证。我们在领事馆逐步指导您，避免错误和延误 — 非常适合前往乌尤尼盐沼和南玻利维亚的旅行者。",
-      ctaWhatsapp: "WhatsApp联系我们",
+      ctaWhatsapp: "微信联系我们",
       ctaContact: "发送咨询",
       highlights: ["快速高效办理", "为游客提供个性化指导", "位于领事馆对面的战略位置"],
       requirementsTitle: "在库斯科办理玻利维亚签证的要求",
@@ -365,7 +365,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       faqTitle: "常见问题",
       faqQuestion: "可以当天办理签证吗？",
       faqAnswer:
-        "可以。如果您携带所有文件来到库斯科办公室，大约需要30分钟。如果提前通过邮件或WhatsApp发送文件，领取签证约需10分钟。",
+        "可以。如果您携带所有文件来到库斯科办公室，大约需要30分钟。如果提前通过邮件或微信发送文件，领取签证约需10分钟。",
       servicesTitle: "我们的服务",
       servicesSubtitle: "专业签证咨询，轻松进入玻利维亚",
       serviceCards: [
@@ -409,8 +409,8 @@ export const translations: Record<Locale, BaseTranslations> = {
     contact: {
       title: "联系我们",
       subtitle: "我们随时帮助您办理玻利维亚签证",
-      whatsappTitle: "WhatsApp — 最快联系方式",
-      whatsappText: "立即给我们发消息，快速回复。这是我们的主要联系方式。",
+      whatsappTitle: "WhatsApp — 港澳台及海外用户",
+      whatsappText: "港澳台及海外用户可通过 WhatsApp 联系我们。",
       whatsappCta: "打开WhatsApp",
       formTitle: "或发送消息",
       nameLabel: "全名",
@@ -419,17 +419,17 @@ export const translations: Record<Locale, BaseTranslations> = {
       submitLabel: "发送咨询",
       formSending: "发送中…",
       formSuccess: "谢谢！我们会尽快回复您。",
-      formError: "出错了，请尝试通过WhatsApp联系我们。",
+      formError: "出错了，请尝试通过微信联系我们。",
       locationTitle: "位置",
       locationText: "库斯科玻利维亚领事馆对面",
       hoursTitle: "营业时间",
       hoursWeekdays: "周一至周五：上午8:00 – 下午7:00",
-      hoursWeekends: "周六和周日：仅限紧急情况，需通过WhatsApp预约",
+      hoursWeekends: "周六和周日：仅限紧急情况，需通过微信预约",
       directionsCta: "在Google Maps上查看路线",
       contactImageAlt: "从外部看库斯科 Visas Bolivia 办公室",
     },
     footer: { tagline: "库斯科玻利维亚签证快速可靠咨询", rights: "版权所有" },
-    whatsappFloat: "WhatsApp",
+    whatsappFloat: "微信",
   },
 
   "zh-tw": {
@@ -444,7 +444,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       },
       contact: {
         title: "聯絡我們 | 庫斯科玻利維亞簽證",
-        description: "透過WhatsApp或表單聯絡我們。辦公室位於庫斯科玻利維亞領事館對面。",
+        description: "透過微信或表單聯絡我們。辦公室位於庫斯科玻利維亞領事館對面。",
       },
     },
     nav: { home: "首頁", services: "服務", contact: "聯絡" },
@@ -454,7 +454,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       subtitle: "玻利維亞簽證 — 快速安全",
       heroText:
         "在庫斯科快速安全地辦理玻利維亞簽證。我們在領事館逐步指導您，避免錯誤和延誤 — 非常適合前往烏尤尼鹽沼和南玻利維亞的旅行者。",
-      ctaWhatsapp: "WhatsApp聯絡我們",
+      ctaWhatsapp: "微信聯絡我們",
       ctaContact: "發送諮詢",
       highlights: ["快速高效辦理", "為遊客提供個人化指導", "位於領事館對面的戰略位置"],
       requirementsTitle: "在庫斯科辦理玻利維亞簽證的要求",
@@ -472,7 +472,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       faqTitle: "常見問題",
       faqQuestion: "可以當天辦理簽證嗎？",
       faqAnswer:
-        "可以。如果您攜帶所有文件來到庫斯科辦公室，大約需要30分鐘。如果提前透過郵件或WhatsApp發送文件，領取簽證約需10分鐘。",
+        "可以。如果您攜帶所有文件來到庫斯科辦公室，大約需要30分鐘。如果提前透過郵件或微信發送文件，領取簽證約需10分鐘。",
       servicesTitle: "我們的服務",
       servicesSubtitle: "專業簽證諮詢，輕鬆進入玻利維亞",
       serviceCards: [
@@ -516,8 +516,8 @@ export const translations: Record<Locale, BaseTranslations> = {
     contact: {
       title: "聯絡我們",
       subtitle: "我們隨時幫助您辦理玻利維亞簽證",
-      whatsappTitle: "WhatsApp — 最快聯絡方式",
-      whatsappText: "立即給我們發訊息，快速回覆。這是我們的主要聯絡方式。",
+      whatsappTitle: "WhatsApp — 港澳台及海外用戶",
+      whatsappText: "港澳台及海外用戶可透過 WhatsApp 聯絡我們。",
       whatsappCta: "開啟WhatsApp",
       formTitle: "或發送訊息",
       nameLabel: "全名",
@@ -526,17 +526,17 @@ export const translations: Record<Locale, BaseTranslations> = {
       submitLabel: "發送諮詢",
       formSending: "傳送中…",
       formSuccess: "謝謝！我們會盡快回覆您。",
-      formError: "出錯了，請嘗試透過WhatsApp聯絡我們。",
+      formError: "出錯了，請嘗試透過微信聯絡我們。",
       locationTitle: "位置",
       locationText: "庫斯科玻利維亞領事館對面",
       hoursTitle: "營業時間",
       hoursWeekdays: "週一至週五：上午8:00 – 下午7:00",
-      hoursWeekends: "週六和週日：僅限緊急情況，需透過WhatsApp預約",
+      hoursWeekends: "週六和週日：僅限緊急情況，需透過微信預約",
       directionsCta: "在Google Maps上查看路線",
       contactImageAlt: "從外部看庫斯科 Visas Bolivia 辦公室",
     },
     footer: { tagline: "庫斯科玻利維亞簽證快速可靠諮詢", rights: "版權所有" },
-    whatsappFloat: "WhatsApp",
+    whatsappFloat: "微信",
   },
 
   ar: {

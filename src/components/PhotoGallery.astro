@@ -10,35 +10,53 @@ interface Props {
 const { gallery, title, subtitle } = Astro.props;
 
 const photos = [
-  { src: "/images/gallery-office-entrance.png", ...gallery.entrance, layout: "wide", position: "center 18%" },
-  { src: "/images/gallery-office-happy.png", ...gallery.happy, layout: "tall", position: "center 22%" },
-  { src: "/images/gallery-passports.png", ...gallery.passports, layout: "square", position: "center 30%" },
+  {
+    src: "/images/gallery-office-entrance.jpg",
+    width: 1024,
+    height: 768,
+    ...gallery.entrance,
+    position: "center center",
+  },
+  {
+    src: "/images/gallery-office-happy.jpg",
+    width: 460,
+    height: 614,
+    ...gallery.happy,
+    position: "center 28%",
+  },
+  {
+    src: "/images/gallery-passports.jpg",
+    width: 1024,
+    height: 1024,
+    ...gallery.passports,
+    position: "center 42%",
+  },
 ] as const;
 ---
 
 <section class="section gallery-section">
-  <div class="container">
-    <div class="gallery-header">
-      <h2>{title}</h2>
-      <p class="lead">{subtitle}</p>
-    </div>
+  <div class="container gallery-header">
+    <h2>{title}</h2>
+    <p class="lead">{subtitle}</p>
+  </div>
 
-    <div class="gallery-grid">
-      {photos.map((photo) => (
-        <figure class={`gallery-card gallery-card--${photo.layout}`}>
-          <div class="gallery-image-wrap">
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              loading="lazy"
-              decoding="async"
-              style={`object-position: ${photo.position};`}
-            />
-          </div>
-          <figcaption>{photo.caption}</figcaption>
-        </figure>
-      ))}
-    </div>
+  <div class="gallery-row">
+    {photos.map((photo) => (
+      <figure class="gallery-card">
+        <div class="gallery-image-wrap">
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
+            loading="lazy"
+            decoding="async"
+            style={`object-position: ${photo.position};`}
+          />
+        </div>
+        <figcaption>{photo.caption}</figcaption>
+      </figure>
+    ))}
   </div>
 </section>
 
@@ -57,18 +75,20 @@ const photos = [
     margin-inline: auto;
   }
 
-  .gallery-grid {
+  .gallery-row {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
-    margin-top: 2rem;
+    width: min(1200px, calc(100% - 2rem));
+    margin-inline: auto;
+    margin-top: 2.25rem;
   }
 
   .gallery-card {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.75rem;
   }
 
   .gallery-image-wrap {
@@ -77,6 +97,7 @@ const photos = [
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
     background: var(--surface);
+    aspect-ratio: 4 / 3;
   }
 
   .gallery-card img {
@@ -84,58 +105,21 @@ const photos = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.35s ease;
-  }
-
-  .gallery-card:hover img {
-    transform: scale(1.03);
   }
 
   .gallery-card figcaption {
     font-size: 0.9rem;
     color: var(--muted);
     text-align: center;
-    padding: 0 0.25rem;
-  }
-
-  .gallery-card--wide {
-    grid-column: span 7;
-  }
-
-  .gallery-card--wide .gallery-image-wrap {
-    aspect-ratio: 16 / 10;
-  }
-
-  .gallery-card--tall {
-    grid-column: span 5;
-    grid-row: span 2;
-  }
-
-  .gallery-card--tall .gallery-image-wrap {
-    aspect-ratio: 3 / 4;
-    height: 100%;
-    min-height: 320px;
-  }
-
-  .gallery-card--square {
-    grid-column: span 7;
-  }
-
-  .gallery-card--square .gallery-image-wrap {
-    aspect-ratio: 5 / 4;
+    line-height: 1.45;
+    padding-inline: 0.25rem;
   }
 
   @media (max-width: 900px) {
-    .gallery-card--wide,
-    .gallery-card--tall,
-    .gallery-card--square {
-      grid-column: span 12;
-      grid-row: span 1;
-    }
-
-    .gallery-card--tall .gallery-image-wrap {
-      aspect-ratio: 4 / 5;
-      min-height: auto;
+    .gallery-row {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 36rem;
     }
   }
 </style>
