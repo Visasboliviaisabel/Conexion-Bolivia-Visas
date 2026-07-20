@@ -117,7 +117,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       highlights: [
         "Trámites rápidos y eficientes",
         "Asesoría personalizada para turistas",
-        "Ubicación estratégica frente al consulado",
+        "Ubicación frente al consulado",
       ],
       requirementsTitle: "Requisitos para tramitar tu visa en Cusco",
       requirements: [
@@ -236,7 +236,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       highlights: [
         "Fast and efficient processing",
         "Personalized guidance for tourists",
-        "Strategically located in front of the consulate",
+        "Located in front of the consulate",
       ],
       requirementsTitle: "Requirements to get your Bolivia visa in Cusco",
       requirements: [
@@ -349,7 +349,7 @@ export const translations: Record<Locale, BaseTranslations> = {
         "在库斯科快速安全地办理玻利维亚签证。我们在领事馆逐步指导您，避免错误和延误 — 非常适合前往乌尤尼盐沼和南玻利维亚的旅行者。",
       ctaWhatsapp: "微信联系我们",
       ctaContact: "发送咨询",
-      highlights: ["快速高效办理", "为游客提供个性化指导", "位于领事馆对面的战略位置"],
+      highlights: ["快速高效办理", "为游客提供个性化指导", "位于领事馆对面"],
       requirementsTitle: "在库斯科办理玻利维亚签证的要求",
       requirements: [
         "有效护照（至少6个月）",
@@ -456,7 +456,7 @@ export const translations: Record<Locale, BaseTranslations> = {
         "在庫斯科快速安全地辦理玻利維亞簽證。我們在領事館逐步指導您，避免錯誤和延誤 — 非常適合前往烏尤尼鹽沼和南玻利維亞的旅行者。",
       ctaWhatsapp: "微信聯絡我們",
       ctaContact: "發送諮詢",
-      highlights: ["快速高效辦理", "為遊客提供個人化指導", "位於領事館對面的戰略位置"],
+      highlights: ["快速高效辦理", "為遊客提供個人化指導", "位於領事館對面"],
       requirementsTitle: "在庫斯科辦理玻利維亞簽證的要求",
       requirements: [
         "有效護照（至少6個月）",
@@ -563,7 +563,7 @@ export const translations: Record<Locale, BaseTranslations> = {
         "احصل على تأشيرة بوليفيا بسرعة وأمان من كوسكو. نرشدك خطوة بخطوة أمام القنصلية لتسافر دون أخطاء أو تأخير — مثالي للمسافرين إلى سالار دي أيويوني وجنوب بوليفيا.",
       ctaWhatsapp: "راسلنا على واتساب",
       ctaContact: "أرسل استفساراً",
-      highlights: ["معالجة سريعة وفعّالة", "إرشاد شخصي للسياح", "موقع استراتيجي أمام القنصلية"],
+      highlights: ["معالجة سريعة وفعّالة", "إرشاد شخصي للسياح", "موقع أمام القنصلية"],
       requirementsTitle: "متطلبات تأشيرة بوليفيا في كوسكو",
       requirements: [
         "جواز سفر ساري (6 أشهر على الأقل)",
@@ -674,7 +674,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       highlights: [
         "Processamento rápido e eficiente",
         "Orientação personalizada para turistas",
-        "Localização estratégica em frente ao consulado",
+        "Localização em frente ao consulado",
       ],
       requirementsTitle: "Requisitos para o visto da Bolívia em Cusco",
       requirements: [
@@ -904,7 +904,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       highlights: [
         "Proses cepat dan efisien",
         "Panduan personal untuk wisatawan",
-        "Lokasi strategis di depan konsulat",
+        "Lokasi di depan konsulat",
       ],
       requirementsTitle: "Syarat visa Bolivia di Cusco",
       requirements: [
@@ -1142,7 +1142,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       highlights: [
         "Brza i efikasna obrada",
         "Personalizovana pomoć turistima",
-        "Strategijska lokacija ispred konzulata",
+        "Lokacija ispred konzulata",
       ],
       requirementsTitle: "Uslovi za vizu Bolivije u Kusku",
       requirements: [

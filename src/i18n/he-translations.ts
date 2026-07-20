@@ -28,7 +28,7 @@ export const heTranslations = {
     highlights: [
       "טיפול מהיר ויעיל",
       "ליווי אישי לתיירים",
-      "מיקום אסטרטגי מול הקונסוליה",
+      "מיקום מול הקונסוליה",
     ],
     requirementsTitle: "דרישות לקבלת ויזה לבוליביה בקוסקו",
     requirements: [

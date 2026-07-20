@@ -593,7 +593,15 @@ const faqStructuredData = faqSchema
   @media (max-width: 768px) {
     .split { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
-    .hero { padding: 3.5rem 0 2.5rem; }
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      background-size: cover, cover;
+    }
+
+    .hero--subpage {
+      min-height: 15.5rem;
+      background-position: center center, center 36%;
+    }
     .header-inner {
       grid-template-columns: 1fr;
       grid-template-areas:

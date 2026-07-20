@@ -128,21 +128,6 @@ const fullStars = Math.round(rating > 0 ? rating : 5);
       >
         ›
       </button>
-
-      {reviews.length > 1 && (
-        <div class="reviews-dots" data-reviews-dots role="tablist" aria-label={copy.title}>
-          {reviews.map((_, index) => (
-            <button
-              type="button"
-              class="reviews-dot"
-              role="tab"
-              aria-label={`${copy.next} ${index + 1}`}
-              aria-selected={index === 0 ? "true" : "false"}
-              data-reviews-dot={index}
-            />
-          ))}
-        </div>
-      )}
     </div>
 
     <p class="reviews-cta-wrap">
@@ -159,7 +144,6 @@ const fullStars = Math.round(rating > 0 ? rating : 5);
     const cards = root.querySelectorAll<HTMLElement>(".reviews-card");
     const prev = root.querySelector<HTMLButtonElement>("[data-reviews-prev]");
     const next = root.querySelector<HTMLButtonElement>("[data-reviews-next]");
-    const dots = root.querySelectorAll<HTMLButtonElement>("[data-reviews-dot]");
 
     if (!track || cards.length <= 1) {
       prev?.setAttribute("hidden", "");
@@ -175,10 +159,6 @@ const fullStars = Math.round(rating > 0 ? rating : 5);
       index = (nextIndex + cards.length) % cards.length;
       const card = cards[index];
       track.scrollTo({ left: card.offsetLeft, behavior: reducedMotion ? "auto" : "smooth" });
-      dots.forEach((dot, dotIndex) => {
-        dot.setAttribute("aria-selected", dotIndex === index ? "true" : "false");
-        dot.classList.toggle("is-active", dotIndex === index);
-      });
     };
 
     const restartTimer = () => {
@@ -197,15 +177,6 @@ const fullStars = Math.round(rating > 0 ? rating : 5);
       restartTimer();
     });
 
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const dotIndex = Number(dot.dataset.reviewsDot);
-        goTo(dotIndex);
-        restartTimer();
-      });
-    });
-
-    dots[0]?.classList.add("is-active");
     restartTimer();
 
     root.addEventListener("mouseenter", () => {
@@ -464,31 +435,6 @@ const fullStars = Math.round(rating > 0 ? rating : 5);
 
   .reviews-nav[hidden] {
     display: none;
-  }
-
-  .reviews-dots {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 0.25rem;
-  }
-
-  .reviews-dot {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 999px;
-    border: none;
-    padding: 0;
-    background: #cbd5e1;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-
-  .reviews-dot.is-active,
-  .reviews-dot[aria-selected="true"] {
-    background: var(--brand);
-    transform: scale(1.15);
   }
 
   .reviews-cta-wrap {
