@@ -16,7 +16,12 @@ const { locale, page } = Astro.props;
     <span class="lang-globe" aria-hidden="true">🌐</span>
     <span class="sr-only">Language</span>
   </label>
-  <select id="lang-select" class="lang-select" aria-label="Select language">
+  <select
+    id="lang-select"
+    class="lang-select"
+    aria-label="Select language"
+    onchange="if(this.value) window.location.assign(this.value)"
+  >
     {localeList.map((loc) => (
       <option value={localePath(loc, page)} selected={loc === locale}>
         {locales[loc].flag} {locales[loc].label}
@@ -24,13 +29,6 @@ const { locale, page } = Astro.props;
     ))}
   </select>
 </div>
-
-<script>
-  const select = document.getElementById("lang-select") as HTMLSelectElement | null;
-  select?.addEventListener("change", () => {
-    if (select.value) window.location.href = select.value;
-  });
-</script>
 
 <style>
   .lang-switcher {
