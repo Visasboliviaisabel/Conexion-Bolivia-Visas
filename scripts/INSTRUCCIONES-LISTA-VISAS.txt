@@ -1,0 +1,138 @@
+LISTA DE PAÍSES Y GRUPOS DE VISA — GUÍA PARA MARA ISABEL
+=========================================================
+
+Esta hoja controla el verificador de visa en el sitio web:
+  visasboliviaconexion.com
+
+Cuando alguien elige su país, el sitio lee ESTA lista y le dice si necesita visa.
+
+
+¿QUÉ SIGNIFICA CADA GRUPO? (lo único que normalmente vas a cambiar)
+-------------------------------------------------------------------
+Grupo 1 = NO necesita visa (solo pasaporte o documento válido)
+Grupo 2 = SÍ necesita visa de turismo antes de entrar
+Grupo 3 = SÍ necesita visa, y además Migraciones debe autorizarla antes
+
+
+COLUMNAS DE LA HOJA (en español)
+--------------------------------
+Arriba verás dos filas especiales y luego los encabezados:
+
+  ultima_revision     → Fecha en que revisaste la lista (ej. 2026-07-01)
+  enlace_oficial      → Página oficial de Bolivia (no cambiar)
+
+  codigo_pais         → Código de 2 letras (AR, US, IN…) — no cambiar
+  nombre_ingles       → Nombre en inglés — no cambiar
+  nombre_espanol      → Nombre en español — solo si hay un error de ortografía
+  grupo               → 1, 2 o 3 — ESTA es la columna que editas
+  guia_especial       → Ver explicación abajo — NO TOCAR (dejar como está)
+
+
+¿QUÉ ES "guia_especial"? (antes se llamaba nationality_id)
+----------------------------------------------------------
+En el sitio tenemos páginas largas con información detallada para algunos
+países que más nos consultan. Esa columna conecta el país con su página.
+
+Solo tiene valor en 8 países (el resto va vacío):
+
+  India        → india
+  China        → china
+  Indonesia    → indonesia
+  Serbia       → serbia
+  Ucrania      → ukraine
+  Israel       → israel
+  Brasil       → brazil
+  Rusia        → russia
+
+Ejemplo: si alguien elige India y necesita visa, además del WhatsApp el sitio
+puede mostrar un enlace a nuestra guía para ciudadanos indios.
+
+IMPORTANTE: No borres ni cambies esta columna. Si un día agregamos una guía
+nueva, Braylen te avisa qué poner.
+
+
+LO QUE TÚ HACES EN EL DÍA A DÍA
+-------------------------------
+1. Abre el Google Sheet → pestaña "Países" (no "Instrucciones")
+2. Busca el país que cambió (Ctrl+F / Cmd+F)
+3. Cambia solo el número en la columna "grupo" (1, 2 o 3)
+4. Actualiza "ultima_revision" con la fecha de hoy
+5. Listo — Google guarda solo
+
+No hace falta agregar países nuevos: la lista ya trae ~198 países.
+
+
+CÓMO SABER SI CAMBIÓ ALGO
+-------------------------
+Revisa aquí cuando Bolivia anuncie cambios o un cliente te pregunte:
+  https://consulados.cancilleria.gob.bo/base/visas/
+
+Actualiza la lista cuando:
+  • El consulado o Migraciones cambie el grupo de un país
+  • Notes que un país está mal clasificado
+  • Una vez al año, para revisión general
+
+
+PRIMERA VEZ — UN SOLO DOCUMENTO, VARIAS PESTAÑAS (recomendado)
+----------------------------------------------------------------
+Puedes tener TODO en un mismo Google Spreadsheet:
+
+  Pestaña 1: "Países"        → la lista que lee el sitio web (198 países)
+  Pestaña 2: "Instrucciones" → esta guía, para consulta (no la lee el sitio)
+
+IMPORTANTE: solo la pestaña "Países" se publica en CSV para el sitio.
+Las instrucciones son solo para leer — no afectan la web.
+
+
+PASO A PASO (Braylen + Isabel)
+------------------------------
+1. Abre https://sheets.new
+
+2. Pestaña "Países" (ya existe como Hoja 1):
+   - Clic derecho en la pestaña → Renombrar → "Países"
+   - Archivo → Importar → Subir
+   - Elige: visa-groups-sheet-template.csv
+   - Import location: "Replace current sheet" / "Reemplazar hoja actual"
+   - Separator: Comma
+
+3. Nueva pestaña "Instrucciones":
+   - Clic en "+" abajo a la izquierda
+   - Renombrar → "Instrucciones"
+   - Copiar y pegar el texto de INSTRUCCIONES-LISTA-VISAS.txt
+   - (Opcional) Archivo → Imprimir → Guardar como PDF para Isabel
+
+4. Compartir el documento:
+   - Compartir → agregar el correo de Isabel → Rol: Editor
+
+5. Publicar SOLO la pestaña "Países":
+   - Abre la pestaña "Países" (debe estar activa)
+   - Archivo → Compartir → Publicar en la web
+   - En "Linked to": elige la hoja "Países" (no "Documento entero")
+   - Formato: Valores separados por comas (.csv)
+   - Clic en Publicar
+   - Copia el enlace — envíaselo a Braylen
+
+   El enlace se ve así:
+   https://docs.google.com/spreadsheets/d/XXXX/export?format=csv&gid=0
+   (gid puede ser otro número; usa el enlace que Google te da)
+
+6. Braylen guarda ese enlace en GitHub (secreto VISA_GROUPS_SHEET_CSV_URL)
+
+
+PRIMERA VEZ — SOLO LA LISTA (versión simple)
+--------------------------------------------
+1. Ir a sheets.new
+2. Renombrar la primera pestaña: "Países"
+3. Archivo → Importar → Subir visa-groups-sheet-template.csv
+4. Elegir: "Reemplazar hoja actual"
+5. Compartir con Isabel como Editor
+6. Publicar la pestaña "Países" como CSV (pasos 5–6 de arriba)
+
+Después de eso, solo editas la hoja. El sitio se actualiza solo cada lunes,
+o Braylen puede forzar la actualización antes.
+
+
+¿DUDAS?
+-------
+WhatsApp o mensaje a Braylen para temas técnicos del sitio.
+Para dudas de visa, usa la fuente oficial de Bolivia (enlace de arriba).

@@ -3,6 +3,7 @@ import I18nLayout from "../../layouts/I18nLayout.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
 import GoogleReviews from "../../components/GoogleReviews.astro";
 import ContactPrimaryButton from "../../components/ContactPrimaryButton.astro";
+import VisaChecker from "../../components/VisaChecker.astro";
 import reviewsData from "../../data/reviews.json";
 import type { GoogleReviewsData } from "../../data/reviews.types";
 import NationalityLinks from "../../components/NationalityLinks.astro";
@@ -38,6 +39,8 @@ const reviews = reviewsData as GoogleReviewsData;
       </div>
     </div>
   </section>
+
+  <VisaChecker locale={locale} />
 
   <section class="section">
     <div class="container split">

@@ -1,0 +1,726 @@
+---
+import type { Locale } from "../i18n/config";
+import { localePath, travelStoryPath } from "../i18n/config";
+import { isChinaLocale } from "../i18n/china-translations";
+import { getVisaCheckerCopy, formatLastReviewed } from "../i18n/visa-checker-translations";
+import { nationalityPath } from "../data/nationalities";
+import type { NationalityId } from "../data/nationalities";
+import { business } from "../data/business";
+import visaGroupsData from "../data/visa-groups.json";
+import type { VisaGroupsData } from "../data/visa-groups.types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getVisaCheckerCopy(locale);
+const data = visaGroupsData as VisaGroupsData;
+const useSpanishNames = locale === "es" || locale === "pt";
+const travelUrl = travelStoryPath(locale, "index");
+
+const sortedCountries = [...data.countries].sort((a, b) => {
+  const nameA = useSpanishNames ? a.nameEs : a.nameEn;
+  const nameB = useSpanishNames ? b.nameEs : b.nameEn;
+  return nameA.localeCompare(nameB, useSpanishNames ? "es" : "en");
+});
+
+const nationalityLinks = Object.fromEntries(
+  sortedCountries
+    .filter((country) => country.nationalityId)
+    .map((country) => [
+      country.code,
+      nationalityPath(locale, country.nationalityId as NationalityId),
+    ]),
+);
+
+const clientCountries = sortedCountries.map((country) => ({
+  code: country.code,
+  name: useSpanishNames ? country.nameEs : country.nameEn,
+  nameEn: country.nameEn,
+  nameEs: country.nameEs,
+  group: country.group,
+  nationalityId: country.nationalityId ?? null,
+}));
+
+const chinaContactUrl = `${localePath(locale, "contact")}#wechat`;
+const whatsappUrl = business.whatsappUrl;
+const isChina = isChinaLocale(locale);
+const lastReviewedLabel = formatLastReviewed(data.lastReviewed, locale);
+---
+
+<section class="section section-alt visa-checker" id="visa-check">
+  <div class="container">
+    <div class="visa-checker__card card">
+      <h2>{copy.title}</h2>
+      <p class="lead">{copy.subtitle}</p>
+
+      <form class="visa-checker__form" id="visa-checker-form" novalidate>
+        <label class="visa-checker__label" for="visa-country-input">
+          {copy.countryLabel}
+        </label>
+        <div class="visa-checker__combobox">
+          <input
+            class="visa-checker__input"
+            id="visa-country-input"
+            type="search"
+            name="countrySearch"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder={copy.countryPlaceholder}
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-controls="visa-country-listbox"
+            aria-activedescendant=""
+          />
+          <input type="hidden" id="visa-country" name="country" value="" />
+          <ul
+            class="visa-checker__listbox"
+            id="visa-country-listbox"
+            role="listbox"
+            hidden
+          ></ul>
+        </div>
+        <button class="button button-primary visa-checker__submit" type="submit">
+          {copy.submitLabel}
+        </button>
+        <p class="visa-checker__consult">
+          {copy.consultPrompt}{" "}
+          {
+            isChina ? (
+              <a
+                href={chinaContactUrl}
+                data-analytics-event="wechat_click"
+                data-analytics-label="visa_checker_consult"
+              >
+                {copy.consultCta}
+              </a>
+            ) : (
+              <a
+                href={business.whatsappUrl}
+                id="visa-checker-consult"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="whatsapp_click"
+                data-analytics-label="visa_checker_consult"
+              >
+                {copy.consultCta}
+              </a>
+            )
+          }
+        </p>
+      </form>
+
+      <div class="visa-checker__result" id="visa-checker-result" hidden></div>
+
+      <p class="visa-checker__meta">
+        {copy.disclaimer}{" "}
+        <span>{locale === "es" ? "Última revisión:" : "Last reviewed:"} {lastReviewedLabel}.</span>{" "}
+        <a href={data.officialSourceUrl} target="_blank" rel="noopener noreferrer">
+          {copy.officialLinkLabel}
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<script
+  define:vars={{
+    clientCountries,
+    nationalityLinks,
+    travelUrl,
+    whatsappUrl,
+    chinaContactUrl,
+    isChina,
+    copy,
+  }}
+>
+  const form = document.getElementById("visa-checker-form");
+  const input = document.getElementById("visa-country-input");
+  const hiddenCountry = document.getElementById("visa-country");
+  const listbox = document.getElementById("visa-country-listbox");
+  const result = document.getElementById("visa-checker-result");
+
+  let filteredCountries = clientCountries;
+  let activeIndex = -1;
+
+  function consultPrefillText() {
+    const typed = input?.value?.trim() || "";
+    return copy.consultWhatsappPrefill
+      .replace("[country]", typed || "…")
+      .replace("[país]", typed || "…");
+  }
+
+  function consultUrl() {
+    if (isChina) return chinaContactUrl;
+    return `${whatsappUrl}?text=${encodeURIComponent(consultPrefillText())}`;
+  }
+
+  function updateConsultLink() {
+    const link = document.getElementById("visa-checker-consult");
+    if (link) link.href = consultUrl();
+  }
+
+  function consultActionHtml(label, asButton = false) {
+    const className = asButton
+      ? "button button-primary"
+      : "visa-checker__consult-link";
+    if (isChina) {
+      return `<a class="${className}" href="${chinaContactUrl}" data-analytics-event="wechat_click" data-analytics-label="${label}">${copy.consultCta}</a>`;
+    }
+    return `<a class="${className}" href="${consultUrl()}" target="_blank" rel="noopener noreferrer" data-analytics-event="whatsapp_click" data-analytics-label="${label}">${copy.consultCta}</a>`;
+  }
+
+  function renderUnknownResult() {
+    trackVisaCheck("visa_check_unknown", "missing-selection");
+    renderResult(`
+      <div class="visa-checker__message visa-checker__message--visa">
+        <h3>${copy.unknownTitle}</h3>
+        <p>${copy.unknownText}</p>
+        <div class="button-row">
+          ${consultActionHtml("visa_checker_unknown", true)}
+        </div>
+      </div>
+    `);
+  }
+
+  function normalizeSearch(value) {
+    return value
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function countrySearchText(country) {
+    return normalizeSearch(`${country.name} ${country.nameEn} ${country.nameEs}`);
+  }
+
+  function filterCountries(query) {
+    const normalizedQuery = normalizeSearch(query);
+    if (!normalizedQuery) return clientCountries;
+
+    return clientCountries.filter((country) =>
+      countrySearchText(country).includes(normalizedQuery),
+    );
+  }
+
+  function setExpanded(isExpanded) {
+    input.setAttribute("aria-expanded", String(isExpanded));
+    listbox.hidden = !isExpanded;
+  }
+
+  function renderListbox(countries) {
+    filteredCountries = countries;
+    activeIndex = -1;
+    listbox.innerHTML = "";
+
+    if (countries.length === 0) {
+      const emptyItem = document.createElement("li");
+      emptyItem.className = "visa-checker__option visa-checker__option--empty";
+      emptyItem.setAttribute("role", "presentation");
+      emptyItem.innerHTML = `
+        <span>${copy.noResultsLabel}</span>
+        ${consultActionHtml("visa_checker_no_results")}
+      `;
+      listbox.appendChild(emptyItem);
+      setExpanded(true);
+      input.setAttribute("aria-activedescendant", "");
+      return;
+    }
+
+    countries.forEach((country, index) => {
+      const option = document.createElement("li");
+      option.className = "visa-checker__option";
+      option.id = `visa-country-option-${country.code}`;
+      option.setAttribute("role", "option");
+      option.dataset.code = country.code;
+      option.textContent = country.name;
+      option.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+        selectCountry(country);
+      });
+      listbox.appendChild(option);
+    });
+
+    setExpanded(true);
+    input.setAttribute("aria-activedescendant", "");
+  }
+
+  function highlightOption(index) {
+    const options = listbox.querySelectorAll(".visa-checker__option:not(.visa-checker__option--empty)");
+    options.forEach((option, optionIndex) => {
+      option.classList.toggle("is-active", optionIndex === index);
+    });
+
+    activeIndex = index;
+    const activeOption = options[index];
+    input.setAttribute(
+      "aria-activedescendant",
+      activeOption ? activeOption.id : "",
+    );
+
+    if (activeOption) {
+      activeOption.scrollIntoView({ block: "nearest" });
+    }
+  }
+
+  function selectCountry(country) {
+    input.value = country.name;
+    hiddenCountry.value = country.code;
+    setExpanded(false);
+    activeIndex = -1;
+  }
+
+  function clearSelection() {
+    hiddenCountry.value = "";
+  }
+
+  function resolveCountry() {
+    if (hiddenCountry.value) {
+      return clientCountries.find((entry) => entry.code === hiddenCountry.value);
+    }
+
+    const normalizedInput = normalizeSearch(input.value);
+    if (!normalizedInput) return undefined;
+
+    const exactMatches = clientCountries.filter(
+      (country) =>
+        normalizeSearch(country.name) === normalizedInput ||
+        normalizeSearch(country.nameEn) === normalizedInput ||
+        normalizeSearch(country.nameEs) === normalizedInput,
+    );
+
+    if (exactMatches.length === 1) {
+      return exactMatches[0];
+    }
+
+    const filtered = filterCountries(input.value);
+    if (filtered.length === 1) {
+      return filtered[0];
+    }
+
+    return undefined;
+  }
+
+  input?.addEventListener("focus", () => {
+    renderListbox(filterCountries(input.value));
+  });
+
+  input?.addEventListener("input", () => {
+    clearSelection();
+    updateConsultLink();
+    renderListbox(filterCountries(input.value));
+  });
+
+  input?.addEventListener("keydown", (event) => {
+    const selectableOptions = listbox.querySelectorAll(
+      ".visa-checker__option:not(.visa-checker__option--empty)",
+    );
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (listbox.hidden) renderListbox(filterCountries(input.value));
+      const nextIndex =
+        activeIndex + 1 >= selectableOptions.length ? 0 : activeIndex + 1;
+      highlightOption(nextIndex);
+      return;
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (listbox.hidden) renderListbox(filterCountries(input.value));
+      const nextIndex =
+        activeIndex - 1 < 0 ? selectableOptions.length - 1 : activeIndex - 1;
+      highlightOption(nextIndex);
+      return;
+    }
+
+    if (event.key === "Enter" && activeIndex >= 0) {
+      event.preventDefault();
+      const country = filteredCountries[activeIndex];
+      if (country) selectCountry(country);
+      return;
+    }
+
+    if (event.key === "Escape") {
+      setExpanded(false);
+      activeIndex = -1;
+      input.setAttribute("aria-activedescendant", "");
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".visa-checker__combobox")) {
+      setExpanded(false);
+      activeIndex = -1;
+    }
+  });
+
+  updateConsultLink();
+
+  function trackVisaCheck(eventName, label) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, {
+        event_category: "visa_checker",
+        event_label: label,
+      });
+    }
+  }
+
+  function renderResult(html) {
+    result.innerHTML = html;
+    result.hidden = false;
+    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function fillTemplate(template, countryName) {
+    return template.replaceAll("{country}", countryName);
+  }
+
+  function groupExplainHtml(group) {
+    const item = copy.groupsExplain[group - 1];
+    if (!item) return "";
+
+    return `
+      <div class="visa-checker__group-result">
+        <strong>${item.label}</strong>
+        <p>${item.text}</p>
+      </div>
+    `;
+  }
+
+  function redirectToTravel(country) {
+    trackVisaCheck("visa_check_group1_redirect", country.code);
+
+    const overlay = document.createElement("div");
+    overlay.className = "visa-checker__redirect-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-live", "polite");
+    overlay.innerHTML = `
+      <div class="visa-checker__redirect-card">
+        <div class="visa-checker__redirect-icon" aria-hidden="true">✓</div>
+        <p class="visa-checker__redirect-eyebrow">${copy.group1RedirectEyebrow}</p>
+        <p class="visa-checker__result-country">${country.name}</p>
+        <h3 class="visa-checker__redirect-title">${copy.group1RedirectTitle}</h3>
+        ${groupExplainHtml(country.group)}
+        <p class="visa-checker__redirect-body">${copy.group1RedirectBody}</p>
+        <p class="visa-checker__redirect-progress">${copy.group1RedirectProgress}</p>
+        <div class="visa-checker__redirect-bar" aria-hidden="true"><span></span></div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.classList.add("visa-checker--redirecting");
+    result.hidden = true;
+
+    const target = new URL(travelUrl, window.location.origin);
+    target.searchParams.set("from", "visa-check");
+    target.searchParams.set("country", country.code);
+
+    window.setTimeout(() => {
+      window.location.replace(target.toString());
+    }, 2000);
+  }
+
+  function renderVisaRequired(country, group) {
+    const title = group === 3 ? copy.group3Title : copy.group2Title;
+    const text = group === 3 ? copy.group3Text : copy.group2Text;
+    const guidePath = nationalityLinks[country.code];
+    const contactHref = isChina ? chinaContactUrl : whatsappUrl;
+    const contactAttrs = isChina
+      ? ""
+      : 'target="_blank" rel="noopener noreferrer"';
+    const analyticsEvent = isChina ? "wechat_click" : "whatsapp_click";
+
+    trackVisaCheck("visa_check_visa_required", `${country.code}-group-${group}`);
+
+    let actions = `<a class="button button-primary" href="${contactHref}" ${contactAttrs} data-analytics-event="${analyticsEvent}" data-analytics-label="visa_checker">${copy.whatsappLabel}</a>`;
+
+    if (guidePath) {
+      actions += ` <a class="button button-secondary" href="${guidePath}">${copy.guideLinkLabel}</a>`;
+    }
+
+    renderResult(`
+      <div class="visa-checker__message visa-checker__message--visa">
+        <p class="visa-checker__result-country">${country.name}</p>
+        <h3>${title}</h3>
+        ${groupExplainHtml(group)}
+        <p>${text}</p>
+        <div class="button-row">${actions}</div>
+      </div>
+    `);
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const country = resolveCountry();
+
+    if (!country) {
+      renderUnknownResult();
+      return;
+    }
+
+    if (country.group === 1) {
+      redirectToTravel(country);
+      return;
+    }
+
+    renderVisaRequired(country, country.group);
+  });
+</script>
+
+<style>
+  .visa-checker__card {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .visa-checker__card h2 {
+    margin-top: 0;
+  }
+
+  .visa-checker__form {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .visa-checker__label {
+    font-weight: 600;
+  }
+
+  .visa-checker__combobox {
+    position: relative;
+  }
+
+  .visa-checker__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    font: inherit;
+    background: white;
+  }
+
+  .visa-checker__input:focus {
+    outline: 2px solid rgba(52, 105, 143, 0.35);
+    outline-offset: 2px;
+  }
+
+  .visa-checker__listbox {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    right: 0;
+    max-height: 16rem;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .visa-checker__option {
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .visa-checker__option.is-active,
+  .visa-checker__option:hover {
+    background: var(--brand-pale);
+  }
+
+  .visa-checker__option--empty {
+    color: var(--muted);
+    cursor: default;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .visa-checker__option--empty:hover {
+    background: transparent;
+  }
+
+  .visa-checker__option--empty .visa-checker__consult-link {
+    justify-self: start;
+  }
+
+  .visa-checker__submit {
+    justify-self: start;
+  }
+
+  .visa-checker__consult {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .visa-checker__consult a,
+  .visa-checker__consult-link {
+    font-weight: 600;
+    color: var(--brand);
+  }
+
+  .visa-checker__meta {
+    margin: 1.25rem 0 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .visa-checker__result {
+    margin-top: 1.25rem;
+  }
+
+  .visa-checker__message h3 {
+    margin-top: 0;
+  }
+
+  .visa-checker__result-country {
+    margin: 0 0 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+
+  .visa-checker__message--success {
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+
+  .visa-checker__message--visa {
+    background: var(--brand-pale);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .visa-checker__group-result {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.65rem;
+    background: white;
+    border: 1px solid rgba(52, 105, 143, 0.15);
+  }
+
+  .visa-checker__group-result strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--brand-dark);
+  }
+
+  .visa-checker__group-result p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  :global(body.visa-checker--redirecting) {
+    overflow: hidden;
+  }
+
+  .visa-checker__redirect-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background: rgba(13, 43, 69, 0.72);
+    backdrop-filter: blur(4px);
+  }
+
+  .visa-checker__redirect-card {
+    width: min(100%, 32rem);
+    padding: 2rem 1.75rem;
+    border-radius: 1.25rem;
+    background: white;
+    box-shadow: 0 24px 60px rgba(13, 43, 69, 0.28);
+    text-align: center;
+  }
+
+  .visa-checker__redirect-card .visa-checker__result-country {
+    margin-bottom: 0.5rem;
+  }
+
+  .visa-checker__redirect-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem;
+    border-radius: 999px;
+    background: #e8f7ee;
+    color: #1f7a43;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .visa-checker__redirect-eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--brand);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .visa-checker__redirect-title {
+    margin: 0 0 0.75rem;
+    color: var(--brand-dark);
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .visa-checker__redirect-card .visa-checker__group-result {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .visa-checker__redirect-body,
+  .visa-checker__redirect-progress {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .visa-checker__redirect-body {
+    margin-bottom: 1rem;
+  }
+
+  .visa-checker__redirect-progress {
+    font-weight: 600;
+    color: var(--brand-dark);
+  }
+
+  .visa-checker__redirect-bar {
+    height: 0.35rem;
+    margin-top: 1.25rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--brand-pale);
+  }
+
+  .visa-checker__redirect-bar span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--brand);
+    animation: visa-checker-progress 2s linear forwards;
+  }
+
+  @keyframes visa-checker-progress {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+</style>

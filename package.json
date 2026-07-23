@@ -8,7 +8,10 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "generate:og": "node scripts/generate-og-image.mjs",
-    "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs"
+    "sync:reviews": "node --env-file-if-exists=.env scripts/sync-google-reviews.mjs",
+    "sync:visa-groups": "node --env-file-if-exists=.env scripts/sync-visa-groups.mjs",
+    "export:visa-groups-csv": "node scripts/export-visa-groups-csv.mjs",
+    "seed:visa-groups-full": "node scripts/seed-visa-groups-full.mjs && node scripts/export-visa-groups-csv.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

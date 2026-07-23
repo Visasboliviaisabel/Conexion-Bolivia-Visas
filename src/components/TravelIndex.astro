@@ -4,6 +4,9 @@ import type { DiscoverContent } from "../i18n/discover-translations";
 import { tipsCardImage } from "../i18n/tours-translations";
 import { travelStoryPath } from "../i18n/config";
 import type { Locale } from "../i18n/config";
+import { getVisaCheckerCopy } from "../i18n/visa-checker-translations";
+import visaGroupsData from "../data/visa-groups.json";
+import type { VisaGroupsData } from "../data/visa-groups.types";
 
 interface Props {
   locale: Locale;
@@ -13,11 +16,69 @@ interface Props {
 }
 
 const { locale, tips, discover, readTime } = Astro.props;
+const checkerCopy = getVisaCheckerCopy(locale);
+const useSpanishNames = locale === "es" || locale === "pt";
+const data = visaGroupsData as VisaGroupsData;
 const tipsPath = travelStoryPath(locale, "tips");
 const discoverPath = travelStoryPath(locale, "discover");
+
+const countryNamesByCode = Object.fromEntries(
+  data.countries.map((country) => [
+    country.code,
+    useSpanishNames ? country.nameEs : country.nameEn,
+  ]),
+);
 ---
 
-<div class="travel-posts">
+<section class="travel-welcome" id="travel-welcome" hidden>
+  <div class="travel-welcome__inner">
+    <div class="travel-welcome__icon" aria-hidden="true">✓</div>
+    <div class="travel-welcome__content">
+      <p class="travel-welcome__eyebrow"></p>
+      <h1 class="travel-welcome__title"></h1>
+      <p class="travel-welcome__country"></p>
+      <p class="travel-welcome__body"></p>
+    </div>
+  </div>
+  <p class="travel-welcome__next"></p>
+</section>
+
+<script
+  is:inline
+  define:vars={{
+    countryNamesByCode,
+    travelWelcomeEyebrow: checkerCopy.travelWelcomeEyebrow,
+    travelWelcomeTitle: checkerCopy.travelWelcomeTitle,
+    travelWelcomeCountry: checkerCopy.travelWelcomeCountry,
+    travelWelcomeBody: checkerCopy.travelWelcomeBody,
+    travelWelcomeNext: checkerCopy.travelWelcomeNext,
+  }}
+>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("from") !== "visa-check") return;
+
+    const welcome = document.getElementById("travel-welcome");
+    const posts = document.getElementById("travel-posts");
+    if (!welcome) return;
+
+    const countryCode = params.get("country") ?? "";
+    const countryName = countryNamesByCode[countryCode] ?? countryCode;
+    const fill = (template) => template.replaceAll("{country}", countryName);
+
+    welcome.querySelector(".travel-welcome__eyebrow").textContent = travelWelcomeEyebrow;
+    welcome.querySelector(".travel-welcome__title").textContent = travelWelcomeTitle;
+    welcome.querySelector(".travel-welcome__country").textContent = fill(travelWelcomeCountry);
+    welcome.querySelector(".travel-welcome__body").textContent = travelWelcomeBody;
+    welcome.querySelector(".travel-welcome__next").textContent = travelWelcomeNext;
+
+    welcome.hidden = false;
+    posts?.classList.add("travel-posts--after-welcome");
+    window.scrollTo(0, 0);
+  })();
+</script>
+
+<div class="travel-posts" id="travel-posts">
   <a class="travel-post-card" href={tipsPath}>
     <div class="travel-post-card__image-wrap">
       <img
@@ -61,6 +122,79 @@ const discoverPath = travelStoryPath(locale, "discover");
 </script>
 
 <style>
+  .travel-welcome {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 0;
+  }
+
+  .travel-welcome__inner {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.75rem 1.5rem;
+    border: 2px solid rgba(31, 122, 67, 0.22);
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, #f3fbf6 0%, #eef6fb 100%);
+    box-shadow: var(--shadow);
+  }
+
+  .travel-welcome__icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    background: #e8f7ee;
+    color: #1f7a43;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  .travel-welcome__content {
+    min-width: 0;
+  }
+
+  .travel-welcome__eyebrow {
+    margin: 0 0 0.35rem;
+    color: #1f7a43;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .travel-welcome__title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.15;
+    color: var(--brand-dark);
+  }
+
+  .travel-welcome__country,
+  .travel-welcome__body {
+    margin: 0 0 0.65rem;
+    line-height: 1.65;
+    color: var(--brand-dark);
+  }
+
+  .travel-welcome__country {
+    font-weight: 600;
+  }
+
+  .travel-welcome__body {
+    color: var(--muted);
+    margin-bottom: 0;
+  }
+
+  .travel-welcome__next {
+    margin: 1rem 0 0;
+    padding: 0 0.25rem;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
   .travel-posts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
@@ -68,6 +202,10 @@ const discoverPath = travelStoryPath(locale, "discover");
     max-width: 1100px;
     margin: 0 auto;
     padding: 2.5rem 1.25rem 3.5rem;
+  }
+
+  .travel-posts--after-welcome {
+    padding-top: 1.5rem;
   }
 
   .travel-post-card {
@@ -122,5 +260,13 @@ const discoverPath = travelStoryPath(locale, "discover");
     font-size: 0.85rem;
     color: var(--muted);
     margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .travel-welcome__inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
   }
 </style>

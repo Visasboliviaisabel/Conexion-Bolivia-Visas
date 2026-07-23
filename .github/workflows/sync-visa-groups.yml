@@ -1,0 +1,39 @@
+name: Sync visa groups
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch visa groups from Google Sheet
+        run: npm run sync:visa-groups
+        env:
+          VISA_GROUPS_SHEET_CSV_URL: ${{ secrets.VISA_GROUPS_SHEET_CSV_URL }}
+
+      - name: Commit updated visa groups
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/visa-groups.json
+          if git diff --staged --quiet; then
+            echo "No visa group changes."
+          else
+            git commit -m "chore: sync visa groups from Google Sheet"
+            git push
+          fi
