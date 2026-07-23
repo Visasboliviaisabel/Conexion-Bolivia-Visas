@@ -1,7 +1,6 @@
 /** Shared CSV column names — Spanish headers for Isabel's sheet, English aliases for sync. */
 
 export const META_KEYS = {
-  lastReviewed: ["ultima_revision", "last_reviewed"],
   officialUrl: ["enlace_oficial", "official_url"],
 };
 

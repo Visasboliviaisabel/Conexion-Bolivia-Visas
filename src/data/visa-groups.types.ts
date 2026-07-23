@@ -12,7 +12,6 @@ export type VisaCountryEntry = {
 
 export type VisaGroupsData = {
   syncedAt: string | null;
-  lastReviewed: string;
   officialSourceUrl: string;
   countries: VisaCountryEntry[];
 };

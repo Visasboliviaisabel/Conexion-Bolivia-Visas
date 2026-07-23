@@ -8,7 +8,6 @@
  * 4. Set VISA_GROUPS_SHEET_CSV_URL in .env or GitHub Actions secrets
  *
  * Sheet format (Spanish headers for Isabel):
- *   ultima_revision,2026-07-01
  *   enlace_oficial,https://consulados.cancilleria.gob.bo/base/visas/
  *   codigo_pais,nombre_ingles,nombre_espanol,grupo,guia_especial
  *   AR,Argentina,Argentina,1,
@@ -87,7 +86,6 @@ function parseCsv(text) {
     throw new Error("CSV is empty.");
   }
 
-  let lastReviewed = null;
   let officialSourceUrl = null;
   let headerLineIndex = -1;
 
@@ -95,12 +93,12 @@ function parseCsv(text) {
     const cells = parseCsvLine(lines[i]);
     const key = (cells[0] ?? "").toLowerCase();
 
-    if (META_KEYS.lastReviewed.includes(key)) {
-      lastReviewed = cells[1]?.trim() || null;
-      continue;
-    }
     if (META_KEYS.officialUrl.includes(key)) {
       officialSourceUrl = cells[1]?.trim() || null;
+      continue;
+    }
+    // Ignore legacy ultima_revision / last_reviewed rows from older sheets.
+    if (key === "ultima_revision" || key === "last_reviewed") {
       continue;
     }
   }
@@ -174,7 +172,7 @@ function parseCsv(text) {
 
   countries.sort((a, b) => a.nameEn.localeCompare(b.nameEn));
 
-  return { countries, lastReviewed, officialSourceUrl };
+  return { countries, officialSourceUrl };
 }
 
 async function main() {
@@ -193,7 +191,7 @@ async function main() {
   }
 
   const csv = await response.text();
-  const { countries, lastReviewed, officialSourceUrl } = parseCsv(csv);
+  const { countries, officialSourceUrl } = parseCsv(csv);
 
   if (countries.length === 0) {
     throw new Error("No valid countries parsed from CSV.");
@@ -201,10 +199,6 @@ async function main() {
 
   const output = {
     syncedAt: new Date().toISOString(),
-    lastReviewed:
-      process.env.VISA_GROUPS_LAST_REVIEWED ??
-      lastReviewed ??
-      existing.lastReviewed,
     officialSourceUrl:
       process.env.VISA_GROUPS_OFFICIAL_URL ??
       officialSourceUrl ??
@@ -214,9 +208,7 @@ async function main() {
   };
 
   saveDataFile(output);
-  console.log(
-    `Synced ${countries.length} countries. Last reviewed: ${output.lastReviewed}.`,
-  );
+  console.log(`Synced ${countries.length} countries.`);
 }
 
 main().catch((error) => {

@@ -2,7 +2,7 @@
 import type { Locale } from "../i18n/config";
 import { localePath, travelStoryPath } from "../i18n/config";
 import { isChinaLocale } from "../i18n/china-translations";
-import { getVisaCheckerCopy, formatLastReviewed } from "../i18n/visa-checker-translations";
+import { getVisaCheckerCopy } from "../i18n/visa-checker-translations";
 import { nationalityPath } from "../data/nationalities";
 import type { NationalityId } from "../data/nationalities";
 import { business } from "../data/business";
@@ -46,7 +46,6 @@ const clientCountries = sortedCountries.map((country) => ({
 const chinaContactUrl = `${localePath(locale, "contact")}#wechat`;
 const whatsappUrl = business.whatsappUrl;
 const isChina = isChinaLocale(locale);
-const lastReviewedLabel = formatLastReviewed(data.lastReviewed, locale);
 ---
 
 <section class="section section-alt visa-checker" id="visa-check">
@@ -117,7 +116,6 @@ const lastReviewedLabel = formatLastReviewed(data.lastReviewed, locale);
 
       <p class="visa-checker__meta">
         {copy.disclaimer}{" "}
-        <span>{locale === "es" ? "Última revisión:" : "Last reviewed:"} {lastReviewedLabel}.</span>{" "}
         <a href={data.officialSourceUrl} target="_blank" rel="noopener noreferrer">
           {copy.officialLinkLabel}
         </a>

@@ -16,7 +16,6 @@ const csvPath = join(root, "scripts/visa-groups-sheet-template.csv");
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
 
 const lines = [
-  `ultima_revision,${data.lastReviewed}`,
   `enlace_oficial,${data.officialSourceUrl}`,
   CSV_HEADER_ROW,
 ];

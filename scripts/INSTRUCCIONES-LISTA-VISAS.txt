@@ -16,9 +16,8 @@ Grupo 3 = SÍ necesita visa, y además Migraciones debe autorizarla antes
 
 COLUMNAS DE LA HOJA (en español)
 --------------------------------
-Arriba verás dos filas especiales y luego los encabezados:
+Arriba verás una fila especial y luego los encabezados:
 
-  ultima_revision     → Fecha en que revisaste la lista (ej. 2026-07-01)
   enlace_oficial      → Página oficial de Bolivia (no cambiar)
 
   codigo_pais         → Código de 2 letras (AR, US, IN…) — no cambiar
@@ -56,8 +55,7 @@ LO QUE TÚ HACES EN EL DÍA A DÍA
 1. Abre el Google Sheet → pestaña "Países" (no "Instrucciones")
 2. Busca el país que cambió (Ctrl+F / Cmd+F)
 3. Cambia solo el número en la columna "grupo" (1, 2 o 3)
-4. Actualiza "ultima_revision" con la fecha de hoy
-5. Listo — Google guarda solo
+4. Listo — Google guarda solo
 
 No hace falta agregar países nuevos: la lista ya trae ~198 países.
 

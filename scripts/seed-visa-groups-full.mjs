@@ -16,7 +16,6 @@ const root = join(__dirname, "..");
 const dataPath = join(root, "src/data/visa-groups.json");
 
 const OFFICIAL_URL = "https://consulados.cancilleria.gob.bo/base/visas/";
-const LAST_REVIEWED = "2026-07-01";
 
 /** @type {Record<string, 1 | 2 | 3>} */
 const GROUP_BY_CODE = {
@@ -320,7 +319,6 @@ const countries = Object.entries(GROUP_BY_CODE)
 
 const data = {
   syncedAt: null,
-  lastReviewed: LAST_REVIEWED,
   officialSourceUrl: OFFICIAL_URL,
   countries,
 };

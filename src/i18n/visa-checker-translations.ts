@@ -215,15 +215,3 @@ export function getVisaCheckerCopy(locale: Locale): VisaCheckerCopy {
 export function fillVisaCheckerTemplate(template: string, country: string): string {
   return template.replaceAll("{country}", country);
 }
-
-export function formatLastReviewed(date: string, locale: Locale): string {
-  try {
-    return new Intl.DateTimeFormat(locale === "es" ? "es-PE" : "en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }).format(new Date(`${date}T12:00:00`));
-  } catch {
-    return date;
-  }
-}
