@@ -264,6 +264,7 @@ const faqStructuredData = faqSchema
     --border: #e2e8f0;
     --shadow: 0 10px 30px rgba(13, 43, 69, 0.08);
     --whatsapp: #25d366;
+    --action: #0ea5e9;
   }
 
   * { box-sizing: border-box; }
@@ -434,6 +435,17 @@ const faqStructuredData = faqSchema
   }
 
   .button-primary:hover { filter: brightness(0.95); }
+
+  .button-brand {
+    background: var(--action);
+    color: white;
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+  }
+
+  .button-brand:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 6px 18px rgba(14, 165, 233, 0.45);
+  }
 
   .button-secondary {
     background: white;
