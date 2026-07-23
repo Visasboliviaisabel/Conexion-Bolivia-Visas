@@ -21,7 +21,12 @@ const {
 
 {
   isChinaLocale(locale) ? (
-    <a class={className} href={`${localePath(locale, "contact")}#wechat`}>
+    <a
+      class={className}
+      href={`${localePath(locale, "contact")}#wechat`}
+      data-analytics-event="wechat_click"
+      data-analytics-label="cta_button"
+    >
       {wechatLabel}
     </a>
   ) : (
@@ -30,6 +35,8 @@ const {
       href={business.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
+      data-analytics-event="whatsapp_click"
+      data-analytics-label="cta_button"
     >
       {whatsappLabel}
     </a>

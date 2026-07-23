@@ -15,7 +15,7 @@ import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import HeaderSocialIcons from "../components/HeaderSocialIcons.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import WeChatButton from "../components/WeChatButton.astro";
-import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import AnalyticsTracking from "../components/AnalyticsTracking.astro";
 import { isChinaLocale } from "../i18n/china-translations";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -247,7 +247,7 @@ const faqStructuredData = faqSchema
     )}
     <Analytics />
     <SpeedInsights />
-    <GoogleAnalytics />
+    <AnalyticsTracking />
   </body>
 </html>
 

@@ -1,0 +1,54 @@
+---
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{measurementId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", measurementId);
+    </script>
+  </>
+)}
+
+<script>
+  import { track } from "@vercel/analytics";
+
+  function trackClick(target) {
+    const event = target.dataset.analyticsEvent;
+    const label = target.dataset.analyticsLabel ?? "unknown";
+
+    if (event === "whatsapp_click") {
+      track("WhatsApp Click", { location: label });
+    }
+
+    if (event === "wechat_click") {
+      track("WeChat Click", { location: label });
+    }
+
+    if (typeof window.gtag === "function" && event) {
+      window.gtag("event", event, {
+        event_category: "engagement",
+        event_label: label,
+      });
+    }
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-analytics-event]");
+    if (!target) return;
+    trackClick(target);
+  });
+</script>
+
+<script is:inline>
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(arguments);
+  };
+</script>

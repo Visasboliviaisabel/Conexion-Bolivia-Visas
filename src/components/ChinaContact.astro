@@ -35,7 +35,13 @@ const hasWechat = Boolean(wechatId || wechatQrImage);
             </p>
           )}
           {wechatId && (
-            <button class="button button-wechat" type="button" data-wechat-id={wechatId}>
+            <button
+              class="button button-wechat"
+              type="button"
+              data-wechat-id={wechatId}
+              data-analytics-event="wechat_click"
+              data-analytics-label="copy_wechat_id"
+            >
               {copy.wechatCta}
             </button>
           )}
