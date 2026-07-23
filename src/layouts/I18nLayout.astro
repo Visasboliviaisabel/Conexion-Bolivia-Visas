@@ -4,7 +4,7 @@ import { localeList, locales, localePath, travelStoryPath } from "../i18n/config
 import { getTranslations } from "../i18n/translations";
 import { tipsMeta } from "../i18n/tours-translations";
 import { discoverMeta } from "../i18n/discover-translations";
-import { getNationalityContent } from "../i18n/nationality-translations";
+import { getNationalityPageContent } from "../i18n/nationality-page-content";
 import { nationalityPath } from "../data/nationalities";
 import type { NationalityId } from "../data/nationalities";
 import { business } from "../data/business";
@@ -35,7 +35,7 @@ const t = getTranslations(locale);
 
 function resolveMeta(): { title: string; description: string } {
   if (page === "nationality" && nationalityId) {
-    return getNationalityContent(locale, nationalityId).meta;
+    return getNationalityPageContent(locale, nationalityId).meta;
   }
   if (page === "tours" && travelStory === "tips") return tipsMeta[locale];
   if (page === "tours" && travelStory === "discover") return discoverMeta[locale];

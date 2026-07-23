@@ -4,10 +4,11 @@ import ContactPrimaryButton from "../../../components/ContactPrimaryButton.astro
 import { localeList } from "../../../i18n/config";
 import type { Locale } from "../../../i18n/config";
 import type { NationalityId } from "../../../data/nationalities";
-import { getNationalityContent } from "../../../i18n/nationality-translations";
+import { getNationalityPageContent } from "../../../i18n/nationality-page-content";
 import { getTranslations } from "../../../i18n/translations";
 import { nationalityPath, nationalityList, getNationalityLabel } from "../../../data/nationalities";
 import { localePath } from "../../../i18n/config";
+import { getVisaCheckerCopy } from "../../../i18n/visa-checker-translations";
 
 export function getStaticPaths() {
   const paths: { params: { lang: string; country: string }; props: { nationalityId: NationalityId } }[] = [];
@@ -26,8 +27,9 @@ export function getStaticPaths() {
 
 const locale = Astro.params.lang as Locale;
 const { nationalityId } = Astro.props;
-const content = getNationalityContent(locale, nationalityId);
+const content = getNationalityPageContent(locale, nationalityId);
 const t = getTranslations(locale);
+const visaCopy = getVisaCheckerCopy(locale);
 ---
 
 <I18nLayout locale={locale} page="nationality" nationalityId={nationalityId} faqSchema={content.faqs}>
@@ -41,6 +43,13 @@ const t = getTranslations(locale);
 
   <section class="section">
     <div class="container">
+      <div class="nationality-group-card">
+        <p class="nationality-group-card__label">{content.groupLabel}</p>
+        <p class="nationality-group-card__text">{content.groupExplain}</p>
+        {content.syncedAt && (
+          <p class="nationality-group-card__sync">{visaCopy.disclaimer}</p>
+        )}
+      </div>
       <p class="lead">{content.intro}</p>
     </div>
   </section>
@@ -56,31 +65,35 @@ const t = getTranslations(locale);
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2>{content.processTitle}</h2>
-      <div class="grid-3" style="margin-top: 1.5rem;">
-        {content.processSteps.map((step, i) => (
-          <article class="card">
-            <p class="eyebrow">{i + 1}</p>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
-          </article>
-        ))}
+  {content.showVisaProcess && (
+    <section class="section">
+      <div class="container">
+        <h2>{content.processTitle}</h2>
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          {content.processSteps.map((step, i) => (
+            <article class="card">
+              <p class="eyebrow">{i + 1}</p>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <section class="section section-alt">
-    <div class="container">
-      <h2>{content.whyCuscoTitle}</h2>
-      <ul class="list-check">
-        {content.whyCusco.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  {content.showVisaProcess && (
+    <section class="section section-alt">
+      <div class="container">
+        <h2>{content.whyCuscoTitle}</h2>
+        <ul class="list-check">
+          {content.whyCusco.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="container">
@@ -99,11 +112,16 @@ const t = getTranslations(locale);
       <h2>{content.ctaTitle}</h2>
       <p>{content.ctaText}</p>
       <div class="button-row">
-        <ContactPrimaryButton
-          locale={locale}
-          whatsappLabel={t.home.ctaWhatsapp}
-          wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
-        />
+        {!content.showVisaProcess && (
+          <a class="button button-primary" href={content.travelPageHref}>{content.ctaTitle}</a>
+        )}
+        {content.showVisaProcess && (
+          <ContactPrimaryButton
+            locale={locale}
+            whatsappLabel={t.home.ctaWhatsapp}
+            wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+          />
+        )}
         <a class="button button-secondary" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
       </div>
     </div>
@@ -122,6 +140,31 @@ const t = getTranslations(locale);
 </I18nLayout>
 
 <style>
+  .nationality-group-card {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    background: var(--brand-pale);
+    border: 1px solid color-mix(in srgb, var(--brand) 18%, transparent);
+  }
+
+  .nationality-group-card__label {
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
+  .nationality-group-card__text {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .nationality-group-card__sync {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    color: var(--text-muted, #5c6670);
+  }
+
   .nationality-related {
     display: flex;
     flex-wrap: wrap;
