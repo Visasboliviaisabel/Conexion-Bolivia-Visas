@@ -3,6 +3,10 @@ import type { Locale } from "../i18n/config";
 import { localePath, travelStoryPath } from "../i18n/config";
 import { isChinaLocale } from "../i18n/china-translations";
 import { getVisaCheckerCopy } from "../i18n/visa-checker-translations";
+import {
+  getCountryDisplayName,
+  sortCountriesByDisplayName,
+} from "../i18n/country-display-names";
 import { nationalityPath } from "../data/nationalities";
 import type { NationalityId } from "../data/nationalities";
 import { business } from "../data/business";
@@ -16,14 +20,9 @@ interface Props {
 const { locale } = Astro.props;
 const copy = getVisaCheckerCopy(locale);
 const data = visaGroupsData as VisaGroupsData;
-const useSpanishNames = locale === "es" || locale === "pt";
 const travelUrl = travelStoryPath(locale, "index");
 
-const sortedCountries = [...data.countries].sort((a, b) => {
-  const nameA = useSpanishNames ? a.nameEs : a.nameEn;
-  const nameB = useSpanishNames ? b.nameEs : b.nameEn;
-  return nameA.localeCompare(nameB, useSpanishNames ? "es" : "en");
-});
+const sortedCountries = sortCountriesByDisplayName(data.countries, locale);
 
 const nationalityLinks = Object.fromEntries(
   sortedCountries
@@ -36,7 +35,7 @@ const nationalityLinks = Object.fromEntries(
 
 const clientCountries = sortedCountries.map((country) => ({
   code: country.code,
-  name: useSpanishNames ? country.nameEs : country.nameEn,
+  name: getCountryDisplayName(locale, country.code, country),
   nameEn: country.nameEn,
   nameEs: country.nameEs,
   group: country.group,
@@ -146,9 +145,12 @@ const isChina = isChinaLocale(locale);
 
   function consultPrefillText() {
     const typed = input?.value?.trim() || "";
+    const placeholder = typed || "…";
     return copy.consultWhatsappPrefill
-      .replace("[country]", typed || "…")
-      .replace("[país]", typed || "…");
+      .replace("[country]", placeholder)
+      .replace("[país]", placeholder)
+      .replace("[国家/地区]", placeholder)
+      .replace("[國家/地區]", placeholder);
   }
 
   function consultUrl() {
