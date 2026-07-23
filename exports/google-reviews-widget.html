@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Reviews Widget</title>
+  <style>
+    /* ── Brand colors — change these to match your site ── */
+    :root {
+      --brand-dark: #0d2b45;
+      --brand: #34698f;
+      --brand-pale: #e6f1f9;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0d2b45;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 10px 30px rgba(13, 43, 69, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    .section { padding: 3.5rem 0; }
+
+    .lead {
+      font-size: 1.125rem;
+      max-width: 62ch;
+      margin: 0;
+    }
+
+    h2 {
+      line-height: 1.15;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font: inherit;
+      color: var(--brand);
+    }
+
+    .button:hover { text-decoration: none; }
+
+    .button-secondary {
+      background: white;
+      color: var(--brand-dark);
+      border-color: var(--border);
+    }
+
+    /* ── Reviews widget ── */
+    .reviews-section {
+      background: var(--surface);
+      border-block: 1px solid var(--border);
+    }
+
+    .reviews-header {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .reviews-header {
+        grid-template-columns: auto 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .reviews-score {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, var(--brand-pale), #fff);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      width: fit-content;
+    }
+
+    .reviews-score-value {
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--brand-dark);
+    }
+
+    .reviews-score-count {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .reviews-score-count strong {
+      color: var(--brand-dark);
+    }
+
+    .reviews-intro h2 { margin-top: 0; }
+
+    .reviews-stars,
+    .review-stars {
+      display: flex;
+      gap: 0.1rem;
+    }
+
+    .star {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .star--filled { color: #f59e0b; }
+
+    .reviews-carousel {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .reviews-viewport {
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      list-style: none;
+      margin: 0;
+      padding: 0.25rem 0 0.75rem;
+      scrollbar-width: none;
+    }
+
+    .reviews-track::-webkit-scrollbar { display: none; }
+
+    .reviews-card {
+      flex: 0 0 min(100%, 360px);
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      .reviews-card { flex-basis: calc((100% - 1rem) / 2); }
+    }
+
+    @media (min-width: 1024px) {
+      .reviews-card { flex-basis: calc((100% - 2rem) / 3); }
+    }
+
+    .review-card-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .review-card-inner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(13, 43, 69, 0.12);
+    }
+
+    .review-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(13, 43, 69, 0.12);
+    }
+
+    .review-avatar--fallback {
+      display: grid;
+      place-items: center;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .review-author-name {
+      margin: 0;
+      font-weight: 700;
+      color: var(--brand-dark);
+      line-height: 1.2;
+    }
+
+    .review-time {
+      margin: 0.15rem 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .review-text {
+      margin: 0;
+      flex: 1;
+    }
+
+    .review-text p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .review-footer {
+      margin-top: auto;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .google-g { flex-shrink: 0; }
+
+    .reviews-nav {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--brand-dark);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .reviews-nav:hover {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .reviews-nav[hidden] { display: none; }
+
+    .reviews-cta-wrap {
+      text-align: center;
+      margin: 1.75rem 0 0;
+    }
+
+    @media (max-width: 640px) {
+      .reviews-carousel { grid-template-columns: 1fr; }
+      .reviews-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    HOW TO USE
+    ──────────
+    1. Edit REVIEWS_CONFIG below (your rating, review count, Google Maps link, labels, reviews).
+    2. Copy everything from <section class="section reviews-section"> through its closing </section>
+       and paste it into your page wherever you want the widget.
+    3. Copy the <style> block and the <script> block into your page too (or keep this whole file).
+    4. Change the :root colors at the top to match your brand.
+  -->
+
+  <section class="section reviews-section" aria-labelledby="reviews-heading">
+    <div class="container">
+      <div class="reviews-header">
+        <div class="reviews-score" id="reviews-score"></div>
+        <div class="reviews-intro">
+          <h2 id="reviews-heading"></h2>
+          <p class="lead" id="reviews-subtitle"></p>
+        </div>
+      </div>
+
+      <div class="reviews-carousel" data-reviews-carousel>
+        <button type="button" class="reviews-nav reviews-nav--prev" data-reviews-prev aria-label="Previous review">‹</button>
+        <div class="reviews-viewport">
+          <ul class="reviews-track" data-reviews-track></ul>
+        </div>
+        <button type="button" class="reviews-nav reviews-nav--next" data-reviews-next aria-label="Next review">›</button>
+      </div>
+
+      <p class="reviews-cta-wrap">
+        <a class="button button-secondary reviews-cta" id="reviews-cta" href="#" target="_blank" rel="noopener noreferrer"></a>
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // EDIT THIS — your business info and reviews
+    // ═══════════════════════════════════════════════════════════════
+    const REVIEWS_CONFIG = {
+      rating: 5,
+      totalCount: 31,
+      mapsUrl: "https://maps.google.com/?cid=8939347138330737328",
+
+      // Section labels
+      title: "What our clients say",
+      subtitle: "Verified Google reviews from travelers who got their visa with us",
+      verified: "Verified Google review",
+      seeAll: "See all reviews on Google",
+      onGoogle: "on Google",
+      reviewsLabel: "reviews",
+      prev: "Previous review",
+      next: "Next review",
+
+      // Review cards — add/remove objects as needed
+      reviews: [
+        {
+          author: "Delvine Tan",
+          text: "Very fast and efficient visa administrative services. The lady was super helpful, warm and pleasant. I missed my flight due to visa issues but she was very reassuring & prepared everything for me on the spot, smiling throughout the whole process. Outstanding service and fair price as well.",
+          relativeTime: "6 months ago",
+          photoUrl: "https://lh3.googleusercontent.com/a/ACg8ocJDVZ2oEMXvOPM1D87Td9X43Po4b54LQ4yXldsuVVV3P8a5AA=s128-c0x00000000-cc-rp-mo-ba3"
+        },
+        {
+          author: "Z Faro",
+          text: "Mara Isabel is amazing. Arranged everything in advance, and we were in and out of the Bolivian consulate within 5 minutes, with Bolivian visa in hand. Would definitely recommend. And she's also very lovely and helpful. Thank you for the amazing service!",
+          relativeTime: "2 months ago",
+          photoUrl: "https://lh3.googleusercontent.com/a/ACg8ocKc5fbqjnXdH6lPQItTJL6_3XVLbOEHo2TwUo2wxYQ-3wkoxw=s128-c0x00000000-cc-rp-mo-ba3"
+        },
+        {
+          author: "Roxie",
+          text: "Because Friday was a public holiday, I couldn't apply visa, so my travel plans changed and I needed to prepare new documents. On Monday, I went to the office and asked a lady help me to print out my documents. She was very helpful and so nice. Her fees were reasonable. I highly recommend her!",
+          relativeTime: "3 months ago",
+          photoUrl: "https://lh3.googleusercontent.com/a/ACg8ocL_1Z_g0WUHGtvJ9cXeKbfKEVdvc69I-ZrtJU8JVoNtUYW0GQ=s128-c0x00000000-cc-rp-mo"
+        },
+        {
+          author: "Inca Shneor",
+          text: "Thank you for your lovely service. I received my visa within 4 days !! It was such an easy process. I also recommend booking a bus to Bolivia , she organised everything for me !!! 🤍🤍",
+          relativeTime: "7 months ago",
+          photoUrl: "https://lh3.googleusercontent.com/a/ACg8ocKX4CiGDXq4jgrUNHRdh_xJA3DE69gcmI1XQNctorjwFSA0WQ=s128-c0x00000000-cc-rp-mo"
+        },
+        {
+          author: "Itai Hizi",
+          text: "Isabel was really good and helped us get the visa easily, she was really nice and comfortable to talk to and I strongly recommend doing the visa through her",
+          relativeTime: "8 months ago",
+          photoUrl: "https://lh3.googleusercontent.com/a/ACg8ocKxVEoHcgcVpV5kXXfPQn1GV1T8zAF5Hd4An-_o5v6G557Krro=s128-c0x00000000-cc-rp-mo-ba3"
+        }
+      ]
+    };
+
+    const GOOGLE_G_SVG = `<svg class="google-g" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>`;
+
+    function renderStars(count, filled) {
+      return Array.from({ length: count }, (_, i) =>
+        `<span class="star${i < filled ? " star--filled" : ""}" aria-hidden="true">★</span>`
+      ).join("");
+    }
+
+    function renderWidget(config) {
+      const { rating, totalCount, mapsUrl, title, subtitle, verified, seeAll, onGoogle, reviewsLabel, prev, next, reviews } = config;
+
+      if (!reviews.length) {
+        document.querySelector(".reviews-section").style.display = "none";
+        return;
+      }
+
+      const ratingDisplay = rating > 0 ? rating.toFixed(1) : "5.0";
+      const fullStars = Math.round(rating > 0 ? rating : 5);
+
+      document.getElementById("reviews-heading").textContent = title;
+      document.getElementById("reviews-subtitle").textContent = subtitle;
+
+      const scoreEl = document.getElementById("reviews-score");
+      scoreEl.setAttribute("aria-label", `${ratingDisplay} out of 5, ${totalCount} ${reviewsLabel} ${onGoogle}`);
+      scoreEl.innerHTML = `
+        <span class="reviews-score-value" aria-hidden="true">${ratingDisplay}</span>
+        <div class="reviews-score-meta">
+          <div class="reviews-stars" aria-hidden="true">${renderStars(5, fullStars)}</div>
+          <p class="reviews-score-count">
+            ${totalCount > 0
+              ? `<strong>${totalCount.toLocaleString()}</strong> ${reviewsLabel} ${onGoogle}`
+              : onGoogle}
+          </p>
+        </div>`;
+
+      const track = document.querySelector("[data-reviews-track]");
+      track.innerHTML = reviews.map((review) => {
+        const avatar = review.photoUrl
+          ? `<img class="review-avatar" src="${review.photoUrl}" alt="" width="44" height="44" loading="lazy" decoding="async" />`
+          : `<span class="review-avatar review-avatar--fallback" aria-hidden="true">${review.author.charAt(0).toUpperCase()}</span>`;
+
+        return `
+          <li class="reviews-card">
+            <article class="review-card-inner">
+              <header class="review-card-top">
+                <div class="review-author">
+                  ${avatar}
+                  <div>
+                    <p class="review-author-name">${review.author}</p>
+                    ${review.relativeTime ? `<p class="review-time">${review.relativeTime}</p>` : ""}
+                  </div>
+                </div>
+                <div class="review-stars" aria-label="5 out of 5">${renderStars(5, 5)}</div>
+              </header>
+              <blockquote class="review-text"><p>${review.text}</p></blockquote>
+              <footer class="review-footer">
+                <span class="review-verified">${GOOGLE_G_SVG}${verified}</span>
+              </footer>
+            </article>
+          </li>`;
+      }).join("");
+
+      const cta = document.getElementById("reviews-cta");
+      cta.href = mapsUrl;
+      cta.textContent = `${seeAll} →`;
+
+      document.querySelector("[data-reviews-prev]").setAttribute("aria-label", prev);
+      document.querySelector("[data-reviews-next]").setAttribute("aria-label", next);
+    }
+
+    function initReviewsCarousel(root) {
+      const track = root.querySelector("[data-reviews-track]");
+      const cards = root.querySelectorAll(".reviews-card");
+      const prev = root.querySelector("[data-reviews-prev]");
+      const next = root.querySelector("[data-reviews-next]");
+
+      if (!track || cards.length <= 1) {
+        prev?.setAttribute("hidden", "");
+        next?.setAttribute("hidden", "");
+        return;
+      }
+
+      let index = 0;
+      let timer;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const goTo = (nextIndex) => {
+        index = (nextIndex + cards.length) % cards.length;
+        track.scrollTo({ left: cards[index].offsetLeft, behavior: reducedMotion ? "auto" : "smooth" });
+      };
+
+      const restartTimer = () => {
+        if (reducedMotion) return;
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => goTo(index + 1), 6000);
+      };
+
+      prev.addEventListener("click", () => { goTo(index - 1); restartTimer(); });
+      next.addEventListener("click", () => { goTo(index + 1); restartTimer(); });
+      restartTimer();
+      root.addEventListener("mouseenter", () => { if (timer) clearInterval(timer); });
+      root.addEventListener("mouseleave", restartTimer);
+    }
+
+    renderWidget(REVIEWS_CONFIG);
+    document.querySelectorAll("[data-reviews-carousel]").forEach(initReviewsCarousel);
+  </script>
+</body>
+</html>
