@@ -32,7 +32,7 @@ export const business = {
     wechatQrImage: "/images/wechat-qr-code.png",
   },
   formAction: "https://api.web3forms.com/submit",
-  web3formsAccessKey: "ea8a4d1e-0199-4183-8138-56ed65862a10",
+  web3formsAccessKey: "ee0574ab-ee6c-40fa-8ddc-767d969e9e03",
   ogImage: {
     path: "/images/og-image.png",
     width: 1200,
