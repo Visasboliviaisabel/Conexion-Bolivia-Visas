@@ -2,7 +2,7 @@ export const business = {
   name: "Visas Bolivia Conexión Bolivia",
   shortName: "Conexión Bolivia",
   owner: "Mara Isabel",
-  email: "info@visasboliviaencusco.com",
+  email: "carolisaala@hotmail.com",
   phone: "+51 977 235 501",
   whatsapp: "51977235501",
   whatsappUrl: "https://wa.me/51977235501",
