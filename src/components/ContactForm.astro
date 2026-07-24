@@ -14,21 +14,21 @@ const { labels } = Astro.props;
 
 <form class="form" id="contact-form" method="POST" action={business.formAction}>
   <input type="hidden" name="access_key" value={business.web3formsAccessKey} />
-  <input type="hidden" name="subject" value="New inquiry — Conexión Bolivia Visas" />
-  <input type="hidden" name="from_name" value="Conexión Bolivia Website" />
+  <input type="hidden" name="subject" value="Nueva consulta — Conexión Bolivia Visas" />
+  <input type="hidden" name="from_name" value="Sitio web Conexión Bolivia" />
   <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
   <label>
     {labels.nameLabel}
-    <input type="text" name="name" required />
+    <input type="text" name="Nombre" required />
   </label>
   <label>
     {labels.emailLabel}
-    <input type="email" name="email" required />
+    <input type="email" name="Correo electrónico" required />
   </label>
   <label>
     {labels.messageLabel}
-    <textarea name="message" required></textarea>
+    <textarea name="Mensaje" required></textarea>
   </label>
   <button class="button button-secondary" type="submit">{labels.submitLabel}</button>
   <p class="form-result" id="form-result" role="status" aria-live="polite" hidden></p>
@@ -55,6 +55,7 @@ const { labels } = Astro.props;
 
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
+      payload.replyto = formData.get("Correo electrónico");
 
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
