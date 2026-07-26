@@ -20,7 +20,6 @@ export type VisaCheckerCopy = {
   noResultsLabel: string;
   submitLabel: string;
   disclaimer: string;
-  officialLinkLabel: string;
   groupsExplain: { label: string; text: string }[];
   group1Redirecting: string;
   group1RedirectEyebrow: string;
@@ -57,7 +56,6 @@ const es: VisaCheckerCopy = {
   submitLabel: "Verificar requisito",
   disclaimer:
     "Información orientativa según los grupos oficiales de Bolivia. Los requisitos pueden cambiar.",
-  officialLinkLabel: "Ver fuente oficial",
   groupsExplain: [
     {
       label: "Grupo I",
@@ -116,7 +114,6 @@ const en: VisaCheckerCopy = {
   submitLabel: "Check requirement",
   disclaimer:
     "Guidance based on Bolivia's official visa groups. Requirements can change.",
-  officialLinkLabel: "View official source",
   groupsExplain: [
     {
       label: "Group I",

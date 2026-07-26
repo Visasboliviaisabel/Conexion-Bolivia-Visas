@@ -20,7 +20,7 @@ const t = getTranslations(locale);
 const reviews = reviewsData as GoogleReviewsData;
 ---
 
-<I18nLayout locale={locale} page="home">
+<I18nLayout locale={locale} page="home" faqSchema={t.home.faqs}>
   <section class="hero">
     <div class="container">
       <p class="eyebrow">{t.home.eyebrow}</p>
@@ -64,10 +64,6 @@ const reviews = reviewsData as GoogleReviewsData;
       <div>
         <h2>{t.home.salarTitle}</h2>
         <p>{t.home.salarText}</p>
-        <div class="card faq-item">
-          <h3>{t.home.faqQuestion}</h3>
-          <p>{t.home.faqAnswer}</p>
-        </div>
         <p style="margin-top: 1rem;">
           <a class="button button-secondary" href={localePath(locale, "guide")}>{t.nav.guide} →</a>
           {" "}
@@ -105,6 +101,21 @@ const reviews = reviewsData as GoogleReviewsData;
         />
         <a class="button button-secondary" href={localePath(locale, "services")}>{t.nav.services}</a>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <h2>{t.home.faqTitle}</h2>
+      {t.home.faqs.map((faq) => (
+        <div class="card faq-item">
+          <h3>{faq.q}</h3>
+          <p>{faq.a}</p>
+        </div>
+      ))}
+      <p style="margin-top: 1.25rem;">
+        <a class="button button-secondary" href={localePath(locale, "guide")}>{t.nav.guide} →</a>
+      </p>
     </div>
   </section>
 

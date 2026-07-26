@@ -8,7 +8,6 @@ export const zhVisaChecker: VisaCheckerCopy = {
   noResultsLabel: "未找到该国家/地区。请尝试其他搜索或通过 WhatsApp 联系我们。",
   submitLabel: "查询签证要求",
   disclaimer: "信息基于玻利维亚官方签证分组，仅供参考。要求可能会有变化。",
-  officialLinkLabel: "查看官方来源",
   groupsExplain: [
     { label: "第一组", text: "无需签证。持有效护照或证件即可入境。" },
     { label: "第二组", text: "入境玻利维亚前需要旅游签证。" },
@@ -51,7 +50,6 @@ export const zhTwVisaChecker: VisaCheckerCopy = {
   noResultsLabel: "未找到該國家/地區。請嘗試其他搜尋或透過 WhatsApp 聯絡我們。",
   submitLabel: "查詢簽證要求",
   disclaimer: "資訊基於玻利維亞官方簽證分組，僅供參考。要求可能會有變化。",
-  officialLinkLabel: "查看官方來源",
   groupsExplain: [
     { label: "第一組", text: "無需簽證。持有效護照或證件即可入境。" },
     { label: "第二組", text: "入境玻利維亞前需要旅遊簽證。" },
@@ -93,7 +91,6 @@ export const arVisaChecker: VisaCheckerCopy = {
   noResultsLabel: "لم يتم العثور على البلد. جرّب بحثاً آخر أو راسلنا على واتساب.",
   submitLabel: "التحقق من المتطلب",
   disclaimer: "معلومات استرشادية وفق المجموعات الرسمية لبوليفيا. قد تتغير المتطلبات.",
-  officialLinkLabel: "عرض المصدر الرسمي",
   groupsExplain: [
     { label: "المجموعة I", text: "لا تأشيرة مطلوبة. يمكنك الدخول بجواز سفر أو وثيقة سارية." },
     { label: "المجموعة II", text: "تحتاج تأشيرة سياحية قبل دخول بوليفيا." },
@@ -135,7 +132,6 @@ export const heVisaChecker: VisaCheckerCopy = {
   noResultsLabel: "המדינה לא נמצאה. נסו חיפוש אחר או כתבו לנו ב-WhatsApp.",
   submitLabel: "בדיקת דרישה",
   disclaimer: "מידע כללי לפי קבוצות הוויזה הרשמיות של בוליביה. הדרישות עשויות להשתנות.",
-  officialLinkLabel: "למקור הרשמי",
   groupsExplain: [
     { label: "קבוצה I", text: "לא נדרשת ויזה. כניסה עם דרכון או מסמך תקף." },
     { label: "קבוצה II", text: "נדרשת ויזת תיירות לפני הכניסה לבוליביה." },
@@ -179,7 +175,6 @@ export const ptVisaChecker: VisaCheckerCopy = {
   submitLabel: "Verificar requisito",
   disclaimer:
     "Informação orientativa conforme os grupos oficiais da Bolívia. Os requisitos podem mudar.",
-  officialLinkLabel: "Ver fonte oficial",
   groupsExplain: [
     { label: "Grupo I", text: "Não precisa de visto. Entrada com passaporte ou documento válido." },
     { label: "Grupo II", text: "Precisa de visto de turismo antes de entrar na Bolívia." },
@@ -229,7 +224,6 @@ export const ruVisaChecker: VisaCheckerCopy = {
   submitLabel: "Проверить требование",
   disclaimer:
     "Информация основана на официальных группах виз Боливии. Требования могут меняться.",
-  officialLinkLabel: "Официальный источник",
   groupsExplain: [
     { label: "Группа I", text: "Виза не нужна. Въезд с действующим паспортом или документом." },
     { label: "Группа II", text: "Нужна туристическая виза до въезда в Боливию." },
@@ -277,7 +271,6 @@ export const idVisaChecker: VisaCheckerCopy = {
   submitLabel: "Periksa persyaratan",
   disclaimer:
     "Informasi berdasarkan grup visa resmi Bolivia. Persyaratan dapat berubah.",
-  officialLinkLabel: "Lihat sumber resmi",
   groupsExplain: [
     { label: "Grup I", text: "Tidak perlu visa. Masuk dengan paspor atau dokumen valid." },
     { label: "Grup II", text: "Perlu visa turis sebelum masuk Bolivia." },
@@ -325,7 +318,6 @@ export const ukVisaChecker: VisaCheckerCopy = {
   submitLabel: "Перевірити вимоги",
   disclaimer:
     "Інформація базується на офіційних візових групах Болівії. Вимоги можуть змінюватися.",
-  officialLinkLabel: "Офіційне джерело",
   groupsExplain: [
     { label: "Група I", text: "Віза не потрібна. В'їзд із дійсним паспортом або документом." },
     { label: "Група II", text: "Потрібна туристична віза перед в'їздом до Болівії." },
@@ -373,7 +365,6 @@ export const srVisaChecker: VisaCheckerCopy = {
   submitLabel: "Proveri uslov",
   disclaimer:
     "Informacije prema zvaničnim viznim grupama Bolivije. Uslovi se mogu promeniti.",
-  officialLinkLabel: "Zvanični izvor",
   groupsExplain: [
     { label: "Grupa I", text: "Viza nije potrebna. Ulazak važećim pasošem ili dokumentom." },
     { label: "Grupa II", text: "Potrebna turistička viza pre ulaska u Boliviju." },
@@ -421,7 +412,6 @@ export const hiVisaChecker: VisaCheckerCopy = {
   submitLabel: "आवश्यकता जाँचें",
   disclaimer:
     "जानकारी बोलीविया के आधिकारिक वीज़ा समूहों पर आधारित है। नियम बदल सकते हैं।",
-  officialLinkLabel: "आधिकारिक स्रोत देखें",
   groupsExplain: [
     { label: "समूह I", text: "वीज़ा की ज़रूरत नहीं। वैध पासपोर्ट या दस्तावेज़ से प्रवेश।" },
     { label: "समूह II", text: "बोलीविया में प्रवेश से पहले पर्यटन वीज़ा चाहिए।" },

@@ -9,6 +9,7 @@ import { chinaContactCopy, isChinaLocale } from "./china-translations";
 import type { ChinaContactCopy } from "./china-translations";
 import { heTranslations } from "./he-translations";
 import { hiTranslations } from "./hi-translations";
+import { homeFaqs } from "./home-faqs";
 import { reviewsCopy } from "./reviews-translations";
 import type { ReviewsCopy } from "./reviews-translations";
 
@@ -43,8 +44,7 @@ export type Translations = {
     salarText: string;
     salarImageAlt: string;
     faqTitle: string;
-    faqQuestion: string;
-    faqAnswer: string;
+    faqs: { q: string; a: string }[];
     servicesTitle: string;
     servicesSubtitle: string;
     serviceCards: { title: string; text: string }[];
@@ -101,20 +101,21 @@ export type Translations = {
 type BaseTranslations = Omit<Translations, "guide" | "tours" | "discover"> & {
   meta: Omit<Translations["meta"], "guide" | "tours">;
   nav: Omit<Translations["nav"], "guide" | "travelTipsTab" | "travelDiscoverTab">;
+  home: Omit<Translations["home"], "faqTitle" | "faqs">;
 };
 
 export const translations: Record<Locale, BaseTranslations> = {
   es: {
     meta: {
       home: {
-        title: "Visa para Bolivia en Cusco | Conexión Bolivia",
+        title: "Visa Bolivia en Cusco | ¿Necesitas visa? – Conexión Bolivia",
         description:
-          "Trámites rápidos de visa para Bolivia desde Cusco. Asesoría personalizada frente al consulado. Ideal para viajeros al Salar de Uyuni.",
+          "¿Necesitas visa para Bolivia? Trámites rápidos en Cusco frente al Consulado boliviano. Ideal para viajeros al Salar de Uyuni. Mismo día.",
       },
       services: {
-        title: "Servicios de Visa Bolivia | Conexión Bolivia Cusco",
+        title: "Visa Bolivia Cusco | Servicios y Asesoría – Conexión Bolivia",
         description:
-          "Asesoría en visas turísticas, trabajo y estudio para Bolivia. Servicio de delivery de documentos en Cusco.",
+          "¿Necesitas visa boliviana en Cusco? Asesoría en visas turísticas, trabajo y estudio. Oficina frente al consulado y delivery de documentos.",
       },
       contact: {
         title: "Contacto | Visa Bolivia Cusco – Conexión Bolivia",
@@ -128,7 +129,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       title: "Conexión Bolivia – Mara Isabel",
       subtitle: "Tu visa para Bolivia, rápida y segura",
       heroText:
-        "Gestiona tu visa para Bolivia de forma rápida y segura desde Cusco. Te guiamos paso a paso frente al consulado para que viajes sin errores ni demoras — ideal para quienes visitan el Salar de Uyuni y el sur de Bolivia.",
+        "¿Necesitas visa para Bolivia? Gestiona tu visa boliviana de forma rápida y segura desde Cusco. Te guiamos paso a paso frente al consulado para que viajes sin errores ni demoras — ideal para quienes visitan el Salar de Uyuni y el sur de Bolivia.",
       ctaWhatsapp: "Escríbenos por WhatsApp",
       ctaContact: "Enviar consulta",
       highlights: [
@@ -149,10 +150,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Miles de viajeros pasan por Cusco rumbo al Salar de Uyuni y el altiplano boliviano. Te ayudamos a obtener tu visa sin complicaciones para que disfrutes tu viaje.",
       salarImageAlt: "Mara Isabel en la entrada de la oficina Visas Bolivia",
-      faqTitle: "Pregunta frecuente",
-      faqQuestion: "¿Puedo gestionar la visa el mismo día?",
-      faqAnswer:
-        "Sí. Si vienes a nuestra oficina en Cusco con todos tus documentos, el trámite tarda aproximadamente 30 minutos. Si envías tus documentos con anticipación por correo o WhatsApp, recoger tu visa toma alrededor de 10 minutos.",
       servicesTitle: "Nuestros servicios",
       servicesSubtitle: "Asesoría experta para ingresar a Bolivia sin complicaciones",
       serviceCards: [
@@ -188,6 +185,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Preguntas frecuentes",
       faqs: [
+        { q: "¿Necesito visa boliviana?", a: "Depende de tu nacionalidad. Muchos viajeros sí la necesitan. Contáctanos por WhatsApp con tu pasaporte y te confirmamos en minutos, o usa el verificador en la página de inicio." },
+        { q: "¿Puedo tramitar la visa para Bolivia en Cusco?", a: "Sí. Nuestra oficina está frente al Consulado de Bolivia en Cusco. Es la opción más conveniente si vas al Salar de Uyuni." },
         { q: "¿Qué servicios ofrecen?", a: "Asistencia con visas para Bolivia, visas de trabajo y estudio, y servicio de entrega de documentos." },
         { q: "¿Dónde están ubicados?", a: "Frente al Consulado de Bolivia en Cusco, Clorinda Matto de Turner 308." },
         { q: "¿Cuánto demora el proceso?", a: "Puede completarse el mismo día. Con documentos enviados antes, la recogida toma unos 10 minutos." },
@@ -226,14 +225,14 @@ export const translations: Record<Locale, BaseTranslations> = {
   en: {
     meta: {
       home: {
-        title: "Bolivia Visa in Cusco | Conexión Bolivia",
+        title: "Bolivia Visa in Cusco | Do I Need a Bolivian Visa? – Conexión Bolivia",
         description:
-          "Fast Bolivia visa processing from Cusco, Peru. Expert guidance in front of the consulate. Perfect for Salar de Uyuni travelers.",
+          "Do you need a Bolivian visa? Fast same-day Bolivia visa help in Cusco, Peru, opposite the consulate. Perfect for Salar de Uyuni travelers.",
       },
       services: {
-        title: "Bolivia Visa Services | Conexión Bolivia Cusco",
+        title: "Bolivia Visa Cusco Services | Tourist, Work & Student – Conexión Bolivia",
         description:
-          "Tourist, work, and student visa assistance for Bolivia. Document delivery service in Cusco.",
+          "Need a Bolivia visa in Cusco? Tourist, work, and student visa assistance opposite the Bolivian Consulate, plus document delivery.",
       },
       contact: {
         title: "Contact | Bolivia Visa Cusco – Conexión Bolivia",
@@ -247,7 +246,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       title: "Conexión Bolivia – Mara Isabel",
       subtitle: "Your Bolivia visa — fast and secure",
       heroText:
-        "Get your Bolivia visa quickly and safely from Cusco. We guide you step by step at the consulate so you travel without errors or delays — ideal for travelers heading to the Salar de Uyuni and southern Bolivia.",
+        "Do you need a Bolivian visa? Get your Bolivia visa quickly and safely from Cusco. We guide you step by step at the consulate so you travel without errors or delays — ideal for travelers heading to the Salar de Uyuni and southern Bolivia.",
       ctaWhatsapp: "Message us on WhatsApp",
       ctaContact: "Send inquiry",
       highlights: [
@@ -268,10 +267,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Thousands of travelers pass through Cusco on their way to the Salar de Uyuni and the Bolivian altiplano. We help you get your visa hassle-free so you can enjoy your trip.",
       salarImageAlt: "Mara Isabel welcoming travelers at the Visas Bolivia office entrance",
-      faqTitle: "Frequently asked",
-      faqQuestion: "Can I get my visa the same day?",
-      faqAnswer:
-        "Yes. If you come to our Cusco office with all documents, processing takes about 30 minutes. If you send documents in advance via email or WhatsApp, picking up your visa takes around 10 minutes.",
       servicesTitle: "Our services",
       servicesSubtitle: "Expert guidance for entering Bolivia without complications",
       serviceCards: [
@@ -307,6 +302,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Frequently asked questions",
       faqs: [
+        { q: "Do I need a Bolivian visa?", a: "It depends on your nationality. Many travelers do. Message us on WhatsApp with your passport details and we’ll confirm within minutes, or use the visa checker on the homepage." },
+        { q: "Can I get a Bolivia visa in Cusco?", a: "Yes. Our office is opposite the Bolivian Consulate in Cusco — the most convenient option if you’re heading to Salar de Uyuni." },
         { q: "What services do you offer?", a: "Bolivia visa assistance, work and student visas, and document delivery." },
         { q: "Where are you located?", a: "In front of the Bolivian Consulate in Cusco, Clorinda Matto de Turner 308." },
         { q: "How long does it take?", a: "Same-day processing is possible. With documents sent ahead, pickup takes about 10 minutes." },
@@ -345,12 +342,12 @@ export const translations: Record<Locale, BaseTranslations> = {
   zh: {
     meta: {
       home: {
-        title: "库斯科玻利维亚签证 | Conexión Bolivia",
-        description: "在秘鲁库斯科快速办理玻利维亚签证。领事馆对面，专业指导。乌尤尼盐沼旅行者首选。",
+        title: "库斯科玻利维亚签证 | 去玻利维亚需要签证吗？– Conexión Bolivia",
+        description: "去玻利维亚需要签证吗？在秘鲁库斯科领事馆对面快速办理。乌尤尼盐沼旅行者首选，可当天办理。",
       },
       services: {
-        title: "玻利维亚签证服务 | Conexión Bolivia 库斯科",
-        description: "旅游、工作和学生签证咨询。库斯科文件递送服务。",
+        title: "库斯科玻利维亚签证服务 | Conexión Bolivia",
+        description: "在库斯科办理玻利维亚旅游、工作和学生签证。领事馆对面，支持文件递送。",
       },
       contact: {
         title: "联系我们 | 库斯科玻利维亚签证",
@@ -379,10 +376,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "要去乌尤尼盐沼吗？",
       salarText: "数千名旅行者途经库斯科前往乌尤尼盐沼。我们帮您轻松获得签证，尽情享受旅程。",
       salarImageAlt: "Mara Isabel 在 Visas Bolivia 办公室门口",
-      faqTitle: "常见问题",
-      faqQuestion: "可以当天办理签证吗？",
-      faqAnswer:
-        "可以。如果您携带所有文件来到库斯科办公室，大约需要30分钟。如果提前通过邮件或微信发送文件，领取签证约需10分钟。",
       servicesTitle: "我们的服务",
       servicesSubtitle: "专业签证咨询，轻松进入玻利维亚",
       serviceCards: [
@@ -417,6 +410,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "常见问题",
       faqs: [
+        { q: "去玻利维亚需要签证吗？", a: "取决于您的国籍。许多旅行者需要签证。通过微信联系我们，几分钟内即可确认，或使用首页签证查询工具。" },
+        { q: "可以在库斯科办理玻利维亚签证吗？", a: "可以。办公室位于库斯科玻利维亚领事馆对面，前往乌尤尼盐沼最方便。" },
         { q: "提供哪些服务？", a: "玻利维亚签证协助、工作和学生签证、文件递送服务。" },
         { q: "办公室在哪里？", a: "库斯科玻利维亚领事馆对面，Clorinda Matto de Turner 308。" },
         { q: "需要多长时间？", a: "可当天办理。提前发送文件后，领取约需10分钟。" },
@@ -452,12 +447,12 @@ export const translations: Record<Locale, BaseTranslations> = {
   "zh-tw": {
     meta: {
       home: {
-        title: "庫斯科玻利維亞簽證 | Conexión Bolivia",
-        description: "在秘魯庫斯科快速辦理玻利維亞簽證。領事館對面，專業指導。烏尤尼鹽沼旅行者首選。",
+        title: "庫斯科玻利維亞簽證 | 去玻利維亞需要簽證嗎？– Conexión Bolivia",
+        description: "去玻利維亞需要簽證嗎？在秘魯庫斯科領事館對面快速辦理。烏尤尼鹽沼旅行者首選，可當天辦理。",
       },
       services: {
-        title: "玻利維亞簽證服務 | Conexión Bolivia 庫斯科",
-        description: "旅遊、工作和學生簽證諮詢。庫斯科文件遞送服務。",
+        title: "庫斯科玻利維亞簽證服務 | Conexión Bolivia",
+        description: "在庫斯科辦理玻利維亞旅遊、工作和學生簽證。領事館對面，支援文件遞送。",
       },
       contact: {
         title: "聯絡我們 | 庫斯科玻利維亞簽證",
@@ -486,10 +481,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "要去烏尤尼鹽沼嗎？",
       salarText: "數千名旅行者途經庫斯科前往烏尤尼鹽沼。我們幫您輕鬆獲得簽證，盡情享受旅程。",
       salarImageAlt: "Mara Isabel 在 Visas Bolivia 辦公室門口",
-      faqTitle: "常見問題",
-      faqQuestion: "可以當天辦理簽證嗎？",
-      faqAnswer:
-        "可以。如果您攜帶所有文件來到庫斯科辦公室，大約需要30分鐘。如果提前透過郵件或微信發送文件，領取簽證約需10分鐘。",
       servicesTitle: "我們的服務",
       servicesSubtitle: "專業簽證諮詢，輕鬆進入玻利維亞",
       serviceCards: [
@@ -524,6 +515,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "常見問題",
       faqs: [
+        { q: "去玻利維亞需要簽證嗎？", a: "取決於您的國籍。許多旅行者需要簽證。透過微信聯絡我們，幾分鐘內即可確認，或使用首頁簽證查詢工具。" },
+        { q: "可以在庫斯科辦理玻利維亞簽證嗎？", a: "可以。辦公室位於庫斯科玻利維亞領事館對面，前往烏尤尼鹽沼最方便。" },
         { q: "提供哪些服務？", a: "玻利維亞簽證協助、工作和學生簽證、文件遞送服務。" },
         { q: "辦公室在哪裡？", a: "庫斯科玻利維亞領事館對面，Clorinda Matto de Turner 308。" },
         { q: "需要多長時間？", a: "可當天辦理。提前發送文件後，領取約需10分鐘。" },
@@ -559,12 +552,12 @@ export const translations: Record<Locale, BaseTranslations> = {
   ar: {
     meta: {
       home: {
-        title: "تأشيرة بوليفيا في كوسكو | Conexión Bolivia",
-        description: "معالجة سريعة لتأشيرة بوليفيا من كوسكو، بيرو. إرشاد خبير أمام القنصلية. مثالي لمسافري سالار دي أيويوني.",
+        title: "تأشيرة بوليفيا في كوسكو | هل أحتاج تأشيرة؟ – Conexión Bolivia",
+        description: "هل تحتاج تأشيرة بوليفية؟ معالجة سريعة في كوسكو أمام القنصلية. مثالي لمسافري سالار دي أيويوني في نفس اليوم.",
       },
       services: {
-        title: "خدمات تأشيرة بوليفيا | Conexión Bolivia كوسكو",
-        description: "مساعدة في تأشيرات السياحة والعمل والدراسة. خدمة توصيل المستندات في كوسكو.",
+        title: "خدمات تأشيرة بوليفيا كوسكو | Conexión Bolivia",
+        description: "هل تحتاج تأشيرة بوليفيا في كوسكو؟ مساعدة سياحية وعمل ودراسة أمام القنصلية مع توصيل المستندات.",
       },
       contact: {
         title: "اتصل بنا | تأشيرة بوليفيا كوسكو",
@@ -593,10 +586,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "هل أنت متجه إلى سالار دي أيويوني؟",
       salarText: "يمر آلاف المسافرين عبر كوسكو في طريقهم إلى سالار دي أيويوني. نساعدك في الحصول على تأشيرتك بسهولة.",
       salarImageAlt: "Mara Isabel عند مدخل مكتب Visas Bolivia",
-      faqTitle: "سؤال شائع",
-      faqQuestion: "هل يمكنني الحصول على التأشيرة في نفس اليوم؟",
-      faqAnswer:
-        "نعم. إذا أتيت إلى مكتبنا في كوسكو بجميع المستندات، تستغرق المعالجة حوالي 30 دقيقة. إذا أرسلت المستندات مسبقاً عبر البريد أو واتساب، يستغرق الاستلام حوالي 10 دقائق.",
       servicesTitle: "خدماتنا",
       servicesSubtitle: "إرشاد خبير لدخول بوليفيا دون تعقيدات",
       serviceCards: [
@@ -631,6 +620,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "الأسئلة الشائعة",
       faqs: [
+        { q: "هل أحتاج تأشيرة بوليفية؟", a: "يعتمد على جنسيتك. كثير من المسافرين يحتاجونها. راسلنا على واتساب للتأكيد خلال دقائق، أو استخدم أداة التحقق في الصفحة الرئيسية." },
+        { q: "هل يمكنني الحصول على تأشيرة بوليفيا في كوسكو؟", a: "نعم. مكتبنا أمام قنصلية بوليفيا في كوسكو — الأنسب إذا كنت متجهاً إلى سالار دي أيويوني." },
         { q: "ما الخدمات التي تقدمونها؟", a: "مساعدة تأشيرة بوليفيا، تأشيرات العمل والدراسة، وتوصيل المستندات." },
         { q: "أين موقعكم؟", a: "أمام قنصلية بوليفيا في كوسكو، Clorinda Matto de Turner 308." },
         { q: "كم يستغرق الأمر؟", a: "يمكن الإنجاز في نفس اليوم. مع إرسال المستندات مسبقاً، الاستلام يستغرق 10 دقائق." },
@@ -666,13 +657,13 @@ export const translations: Record<Locale, BaseTranslations> = {
   pt: {
     meta: {
       home: {
-        title: "Visto para Bolívia em Cusco | Conexión Bolivia",
+        title: "Visto Bolívia em Cusco | Precisa de visto? – Conexión Bolivia",
         description:
-          "Processamento rápido de visto para a Bolívia a partir de Cusco, Peru. Orientação especializada em frente ao consulado. Ideal para viajantes do Salar de Uyuni.",
+          "Precisa de visto para a Bolívia? Processamento rápido em Cusco em frente ao consulado. Ideal para o Salar de Uyuni. No mesmo dia.",
       },
       services: {
-        title: "Serviços de Visto Bolívia | Conexión Bolivia Cusco",
-        description: "Assistência para vistos turísticos, trabalho e estudo. Serviço de entrega de documentos em Cusco.",
+        title: "Visto Bolívia Cusco | Serviços – Conexión Bolivia",
+        description: "Precisa de visto boliviano em Cusco? Assistência para vistos turísticos, trabalho e estudo em frente ao consulado.",
       },
       contact: {
         title: "Contato | Visto Bolívia Cusco – Conexión Bolivia",
@@ -706,10 +697,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Milhares de viajantes passam por Cusco a caminho do Salar de Uyuni. Ajudamos você a obter seu visto sem complicações.",
       salarImageAlt: "Mara Isabel na entrada do escritório Visas Bolivia",
-      faqTitle: "Pergunta frequente",
-      faqQuestion: "Posso obter o visto no mesmo dia?",
-      faqAnswer:
-        "Sim. Se vier ao nosso escritório em Cusco com todos os documentos, o processo leva cerca de 30 minutos. Se enviar os documentos antecipadamente por e-mail ou WhatsApp, a retirada leva cerca de 10 minutos.",
       servicesTitle: "Nossos serviços",
       servicesSubtitle: "Orientação especializada para entrar na Bolívia sem complicações",
       serviceCards: [
@@ -745,6 +732,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Perguntas frequentes",
       faqs: [
+        { q: "Preciso de visto boliviano?", a: "Depende da sua nacionalidade. Muitos viajantes precisam. Fale conosco no WhatsApp com seu passaporte e confirmamos em minutos, ou use o verificador na página inicial." },
+        { q: "Posso obter visto da Bolívia em Cusco?", a: "Sim. Nosso escritório fica em frente ao Consulado da Bolívia em Cusco — a opção mais conveniente para o Salar de Uyuni." },
         { q: "Quais serviços vocês oferecem?", a: "Assistência com vistos para a Bolívia, vistos de trabalho e estudo, e entrega de documentos." },
         { q: "Onde vocês estão?", a: "Em frente ao Consulado da Bolívia em Cusco, Clorinda Matto de Turner 308." },
         { q: "Quanto tempo demora?", a: "Pode ser concluído no mesmo dia. Com documentos enviados antes, a retirada leva cerca de 10 minutos." },
@@ -780,13 +769,13 @@ export const translations: Record<Locale, BaseTranslations> = {
   ru: {
     meta: {
       home: {
-        title: "Виза в Боливию в Куско | Conexión Bolivia",
+        title: "Виза в Боливию в Куско | Нужна ли виза? – Conexión Bolivia",
         description:
-          "Быстрое оформление визы в Боливию из Куско, Перу. Экспертная помощь напротив консульства. Идеально для путешественников на Салар-де-Уюни.",
+          "Нужна ли виза в Боливию? Быстрое оформление в Куско напротив консульства. Идеально для Салар-де-Уюни. В тот же день.",
       },
       services: {
-        title: "Услуги по визе в Боливию | Conexión Bolivia Куско",
-        description: "Помощь с туристическими, рабочими и студенческими визами. Доставка документов в Куско.",
+        title: "Виза в Боливию Куско | Услуги – Conexión Bolivia",
+        description: "Нужна виза в Боливию в Куско? Помощь с туристическими, рабочими и студенческими визами напротив консульства.",
       },
       contact: {
         title: "Контакты | Виза в Боливию Куско",
@@ -820,10 +809,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Тысячи путешественников проезжают через Куско к Салар-де-Уюни. Мы поможем получить визу без лишних сложностей.",
       salarImageAlt: "Mara Isabel у входа в офис Visas Bolivia",
-      faqTitle: "Частый вопрос",
-      faqQuestion: "Можно ли получить визу в тот же день?",
-      faqAnswer:
-        "Да. Если прийти в наш офис в Куско со всеми документами, оформление занимает около 30 минут. Если отправить документы заранее по email или WhatsApp, получение визы занимает около 10 минут.",
       servicesTitle: "Наши услуги",
       servicesSubtitle: "Экспертная помощь для въезда в Боливию без осложнений",
       serviceCards: [
@@ -859,6 +844,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Часто задаваемые вопросы",
       faqs: [
+        { q: "Нужна ли боливийская виза?", a: "Зависит от гражданства. Многим путешественникам нужна. Напишите в WhatsApp с данными паспорта — подтвердим за минуты, или используйте проверку на главной." },
+        { q: "Можно ли получить визу в Боливию в Куско?", a: "Да. Наш офис напротив консульства Боливии в Куско — самый удобный вариант для поездки на Салар-де-Уюни." },
         { q: "Какие услуги вы предлагаете?", a: "Помощь с визой в Боливию, рабочие и студенческие визы, доставка документов." },
         { q: "Где вы находитесь?", a: "Напротив консульства Боливии в Куско, Clorinda Matto de Turner 308." },
         { q: "Сколько времени занимает?", a: "Можно оформить в тот же день. При предварительной отправке документов получение занимает около 10 минут." },
@@ -894,14 +881,14 @@ export const translations: Record<Locale, BaseTranslations> = {
   id: {
     meta: {
       home: {
-        title: "Visa Bolivia Cusco | Syarat & Proses Cepat – Conexión Bolivia",
+        title: "Visa Bolivia di Cusco | Apakah Perlu Visa? – Conexión Bolivia",
         description:
-          "Urus visa Bolivia di Cusco, Peru dengan cepat dan aman. Kantor di depan konsulat Bolivia. Ideal untuk wisatawan ke Salar de Uyuni.",
+          "Apakah perlu visa Bolivia? Urus cepat di Cusco di depan konsulat. Ideal ke Salar de Uyuni. Bisa hari yang sama.",
       },
       services: {
         title: "Layanan Visa Bolivia Cusco | Conexión Bolivia",
         description:
-          "Bantuan visa turis, kerja, dan studi ke Bolivia. Layanan pengiriman dokumen di Cusco, Peru.",
+          "Butuh visa Bolivia di Cusco? Bantuan visa turis, kerja, dan studi di depan konsulat, plus pengiriman dokumen.",
       },
       contact: {
         title: "Kontak Visa Bolivia Cusco | Conexión Bolivia",
@@ -936,10 +923,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Ribuan wisatawan melalui Cusco menuju Salar de Uyuni dan dataran tinggi Bolivia. Kami bantu Anda mendapatkan visa tanpa repot agar perjalanan lebih menyenangkan.",
       salarImageAlt: "Mara Isabel di pintu masuk kantor Visas Bolivia",
-      faqTitle: "Pertanyaan umum",
-      faqQuestion: "Bisakah visa diproses di hari yang sama?",
-      faqAnswer:
-        "Ya. Jika Anda datang ke kantor kami di Cusco dengan semua dokumen, prosesnya sekitar 30 menit. Jika dokumen dikirim terlebih dahulu via email atau WhatsApp, pengambilan visa hanya sekitar 10 menit.",
       servicesTitle: "Layanan kami",
       servicesSubtitle: "Panduan ahli untuk masuk Bolivia tanpa kendala",
       serviceCards: [
@@ -975,6 +958,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Pertanyaan yang sering diajukan",
       faqs: [
+        { q: "Apakah saya perlu visa Bolivia?", a: "Tergantung kewarganegaraan. Banyak wisatawan membutuhkannya. Hubungi kami via WhatsApp, konfirmasi dalam hitungan menit, atau gunakan pengecek di beranda." },
+        { q: "Bisakah mengurus visa Bolivia di Cusco?", a: "Ya. Kantor kami di depan Konsulat Bolivia di Cusco — pilihan paling praktis ke Salar de Uyuni." },
         { q: "Layanan apa yang tersedia?", a: "Bantuan visa Bolivia, visa kerja dan studi, serta pengiriman dokumen." },
         { q: "Di mana lokasi kantor?", a: "Di depan Konsulat Bolivia di Cusco, Clorinda Matto de Turner 308." },
         { q: "Berapa lama prosesnya?", a: "Bisa selesai di hari yang sama. Jika dokumen dikirim terlebih dahulu, pengambilan sekitar 10 menit." },
@@ -1013,14 +998,14 @@ export const translations: Record<Locale, BaseTranslations> = {
   uk: {
     meta: {
       home: {
-        title: "Віза Болівія Куско | Швидке оформлення – Conexión Bolivia",
+        title: "Віза в Болівію в Куско | Чи потрібна віза? – Conexión Bolivia",
         description:
-          "Швидке оформлення візи в Болівію з Куско, Перу. Експертна допомога навпроти консульства. Ідеально для мандрівників на Салар-де-Уюні.",
+          "Чи потрібна віза в Болівію? Швидке оформлення в Куско навпроти консульства. Ідеально для Салар-де-Уюні. Того ж дня.",
       },
       services: {
-        title: "Послуги з візи в Болівію Куско | Conexión Bolivia",
+        title: "Віза в Болівію Куско | Послуги – Conexión Bolivia",
         description:
-          "Допомога з туристичними, робочими та студентськими візами. Доставка документів у Куско, Перу.",
+          "Потрібна віза в Болівію в Куско? Допомога з туристичними, робочими та студентськими візами навпроти консульства.",
       },
       contact: {
         title: "Контакти | Віза Болівія Куско – Conexión Bolivia",
@@ -1055,10 +1040,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Тисячі мандрівників проїжджають через Куско до Салар-де-Уюні та болівійського нагір'я. Ми допоможемо отримати візу без зайвих складнощів.",
       salarImageAlt: "Mara Isabel біля входу в офіс Visas Bolivia",
-      faqTitle: "Поширене запитання",
-      faqQuestion: "Чи можна отримати візу в той самий день?",
-      faqAnswer:
-        "Так. Якщо прийти до нашого офісу в Куско з усіма документами, оформлення займає близько 30 хвилин. Якщо надіслати документи заздалегідь електронною поштою або WhatsApp, отримання візи займає близько 10 хвилин.",
       servicesTitle: "Наші послуги",
       servicesSubtitle: "Експертна допомога для в'їзду в Болівію без ускладнень",
       serviceCards: [
@@ -1094,6 +1075,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Часті запитання",
       faqs: [
+        { q: "Чи потрібна болівійська віза?", a: "Залежить від громадянства. Багатьом мандрівникам потрібна. Напишіть у WhatsApp з даними паспорта — підтвердимо за хвилини, або скористайтеся перевіркою на головній." },
+        { q: "Чи можна оформити візу в Болівію в Куско?", a: "Так. Наш офіс навпроти консульства Болівії в Куско — найзручніший варіант для Салар-де-Уюні." },
         { q: "Які послуги ви надаєте?", a: "Допомога з візою в Болівію, робочі та студентські візи, доставка документів." },
         { q: "Де ви знаходитесь?", a: "Навпроти консульства Болівії в Куско, Clorinda Matto de Turner 308." },
         { q: "Скільки часу займає оформлення?", a: "Можна оформити в той самий день. При попередній відправці документів отримання займає близько 10 хвилин." },
@@ -1132,14 +1115,14 @@ export const translations: Record<Locale, BaseTranslations> = {
   sr: {
     meta: {
       home: {
-        title: "Viza Bolivija Kusko | Brza i sigurna – Conexión Bolivia",
+        title: "Viza Bolivija u Kusku | Da li mi treba viza? – Conexión Bolivia",
         description:
-          "Brzo rešavanje vize za Boliviju iz Kuska, Peru. Stručna pomoć ispred konzulata. Idealno za putnike ka Salar de Uyuni.",
+          "Da li vam treba viza za Boliviju? Brza obrada u Kusku ispred konzulata. Idealno za Salar de Uyuni. Istog dana.",
       },
       services: {
         title: "Usluge vize Bolivija Kusko | Conexión Bolivia",
         description:
-          "Pomoć sa turističkim, radnim i studentskim vizama za Boliviju. Dostava dokumenata u Kusku, Peru.",
+          "Treba vam viza za Boliviju u Kusku? Pomoć sa turističkim, radnim i studentskim vizama ispred konzulata.",
       },
       contact: {
         title: "Kontakt | Viza Bolivija Kusko – Conexión Bolivia",
@@ -1174,10 +1157,6 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarText:
         "Hiljade putnika prolazi kroz Kusko na putu ka Salar de Uyuni i bolivijskom visoravni. Pomažemo vam da dobijete vizu bez komplikacija.",
       salarImageAlt: "Mara Isabel na ulazu u kancelariju Visas Bolivia",
-      faqTitle: "Često pitanje",
-      faqQuestion: "Mogu li dobiti vizu istog dana?",
-      faqAnswer:
-        "Da. Ako dođete u našu kancelariju u Kusku sa svim dokumentima, proces traje oko 30 minuta. Ako pošaljete dokumenta unapred putem emaila ili WhatsApp-a, preuzimanje vize traje oko 10 minuta.",
       servicesTitle: "Naše usluge",
       servicesSubtitle: "Stručna pomoć za ulazak u Boliviju bez komplikacija",
       serviceCards: [
@@ -1213,6 +1192,8 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       faqTitle: "Često postavljana pitanja",
       faqs: [
+        { q: "Da li mi treba bolivijska viza?", a: "Zavisi od državljanstva. Mnogim putnicima treba. Pišite na WhatsApp sa pasošem — potvrda za nekoliko minuta, ili koristite proveru na početnoj." },
+        { q: "Mogu li dobiti vizu Bolivije u Kusku?", a: "Da. Naša kancelarija je ispred konzulata Bolivije u Kusku — najpraktičnija opcija za Salar de Uyuni." },
         { q: "Koje usluge nudite?", a: "Pomoć sa vizom za Boliviju, radne i studentske vize, i dostava dokumenata." },
         { q: "Gde se nalazite?", a: "Ispred konzulata Bolivije u Kusku, Clorinda Matto de Turner 308." },
         { q: "Koliko traje proces?", a: "Moguće je istog dana. Sa unapred poslatim dokumentima, preuzimanje traje oko 10 minuta." },
@@ -1265,6 +1246,7 @@ export function getTranslations(locale: Locale): Translations {
       travelTipsTab: travelTipsTab[locale],
       travelDiscoverTab: discoverNav[locale],
     },
+    home: { ...base.home, ...homeFaqs[locale] },
     guide: guideContent[locale],
     tours: toursContent[locale],
     discover: discoverContent[locale],
