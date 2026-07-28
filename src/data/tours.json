@@ -1,0 +1,85 @@
+{
+  "syncedAt": "2026-07-28T23:10:48.487Z",
+  "tours": [
+    {
+      "id": "bolivia-1-salar-de-uyuni",
+      "region": "bolivia",
+      "active": true,
+      "order": 1,
+      "title": {
+        "es": "Salar de Uyuni",
+        "en": "Salar de Uyuni"
+      },
+      "duration": {
+        "es": "",
+        "en": ""
+      },
+      "description": {
+        "es": "Tour por el Salar de Uyuni, el espejo del cielo.",
+        "en": "One-day tour of the Uyuni Salt Flats, the mirror of the sky."
+      },
+      "price": null,
+      "image": "/images/bolivia-tours.jpg"
+    },
+    {
+      "id": "bolivia-3-lago-titicaca-copacabana",
+      "region": "bolivia",
+      "active": true,
+      "order": 3,
+      "title": {
+        "es": "Lago Titicaca / Copacabana",
+        "en": "Lake Titicaca / Copacabana"
+      },
+      "duration": {
+        "es": "",
+        "en": ""
+      },
+      "description": {
+        "es": "Copacabana e islas del Lago Titicaca, el lago navegable más alto del mundo.",
+        "en": "Copacabana and Lake Titicaca islands, the world's highest navigable lake."
+      },
+      "price": null,
+      "image": null
+    },
+    {
+      "id": "cusco-1-montana-de-colores",
+      "region": "cusco",
+      "active": true,
+      "order": 1,
+      "title": {
+        "es": "Montaña de Colores",
+        "en": "Rainbow Mountain"
+      },
+      "duration": {
+        "es": "1 día",
+        "en": "1 day"
+      },
+      "description": {
+        "es": "Excursión de un día a la Montaña de Colores (Vinicunca).",
+        "en": "Excursión de un día a la Montaña de Colores (Vinicunca)."
+      },
+      "price": null,
+      "image": "https://i.postimg.cc/xTVkFW9N/Rainbow-Mountain.jpg"
+    },
+    {
+      "id": "cusco-2-machu-picchu",
+      "region": "cusco",
+      "active": true,
+      "order": 2,
+      "title": {
+        "es": "Machu Picchu",
+        "en": "Machu Picchu"
+      },
+      "duration": {
+        "es": "1-2 día",
+        "en": "1-2 days"
+      },
+      "description": {
+        "es": "Visita a la ciudadela inca. Pregunta a Isabel por opciones",
+        "en": "Visit the Incan cityAsk Isabel about options"
+      },
+      "price": null,
+      "image": "https://i.postimg.cc/brh66pL2/Macchu-Picchu.jpg"
+    }
+  ]
+}

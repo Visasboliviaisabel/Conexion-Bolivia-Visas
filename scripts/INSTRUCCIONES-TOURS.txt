@@ -1,0 +1,122 @@
+TOURS CUSCO Y BOLIVIA — GUÍA PARA MARA ISABEL
+=============================================
+
+Esta hoja controla los tours que aparecen en la página de Viajes:
+  visasboliviaconexion.com  →  menú Viajes / Travel
+
+Los clientes que NO necesitan visa llegan aquí para reservar tours
+contigo (Isabel) por WhatsApp.
+
+
+COLUMNAS DE LA HOJA (en español)
+--------------------------------
+region          → En qué tarjeta aparece el tour
+                  Solo dos valores: cusco  o  bolivia
+                  (sin mayúsculas raras: escribe exactamente cusco / bolivia)
+
+activo          → si  = se muestra en el sitio
+                  no  = se oculta (sin borrar la fila)
+
+orden           → Número para ordenar dentro de cada tarjeta
+                  (1 arriba, 2 después, etc.)
+
+titulo_es       → Nombre del tour en español
+titulo_en       → Nombre del tour en inglés (recomendado)
+
+duracion_es     → Ej: "1 día", "3 días / 2 noches"
+duracion_en     → Lo mismo en inglés
+
+descripcion_es  → Texto corto que ve el cliente
+descripcion_en  → Lo mismo en inglés
+
+precio          → Opcional. Ej: "Desde $80" o "USD 120"
+                  Si lo dejas vacío, el precio no aparece (el cliente pregunta)
+
+imagen          → Opcional. Foto del tour.
+                  Usa una ruta del sitio, por ejemplo:
+                    /images/cusco-tours.jpg
+                    /images/bolivia-tours.jpg
+                    /images/salar-mirror.png
+                  O una URL pública que empiece con https://
+                  Si lo dejas vacío, ese tour se muestra sin foto
+                  (está bien — el diseño sigue viéndose limpio)
+
+Importante sobre fotos:
+  • No uses enlaces de Google Drive (no funcionan como imagen).
+  • Si quieres una foto nueva, envíasela a Braylen para subirla
+    a /images/ y te da la ruta exacta para pegar en la hoja.
+
+
+LO QUE TÚ HACES EN EL DÍA A DÍA
+-------------------------------
+AGREGAR un tour:
+  1. Agrega una fila nueva al final
+  2. Llena region (cusco o bolivia), activo=si, orden, títulos y descripciones
+  3. Listo — Google guarda solo
+
+OCULTAR un tour (sin borrarlo):
+  1. Cambia activo a "no"
+
+QUITAR un tour:
+  1. Borra la fila completa
+
+MOVER de Cusco a Bolivia (o al revés):
+  1. Cambia la columna region a cusco o bolivia
+
+CAMBIAR el orden:
+  1. Cambia los números en la columna orden
+
+
+IMPORTANTE
+----------
+• region solo acepta: cusco  o  bolivia
+  Si escribes otra cosa, ese tour NO aparece en el sitio.
+• No hace falta límite de tours: agrega o quita los que necesites.
+• El inglés (titulo_en, etc.) ayuda a clientes internacionales.
+  Si falta el inglés, el sitio usa el español.
+
+
+PRIMERA VEZ — UN SOLO DOCUMENTO, VARIAS PESTAÑAS (recomendado)
+-------------------------------------------------------------
+  Pestaña 1: "Tours"          → la lista que lee el sitio web
+  Pestaña 2: "Instrucciones"  → esta guía (no la lee el sitio)
+
+IMPORTANTE: solo la pestaña "Tours" se publica en CSV.
+
+
+PASO A PASO (Braylen + Isabel)
+-----------------------------
+1. Abre https://sheets.new
+
+2. Pestaña "Tours":
+   - Renombrar la pestaña → "Tours"
+   - Archivo → Importar → Subir tours-sheet-template.csv
+   - Import location: "Replace current sheet" / "Reemplazar hoja actual"
+   - Separator: Comma
+
+3. Nueva pestaña "Instrucciones":
+   - Clic en "+" → Renombrar → "Instrucciones"
+   - Pegar este texto
+
+4. Compartir el documento con Isabel como Editor
+
+5. Publicar SOLO la pestaña "Tours":
+   - Abre la pestaña "Tours"
+   - Archivo → Compartir → Publicar en la web
+   - Linked to: hoja "Tours"
+   - Formato: Valores separados por comas (.csv)
+   - Publicar y copiar el enlace
+
+   El enlace se ve así:
+   https://docs.google.com/spreadsheets/d/XXXX/export?format=csv&gid=0
+
+6. Braylen guarda ese enlace en GitHub (secreto TOURS_SHEET_CSV_URL)
+
+
+Después de eso, solo editas la hoja. El sitio se actualiza solo cada hora
+(aprox.), o Braylen puede forzar la actualización antes.
+
+
+¿DUDAS?
+-------
+WhatsApp o mensaje a Braylen para temas técnicos del sitio.

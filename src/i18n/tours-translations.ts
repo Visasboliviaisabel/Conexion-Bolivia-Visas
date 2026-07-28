@@ -98,55 +98,64 @@ export const travelTipsTab: Record<Locale, string> = {
 
 export const toursMeta: Record<Locale, { title: string; description: string }> = {
   es: {
-    title: "Viajes a Bolivia | Conexión Bolivia",
+    title: "Tours Cusco y Bolivia | Machu Picchu, Uyuni – Conexión Bolivia",
     description:
-      "Consejos de viaje, destinos imperdibles y todo lo que necesitas saber para visitar Bolivia: Salar de Uyuni, Lago Titicaca, visas y contactos de emergencia.",
+      "Reserva tours en Cusco y Bolivia con Isabel desde Cusco: Machu Picchu, Montaña de Colores, Salar de Uyuni y Titicaca. Cotiza por WhatsApp.",
   },
   en: {
-    title: "Travel to Bolivia | Conexión Bolivia",
+    title: "Cusco & Bolivia Tours | Machu Picchu, Uyuni – Conexión Bolivia",
     description:
-      "Travel tips, must-see destinations, and everything you need to know for visiting Bolivia: Salar de Uyuni, Lake Titicaca, visas, and emergency contacts.",
+      "Book Cusco and Bolivia tours with Isabel in Cusco: Machu Picchu, Rainbow Mountain, Salar de Uyuni, and Lake Titicaca. WhatsApp booking.",
   },
   zh: {
-    title: "玻利维亚旅行建议 | Conexión Bolivia",
-    description: "玻利维亚旅行建议、限制规定、签证信息和紧急联系电话。",
+    title: "库斯科与玻利维亚旅游 | 马丘比丘、乌尤尼 – Conexión Bolivia",
+    description:
+      "在库斯科通过 Isabel 预订行程：马丘比丘、彩虹山、乌尤尼盐湖、的的喀喀湖。WhatsApp/微信咨询。",
   },
   "zh-tw": {
-    title: "玻利維亞旅行建議 | Conexión Bolivia",
-    description: "玻利維亞旅行建議、限制規定、簽證資訊和緊急聯絡電話。",
+    title: "庫斯科與玻利維亞旅遊 | 馬丘比丘、烏尤尼 – Conexión Bolivia",
+    description:
+      "在庫斯科透過 Isabel 預訂行程：馬丘比丘、彩虹山、烏尤尼鹽湖、的的喀喀湖。WhatsApp/微信諮詢。",
   },
   ar: {
-    title: "نصائح لرحلتك إلى بوليفيا | Conexión Bolivia",
-    description: "توصيات وقيود ومعلومات التأشيرة وأرقام الطوارئ لزيارة آمنة وممتعة لبوليفيا.",
+    title: "جولات كوسكو وبوليفيا | ماتشو بيتشو وأويوني – Conexión Bolivia",
+    description:
+      "احجز جولات كوسكو وبوليفيا مع Isabel من كوسكو: ماتشو بيتشو، جبل الألوان، سالار دي أويوني وتيتيكاكا عبر واتساب.",
   },
   he: {
-    title: "טיפים לטיול בבוליביה | Conexión Bolivia",
-    description: "המלצות, הגבלות, מידע על ויזה ומספרי חירום לביקור בטוח ומהנה בבוליביה.",
+    title: "טיולי קוסקו ובוליביה | מאצ'ו פיצ'ו ואויוני – Conexión Bolivia",
+    description:
+      "הזמינו טיולים בקוסקו ובבוליביה עם Isabel: מאצ'ו פיצ'ו, הר הקשת, סלר דה אויוני ואגם טיטיקקה בוואטסאפ.",
   },
   pt: {
-    title: "Dicas para sua viagem à Bolívia | Conexión Bolivia",
+    title: "Tours Cusco e Bolívia | Machu Picchu, Uyuni – Conexión Bolivia",
     description:
-      "Recomendações, restrições, informações sobre visto e contatos de emergência para uma visita segura e agradável à Bolívia.",
+      "Reserve tours em Cusco e na Bolívia com Isabel em Cusco: Machu Picchu, Montanha Colorida, Salar de Uyuni e Titicaca. WhatsApp.",
   },
   ru: {
-    title: "Советы для поездки в Боливию | Conexión Bolivia",
-    description: "Рекомендации, ограничения, информация о визе и экстренные контакты для безопасного путешествия в Боливию.",
+    title: "Туры Куско и Боливия | Мачу-Пикчу, Уюни – Conexión Bolivia",
+    description:
+      "Бронируйте туры в Куско и Боливию с Isabel: Мачу-Пикчу, Радужная гора, Солончак Уюни и Титикака. WhatsApp.",
   },
   id: {
-    title: "Tips Perjalanan ke Bolivia | Conexión Bolivia",
-    description: "Rekomendasi, larangan, informasi visa, dan kontak darurat untuk kunjungan aman dan menyenangkan ke Bolivia.",
+    title: "Tur Cusco & Bolivia | Machu Picchu, Uyuni – Conexión Bolivia",
+    description:
+      "Pesan tur Cusco dan Bolivia lewat Isabel di Cusco: Machu Picchu, Rainbow Mountain, Salar de Uyuni, dan Titicaca via WhatsApp.",
   },
   uk: {
-    title: "Поради для подорожі до Болівії | Conexión Bolivia",
-    description: "Рекомендації, обмеження, інформація про візу та екстрені контакти для безпечної та приємної подорожі до Болівії.",
+    title: "Тури Куско та Болівія | Мачу-Пікчу, Уюні – Conexión Bolivia",
+    description:
+      "Бронюйте тури в Куско та Болівію з Isabel: Мачу-Пікчу, Веселкова гора, Солончак Уюні та Тітікака. WhatsApp.",
   },
   sr: {
-    title: "Saveti za putovanje u Boliviju | Conexión Bolivia",
-    description: "Preporuke, ograničenja, informacije o vizi i hitni kontakti za sigurnu i prijatnu posetu Boliviji.",
+    title: "Ture Cusco i Bolivija | Machu Picchu, Uyuni – Conexión Bolivia",
+    description:
+      "Rezervišite ture u Cuscu i Boliviji sa Isabel: Machu Picchu, Rainbow Mountain, Salar de Uyuni i Titicaca preko WhatsApp-a.",
   },
   hi: {
-    title: "बोलीविया यात्रा सुझाव | Conexión Bolivia",
-    description: "बोलीविया की यात्रा के लिए सुझाव, प्रतिबंध, वीज़ा जानकारी और आपातकालीन संपर्क।",
+    title: "कुस्को और बोलीविया टूर | Machu Picchu, Uyuni – Conexión Bolivia",
+    description:
+      "कुस्को में Isabel के साथ टूर बुक करें: Machu Picchu, Rainbow Mountain, Salar de Uyuni और Titicaca। WhatsApp से पूछें।",
   },
 };
 
@@ -639,3 +648,410 @@ export const toursContent: Record<Locale, ToursContent> = {
     emergency: emergencyContactsEn,
   },
 };
+
+export type TravelFunnelCopy = {
+  heroEyebrow: string;
+  heroTitle: string;
+  heroLead: string;
+  isabelTitle: string;
+  isabelText: string;
+  isabelCta: string;
+  isabelPrefill: string;
+  cuscoTitle: string;
+  cuscoLead: string;
+  boliviaTitle: string;
+  boliviaLead: string;
+  viewToursCta: string;
+  bookTourCta: string;
+  bookTourPrefill: string;
+  guidesTitle: string;
+  emptyRegion: string;
+};
+
+const travelFunnelEn: TravelFunnelCopy = {
+  heroEyebrow: "Tours with Isabel",
+  heroTitle: "Book Cusco & Bolivia tours",
+  heroLead:
+    "Even if you don’t need a visa, you can still travel with us. Isabel helps you book trusted tours in Cusco and Bolivia.",
+  isabelTitle: "Book directly with Isabel",
+  isabelText:
+    "Message Mara Isabel on WhatsApp with the tour you want and your travel dates. She’ll confirm availability and details.",
+  isabelCta: "WhatsApp Isabel about tours",
+  isabelPrefill:
+    "Hi Isabel! I’d like information about Cusco and Bolivia tours. My travel dates are…",
+  cuscoTitle: "Cusco tours",
+  cuscoLead: "Explore Cusco and the surrounding highlands with tours arranged by Isabel.",
+  boliviaTitle: "Bolivia tours",
+  boliviaLead: "From the Salar de Uyuni to Lake Titicaca — book your Bolivia itinerary with Isabel.",
+  viewToursCta: "View tours",
+  bookTourCta: "Book with Isabel",
+  bookTourPrefill:
+    "Hi Isabel! I’m interested in the tour “{tour}”. Can you share availability and details?",
+  guidesTitle: "Travel guides",
+  emptyRegion: "More tours coming soon — message Isabel for custom options.",
+};
+
+export const travelFunnelCopy: Record<Locale, TravelFunnelCopy> = {
+  es: {
+    heroEyebrow: "Tours con Isabel",
+    heroTitle: "Reserva tours en Cusco y Bolivia",
+    heroLead:
+      "Aunque no necesites visa, puedes seguir viajando con nosotros. Isabel te ayuda a reservar tours de confianza en Cusco y Bolivia.",
+    isabelTitle: "Reserva directamente con Isabel",
+    isabelText:
+      "Escríbele a Mara Isabel por WhatsApp con el tour que quieres y tus fechas. Ella confirma disponibilidad y detalles.",
+    isabelCta: "WhatsApp a Isabel por tours",
+    isabelPrefill:
+      "¡Hola Isabel! Quiero información sobre tours en Cusco y Bolivia. Mis fechas de viaje son…",
+    cuscoTitle: "Tours en Cusco",
+    cuscoLead: "Explora Cusco y el altiplano con tours coordinados por Isabel.",
+    boliviaTitle: "Tours en Bolivia",
+    boliviaLead: "Del Salar de Uyuni al Lago Titicaca — reserva tu itinerario boliviano con Isabel.",
+    viewToursCta: "Ver tours",
+    bookTourCta: "Reservar con Isabel",
+    bookTourPrefill:
+      "¡Hola Isabel! Me interesa el tour “{tour}”. ¿Me puedes compartir disponibilidad y detalles?",
+    guidesTitle: "Guías de viaje",
+    emptyRegion: "Pronto más tours — escríbele a Isabel para opciones a medida.",
+  },
+  en: travelFunnelEn,
+  zh: {
+    ...travelFunnelEn,
+    heroEyebrow: "与 Isabel 一起预订行程",
+    heroTitle: "预订库斯科与玻利维亚旅游",
+    heroLead: "即使不需要签证，也可以通过我们旅行。Isabel 帮您预订库斯科和玻利维亚的可靠行程。",
+    isabelTitle: "直接向 Isabel 预订",
+    isabelText: "通过 WhatsApp/微信告知 Isabel 想要的行程和出行日期，她会确认档期与细节。",
+    isabelCta: "联系 Isabel 咨询行程",
+    isabelPrefill: "你好 Isabel！我想了解库斯科和玻利维亚的旅游行程。我的出行日期是…",
+    cuscoTitle: "库斯科行程",
+    cuscoLead: "由 Isabel 安排，探索库斯科及周边高原。",
+    boliviaTitle: "玻利维亚行程",
+    boliviaLead: "从乌尤尼盐湖到的的喀喀湖——与 Isabel 预订玻利维亚行程。",
+    viewToursCta: "查看行程",
+    bookTourCta: "向 Isabel 预订",
+    bookTourPrefill: "你好 Isabel！我对“{tour}”行程感兴趣。请告知档期和详情？",
+    guidesTitle: "旅行指南",
+    emptyRegion: "更多行程即将上线——联系 Isabel 定制方案。",
+  },
+  "zh-tw": {
+    ...travelFunnelEn,
+    heroEyebrow: "與 Isabel 一起預訂行程",
+    heroTitle: "預訂庫斯科與玻利維亞旅遊",
+    heroLead: "即使不需要簽證，也可以透過我們旅行。Isabel 幫您預訂庫斯科和玻利維亞的可靠行程。",
+    isabelTitle: "直接向 Isabel 預訂",
+    isabelText: "透過 WhatsApp/微信告知 Isabel 想要的行程和出行日期，她會確認檔期與細節。",
+    isabelCta: "聯絡 Isabel 諮詢行程",
+    isabelPrefill: "你好 Isabel！我想了解庫斯科和玻利維亞的旅遊行程。我的出行日期是…",
+    cuscoTitle: "庫斯科行程",
+    cuscoLead: "由 Isabel 安排，探索庫斯科及周邊高原。",
+    boliviaTitle: "玻利維亞行程",
+    boliviaLead: "從烏尤尼鹽湖到的的喀喀湖——與 Isabel 預訂玻利維亞行程。",
+    viewToursCta: "查看行程",
+    bookTourCta: "向 Isabel 預訂",
+    bookTourPrefill: "你好 Isabel！我對「{tour}」行程感興趣。請告知檔期和詳情？",
+    guidesTitle: "旅行指南",
+    emptyRegion: "更多行程即將上線——聯絡 Isabel 客製方案。",
+  },
+  ar: {
+    ...travelFunnelEn,
+    heroEyebrow: "جولات مع Isabel",
+    heroTitle: "احجز جولات كوسكو وبوليفيا",
+    heroLead: "حتى إن لم تحتج إلى تأشيرة، يمكنك السفر معنا. Isabel تساعدك على حجز جولات موثوقة في كوسكو وبوليفيا.",
+    isabelTitle: "احجز مباشرة مع Isabel",
+    isabelText: "راسل Mara Isabel على واتساب بالجولة التي تريدها وتواريخ سفرك. تؤكد التوفر والتفاصيل.",
+    isabelCta: "واتساب Isabel عن الجولات",
+    isabelPrefill: "مرحباً Isabel! أريد معلومات عن جولات كوسكو وبوليفيا. تواريخ سفري هي…",
+    cuscoTitle: "جولات كوسكو",
+    cuscoLead: "استكشف كوسكو والمرتفعات مع جولات تنسقها Isabel.",
+    boliviaTitle: "جولات بوليفيا",
+    boliviaLead: "من سالار دي أويوني إلى بحيرة تيتيكاكا — احجز مسار بوليفيا مع Isabel.",
+    viewToursCta: "عرض الجولات",
+    bookTourCta: "احجز مع Isabel",
+    bookTourPrefill: "مرحباً Isabel! أهتم بجولة “{tour}”. هل يمكنك مشاركة التوفر والتفاصيل؟",
+    guidesTitle: "أدلة السفر",
+    emptyRegion: "المزيد من الجولات قريباً — راسل Isabel لخيارات مخصصة.",
+  },
+  he: {
+    ...travelFunnelEn,
+    heroEyebrow: "טיולים עם Isabel",
+    heroTitle: "הזמינו טיולים בקוסקו ובבוליביה",
+    heroLead: "גם בלי ויזה אפשר לנסוע איתנו. Isabel עוזרת להזמין טיולים אמינים בקוסקו ובבוליביה.",
+    isabelTitle: "הזמנה ישירה עם Isabel",
+    isabelText: "כתבו ל-Mara Isabel ב-WhatsApp עם הטיול והתאריכים. היא תאשר זמינות ופרטים.",
+    isabelCta: "WhatsApp ל-Isabel על טיולים",
+    isabelPrefill: "היי Isabel! אשמח למידע על טיולים בקוסקו ובבוליביה. תאריכי הנסיעה שלי…",
+    cuscoTitle: "טיולי קוסקו",
+    cuscoLead: "גלו את קוסקו והרמה עם טיולים שמתאמת Isabel.",
+    boliviaTitle: "טיולי בוליביה",
+    boliviaLead: "מסלר דה אויוני עד אגם טיטיקקה — הזמינו מסלול בבוליביה עם Isabel.",
+    viewToursCta: "צפו בטיולים",
+    bookTourCta: "הזמנה עם Isabel",
+    bookTourPrefill: "היי Isabel! מעניין אותי הטיול “{tour}”. אפשר לקבל זמינות ופרטים?",
+    guidesTitle: "מדריכי טיול",
+    emptyRegion: "עוד טיולים בקרוב — כתבו ל-Isabel לאפשרויות מותאמות.",
+  },
+  pt: {
+    ...travelFunnelEn,
+    heroEyebrow: "Tours com Isabel",
+    heroTitle: "Reserve tours em Cusco e na Bolívia",
+    heroLead:
+      "Mesmo sem precisar de visto, você pode viajar conosco. Isabel ajuda a reservar tours confiáveis em Cusco e na Bolívia.",
+    isabelTitle: "Reserve diretamente com Isabel",
+    isabelText:
+      "Envie mensagem para Mara Isabel no WhatsApp com o tour desejado e suas datas. Ela confirma disponibilidade e detalhes.",
+    isabelCta: "WhatsApp Isabel sobre tours",
+    isabelPrefill:
+      "Olá Isabel! Quero informações sobre tours em Cusco e na Bolívia. Minhas datas de viagem são…",
+    cuscoTitle: "Tours em Cusco",
+    cuscoLead: "Explore Cusco e o altiplano com tours organizados por Isabel.",
+    boliviaTitle: "Tours na Bolívia",
+    boliviaLead: "Do Salar de Uyuni ao Lago Titicaca — reserve seu roteiro boliviano com Isabel.",
+    viewToursCta: "Ver tours",
+    bookTourCta: "Reservar com Isabel",
+    bookTourPrefill:
+      "Olá Isabel! Tenho interesse no tour “{tour}”. Pode compartilhar disponibilidade e detalhes?",
+    guidesTitle: "Guias de viagem",
+    emptyRegion: "Mais tours em breve — fale com Isabel para opções personalizadas.",
+  },
+  ru: {
+    ...travelFunnelEn,
+    heroEyebrow: "Туры с Isabel",
+    heroTitle: "Бронируйте туры в Куско и Боливию",
+    heroLead:
+      "Даже без визы вы можете путешествовать с нами. Isabel поможет забронировать проверенные туры в Куско и Боливии.",
+    isabelTitle: "Бронирование напрямую с Isabel",
+    isabelText:
+      "Напишите Mara Isabel в WhatsApp, какой тур вам нужен и даты поездки. Она подтвердит наличие и детали.",
+    isabelCta: "WhatsApp Isabel о турах",
+    isabelPrefill:
+      "Здравствуйте, Isabel! Хочу информацию о турах в Куско и Боливию. Мои даты поездки…",
+    cuscoTitle: "Туры в Куско",
+    cuscoLead: "Исследуйте Куско и высокогорье с турами, которые организует Isabel.",
+    boliviaTitle: "Туры в Боливию",
+    boliviaLead: "От Солончака Уюни до озера Титикака — бронируйте маршрут с Isabel.",
+    viewToursCta: "Смотреть туры",
+    bookTourCta: "Забронировать с Isabel",
+    bookTourPrefill:
+      "Здравствуйте, Isabel! Меня интересует тур «{tour}». Можете сообщить наличие и детали?",
+    guidesTitle: "Путеводители",
+    emptyRegion: "Скоро больше туров — напишите Isabel для индивидуальных вариантов.",
+  },
+  id: {
+    ...travelFunnelEn,
+    heroEyebrow: "Tur dengan Isabel",
+    heroTitle: "Pesan tur Cusco & Bolivia",
+    heroLead:
+      "Meski tidak perlu visa, Anda tetap bisa bepergian bersama kami. Isabel membantu memesan tur terpercaya di Cusco dan Bolivia.",
+    isabelTitle: "Pesan langsung dengan Isabel",
+    isabelText:
+      "Pesan Mara Isabel di WhatsApp dengan tur yang Anda inginkan dan tanggal perjalanan. Dia akan konfirmasi ketersediaan dan detail.",
+    isabelCta: "WhatsApp Isabel tentang tur",
+    isabelPrefill:
+      "Halo Isabel! Saya ingin info tur Cusco dan Bolivia. Tanggal perjalanan saya…",
+    cuscoTitle: "Tur Cusco",
+    cuscoLead: "Jelajahi Cusco dan dataran tinggi dengan tur yang diatur Isabel.",
+    boliviaTitle: "Tur Bolivia",
+    boliviaLead: "Dari Salar de Uyuni ke Danau Titicaca — pesan itinerary Bolivia dengan Isabel.",
+    viewToursCta: "Lihat tur",
+    bookTourCta: "Pesan dengan Isabel",
+    bookTourPrefill:
+      "Halo Isabel! Saya tertarik tur “{tour}”. Bisa bagikan ketersediaan dan detail?",
+    guidesTitle: "Panduan perjalanan",
+    emptyRegion: "Tur lainnya segera hadir — hubungi Isabel untuk opsi khusus.",
+  },
+  uk: {
+    ...travelFunnelEn,
+    heroEyebrow: "Тури з Isabel",
+    heroTitle: "Бронюйте тури в Куско та Болівію",
+    heroLead:
+      "Навіть без візи ви можете подорожувати з нами. Isabel допоможе забронювати перевірені тури в Куско та Болівії.",
+    isabelTitle: "Бронювання напряму з Isabel",
+    isabelText:
+      "Напишіть Mara Isabel у WhatsApp, який тур вам потрібен і дати поїздки. Вона підтвердить наявність і деталі.",
+    isabelCta: "WhatsApp Isabel про тури",
+    isabelPrefill:
+      "Вітаю, Isabel! Хочу інформацію про тури в Куско та Болівію. Мої дати поїздки…",
+    cuscoTitle: "Тури в Куско",
+    cuscoLead: "Досліджуйте Куско та високогір’я з турами, які організовує Isabel.",
+    boliviaTitle: "Тури в Болівію",
+    boliviaLead: "Від Солончака Уюні до озера Тітікака — бронюйте маршрут з Isabel.",
+    viewToursCta: "Переглянути тури",
+    bookTourCta: "Забронювати з Isabel",
+    bookTourPrefill:
+      "Вітаю, Isabel! Мене цікавить тур «{tour}». Можете повідомити наявність і деталі?",
+    guidesTitle: "Путівники",
+    emptyRegion: "Незабаром більше турів — напишіть Isabel для індивідуальних варіантів.",
+  },
+  sr: {
+    ...travelFunnelEn,
+    heroEyebrow: "Ture sa Isabel",
+    heroTitle: "Rezervišite ture u Cuscu i Boliviji",
+    heroLead:
+      "Čak i ako vam ne treba viza, možete putovati sa nama. Isabel pomaže da rezervišete pouzdane ture u Cuscu i Boliviji.",
+    isabelTitle: "Rezervišite direktno sa Isabel",
+    isabelText:
+      "Pišite Mara Isabel na WhatsApp sa turom koju želite i datumima putovanja. Ona potvrđuje dostupnost i detalje.",
+    isabelCta: "WhatsApp Isabel o turama",
+    isabelPrefill:
+      "Zdravo Isabel! Želim informacije o turama u Cuscu i Boliviji. Moji datumi putovanja su…",
+    cuscoTitle: "Ture u Cuscu",
+    cuscoLead: "Istražite Cusco i visoravan sa turama koje dogovara Isabel.",
+    boliviaTitle: "Ture u Boliviji",
+    boliviaLead: "Od Salar de Uyunija do jezera Titicaca — rezervišite itinerer sa Isabel.",
+    viewToursCta: "Pogledaj ture",
+    bookTourCta: "Rezerviši sa Isabel",
+    bookTourPrefill:
+      "Zdravo Isabel! Zanima me tura “{tour}”. Možete li podeliti dostupnost i detalje?",
+    guidesTitle: "Vodiči za putovanje",
+    emptyRegion: "Uskoro više tura — pišite Isabel za prilagođene opcije.",
+  },
+  hi: {
+    ...travelFunnelEn,
+    heroEyebrow: "Isabel के साथ टूर",
+    heroTitle: "कुस्को और बोलीविया टूर बुक करें",
+    heroLead:
+      "वीज़ा न भी लगे तो भी आप हमारे साथ यात्रा कर सकते हैं। Isabel कुस्को और बोलीविया में भरोसेमंद टूर बुक करने में मदद करती हैं।",
+    isabelTitle: "सीधे Isabel के साथ बुक करें",
+    isabelText:
+      "WhatsApp पर Mara Isabel को बताएं कि कौन-सा टूर चाहिए और आपकी तारीखें क्या हैं। वे उपलब्धता और विवरण बताएंगी।",
+    isabelCta: "टूर के लिए Isabel को WhatsApp करें",
+    isabelPrefill:
+      "नमस्ते Isabel! मुझे कुस्को और बोलीविया टूर की जानकारी चाहिए। मेरी यात्रा तिथियाँ…",
+    cuscoTitle: "कुस्को टूर",
+    cuscoLead: "Isabel द्वारा व्यवस्थित टूर के साथ कुस्को और पठार घूमें।",
+    boliviaTitle: "बोलीविया टूर",
+    boliviaLead: "Salar de Uyuni से Lake Titicaca तक — Isabel के साथ बोलीविया यात्रा बुक करें।",
+    viewToursCta: "टूर देखें",
+    bookTourCta: "Isabel के साथ बुक करें",
+    bookTourPrefill:
+      "नमस्ते Isabel! मुझे “{tour}” टूर में दिलचस्पी है। उपलब्धता और विवरण बता सकती हैं?",
+    guidesTitle: "यात्रा गाइड",
+    emptyRegion: "और टूर जल्द आ रहे हैं — कस्टम विकल्पों के लिए Isabel को लिखें।",
+  },
+};
+
+export const cuscoToursMeta: Record<Locale, { title: string; description: string }> = {
+  es: {
+    title: "Tours en Cusco: Machu Picchu y Montaña de Colores | Isabel",
+    description:
+      "Tours desde Cusco con Isabel: Machu Picchu, Montaña de Colores (Vinicunca) y más. Reserva y cotiza por WhatsApp en Cusco.",
+  },
+  en: {
+    title: "Cusco Tours: Machu Picchu & Rainbow Mountain | Isabel",
+    description:
+      "Book Cusco day tours with Isabel: Machu Picchu, Rainbow Mountain (Vinicunca), and more. WhatsApp booking from Cusco, Peru.",
+  },
+  zh: {
+    title: "库斯科旅游：马丘比丘与彩虹山 | Isabel",
+    description: "通过 Isabel 预订库斯科一日游：马丘比丘、彩虹山等。库斯科当地 WhatsApp/微信咨询。",
+  },
+  "zh-tw": {
+    title: "庫斯科旅遊：馬丘比丘與彩虹山 | Isabel",
+    description: "透過 Isabel 預訂庫斯科一日遊：馬丘比丘、彩虹山等。庫斯科當地 WhatsApp/微信諮詢。",
+  },
+  ar: {
+    title: "جولات كوسكو: ماتشو بيتشو وجبل الألوان | Isabel",
+    description:
+      "احجز جولات يومية من كوسكو مع Isabel: ماتشو بيتشو، جبل الألوان والمزيد عبر واتساب.",
+  },
+  he: {
+    title: "טיולי קוסקו: מאצ'ו פיצ'ו והר הקשת | Isabel",
+    description:
+      "הזמינו טיולי יום מקוסקו עם Isabel: מאצ'ו פיצ'ו, הר הקשת ועוד. הזמנה בוואטסאפ מקוסקו.",
+  },
+  pt: {
+    title: "Tours em Cusco: Machu Picchu e Montanha Colorida | Isabel",
+    description:
+      "Tours a partir de Cusco com Isabel: Machu Picchu, Montanha Colorida (Vinicunca) e mais. Reserve pelo WhatsApp.",
+  },
+  ru: {
+    title: "Туры в Куско: Мачу-Пикчу и Радужная гора | Isabel",
+    description:
+      "Однодневные туры из Куско с Isabel: Мачу-Пикчу, Радужная гора и другое. Бронирование в WhatsApp.",
+  },
+  id: {
+    title: "Tur Cusco: Machu Picchu & Rainbow Mountain | Isabel",
+    description:
+      "Pesan tur harian dari Cusco dengan Isabel: Machu Picchu, Rainbow Mountain, dan lainnya via WhatsApp.",
+  },
+  uk: {
+    title: "Тури в Куско: Мачу-Пікчу та Веселкова гора | Isabel",
+    description:
+      "Одноденні тури з Куско з Isabel: Мачу-Пікчу, Веселкова гора та інше. Бронювання у WhatsApp.",
+  },
+  sr: {
+    title: "Ture u Cuscu: Machu Picchu i Rainbow Mountain | Isabel",
+    description:
+      "Dnevne ture iz Cusca sa Isabel: Machu Picchu, Rainbow Mountain i više. Rezervacija preko WhatsApp-a.",
+  },
+  hi: {
+    title: "कुस्को टूर: Machu Picchu और Rainbow Mountain | Isabel",
+    description:
+      "Isabel के साथ कुस्को डे टूर: Machu Picchu, Rainbow Mountain और अधिक। WhatsApp से बुक करें।",
+  },
+};
+
+export const boliviaToursMeta: Record<Locale, { title: string; description: string }> = {
+  es: {
+    title: "Tours en Bolivia: Salar de Uyuni y Titicaca | Isabel",
+    description:
+      "Tours a Bolivia con Isabel desde Cusco: Salar de Uyuni, Lago Titicaca / Copacabana y más. Reserva fácil por WhatsApp.",
+  },
+  en: {
+    title: "Bolivia Tours: Salar de Uyuni & Titicaca | Isabel",
+    description:
+      "Book Bolivia tours with Isabel from Cusco: Salar de Uyuni, Lake Titicaca / Copacabana, and more. WhatsApp booking.",
+  },
+  zh: {
+    title: "玻利维亚旅游：乌尤尼盐湖与的的喀喀湖 | Isabel",
+    description:
+      "通过 Isabel 从库斯科预订玻利维亚行程：乌尤尼盐湖、的的喀喀湖/科帕卡瓦纳等。WhatsApp/微信咨询。",
+  },
+  "zh-tw": {
+    title: "玻利維亞旅遊：烏尤尼鹽湖與的的喀喀湖 | Isabel",
+    description:
+      "透過 Isabel 從庫斯科預訂玻利維亞行程：烏尤尼鹽湖、的的喀喀湖/科帕卡瓦納等。WhatsApp/微信諮詢。",
+  },
+  ar: {
+    title: "جولات بوليفيا: أويوني وتيتيكاكا | Isabel",
+    description:
+      "احجز جولات بوليفيا مع Isabel من كوسكو: سالار دي أويوني، بحيرة تيتيكاكا / كوباكابانا عبر واتساب.",
+  },
+  he: {
+    title: "טיולי בוליביה: אויוני וטיטיקקה | Isabel",
+    description:
+      "הזמינו טיולים בבוליביה עם Isabel מקוסקו: סלר דה אויוני, אגם טיטיקקה / קופאקבנה בוואטסאפ.",
+  },
+  pt: {
+    title: "Tours na Bolívia: Salar de Uyuni e Titicaca | Isabel",
+    description:
+      "Tours na Bolívia com Isabel a partir de Cusco: Salar de Uyuni, Lago Titicaca / Copacabana e mais. WhatsApp.",
+  },
+  ru: {
+    title: "Туры в Боливию: Уюни и Титикака | Isabel",
+    description:
+      "Туры в Боливию с Isabel из Куско: Солончак Уюни, озеро Титикака / Копакабана. WhatsApp.",
+  },
+  id: {
+    title: "Tur Bolivia: Salar de Uyuni & Titicaca | Isabel",
+    description:
+      "Pesan tur Bolivia dengan Isabel dari Cusco: Salar de Uyuni, Danau Titicaca / Copacabana via WhatsApp.",
+  },
+  uk: {
+    title: "Тури в Болівію: Уюні та Тітікака | Isabel",
+    description:
+      "Тури в Болівію з Isabel з Куско: Солончак Уюні, озеро Тітікака / Копакабана. WhatsApp.",
+  },
+  sr: {
+    title: "Ture u Boliviji: Salar de Uyuni i Titicaca | Isabel",
+    description:
+      "Ture u Boliviji sa Isabel iz Cusca: Salar de Uyuni, jezero Titicaca / Copacabana preko WhatsApp-a.",
+  },
+  hi: {
+    title: "बोलीविया टूर: Salar de Uyuni और Titicaca | Isabel",
+    description:
+      "कुस्को से Isabel के साथ बोलीविया टूर: Salar de Uyuni, Lake Titicaca / Copacabana। WhatsApp से बुक करें।",
+  },
+};
+

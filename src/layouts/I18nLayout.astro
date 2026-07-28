@@ -2,7 +2,7 @@
 import type { Locale, PageKey, TravelStory } from "../i18n/config";
 import { localeList, locales, localePath, travelStoryPath } from "../i18n/config";
 import { getTranslations } from "../i18n/translations";
-import { tipsMeta } from "../i18n/tours-translations";
+import { tipsMeta, cuscoToursMeta, boliviaToursMeta } from "../i18n/tours-translations";
 import { discoverMeta } from "../i18n/discover-translations";
 import { getNationalityPageContent } from "../i18n/nationality-page-content";
 import { nationalityPath } from "../data/nationalities";
@@ -28,9 +28,24 @@ interface Props {
   faqSchema?: { q: string; a: string }[];
   travelStory?: TravelStory;
   nationalityId?: NationalityId;
+  /** Optional social/share image override (site path, e.g. /images/...). */
+  ogImagePath?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogImageAlt?: string;
 }
 
-const { locale, page, faqSchema, travelStory = "index", nationalityId } = Astro.props;
+const {
+  locale,
+  page,
+  faqSchema,
+  travelStory = "index",
+  nationalityId,
+  ogImagePath,
+  ogImageWidth,
+  ogImageHeight,
+  ogImageAlt,
+} = Astro.props;
 const t = getTranslations(locale);
 
 function resolveMeta(): { title: string; description: string } {
@@ -39,6 +54,8 @@ function resolveMeta(): { title: string; description: string } {
   }
   if (page === "tours" && travelStory === "tips") return tipsMeta[locale];
   if (page === "tours" && travelStory === "discover") return discoverMeta[locale];
+  if (page === "tours" && travelStory === "cusco") return cuscoToursMeta[locale];
+  if (page === "tours" && travelStory === "bolivia") return boliviaToursMeta[locale];
   if (page === "home") return t.meta.home;
   return t.meta[page];
 }
@@ -62,7 +79,10 @@ const alternateLinks = localeList.map((loc) => ({
 }));
 
 const xDefault = new URL(resolvePagePath("es"), Astro.site).href;
-const ogImage = new URL(business.ogImage.path, Astro.site).href;
+const ogImage = new URL(ogImagePath ?? business.ogImage.path, Astro.site).href;
+const resolvedOgWidth = ogImageWidth ?? business.ogImage.width;
+const resolvedOgHeight = ogImageHeight ?? business.ogImage.height;
+const resolvedOgAlt = ogImageAlt ?? business.ogImage.alt;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -160,14 +180,14 @@ const faqStructuredData = faqSchema
     <meta property="og:locale" content={hreflang} />
     <meta property="og:site_name" content={business.shortName} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content={String(business.ogImage.width)} />
-    <meta property="og:image:height" content={String(business.ogImage.height)} />
-    <meta property="og:image:alt" content={business.ogImage.alt} />
+    <meta property="og:image:width" content={String(resolvedOgWidth)} />
+    <meta property="og:image:height" content={String(resolvedOgHeight)} />
+    <meta property="og:image:alt" content={resolvedOgAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={meta.title} />
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={business.ogImage.alt} />
+    <meta name="twitter:image:alt" content={resolvedOgAlt} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

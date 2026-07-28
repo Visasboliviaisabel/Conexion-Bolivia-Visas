@@ -1,0 +1,461 @@
+---
+import type { Locale } from "../i18n/config";
+import { travelStoryPath } from "../i18n/config";
+import type { TravelFunnelCopy } from "../i18n/tours-translations";
+import toursData from "../data/tours.json";
+import { business } from "../data/business";
+import ContactPrimaryButton from "./ContactPrimaryButton.astro";
+
+type LocalizedField = { es: string; en: string };
+
+type Tour = {
+  id: string;
+  region: "cusco" | "bolivia";
+  active: boolean;
+  order: number;
+  title: LocalizedField;
+  duration: LocalizedField;
+  description: LocalizedField;
+  price: string | null;
+  image: string | null;
+};
+
+interface Props {
+  locale: Locale;
+  region: "cusco" | "bolivia";
+  funnel: TravelFunnelCopy;
+  wechatLabel: string;
+  backLabel: string;
+  backPath: string;
+  coverImage: string;
+  coverImageWebp?: string;
+  coverWidth?: number;
+  coverHeight?: number;
+}
+
+const {
+  locale,
+  region,
+  funnel,
+  wechatLabel,
+  backLabel,
+  backPath,
+  coverImage,
+  coverImageWebp,
+  coverWidth = 1000,
+  coverHeight = 666,
+} = Astro.props;
+
+function tourText(field: LocalizedField): string {
+  if (locale === "es") return field.es || field.en;
+  return field.en || field.es;
+}
+
+const title = region === "cusco" ? funnel.cuscoTitle : funnel.boliviaTitle;
+const lead = region === "cusco" ? funnel.cuscoLead : funnel.boliviaLead;
+
+const tours = (toursData.tours as Tour[])
+  .filter((tour) => tour.active && tour.region === region)
+  .sort((a, b) => a.order - b.order);
+
+function bookPrefill(tourTitle: string): string {
+  return funnel.bookTourPrefill.replaceAll("{tour}", tourTitle);
+}
+
+const siteOrigin = Astro.site?.origin ?? "https://visasboliviaconexion.com";
+const pageUrl = new URL(travelStoryPath(locale, region), siteOrigin).href;
+const hubUrl = new URL(travelStoryPath(locale, "index"), siteOrigin).href;
+const homeUrl = new URL(`/${locale}/`, siteOrigin).href;
+
+function absoluteImage(src: string | null | undefined): string | undefined {
+  if (!src) return undefined;
+  if (/^https?:\/\//i.test(src)) return src;
+  return new URL(src, siteOrigin).href;
+}
+
+const tourListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: title,
+  description: lead,
+  url: pageUrl,
+  numberOfItems: tours.length,
+  itemListElement: tours.map((tour, index) => {
+    const tourTitle = tourText(tour.title);
+    const duration = tourText(tour.duration);
+    const description = tourText(tour.description);
+    const image = absoluteImage(tour.image) ?? absoluteImage(coverImage);
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "TouristTrip",
+        name: tourTitle,
+        description: [description, duration, tour.price].filter(Boolean).join(" · "),
+        url: pageUrl,
+        ...(image ? { image } : {}),
+        provider: {
+          "@type": "LocalBusiness",
+          name: business.name,
+          telephone: business.phone,
+          url: siteOrigin,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: business.address.street,
+            addressLocality: business.address.city,
+            addressCountry: "PE",
+          },
+        },
+        ...(tour.price
+          ? {
+              offers: {
+                "@type": "Offer",
+                url: pageUrl,
+                availability: "https://schema.org/InStock",
+                priceSpecification: {
+                  "@type": "PriceSpecification",
+                  description: tour.price,
+                },
+              },
+            }
+          : {}),
+      },
+    };
+  }),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: business.shortName,
+      item: homeUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: funnel.heroTitle,
+      item: hubUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: title,
+      item: pageUrl,
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(tourListSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<div class="region-page">
+  <a class="region-page__back" href={backPath}>{backLabel}</a>
+
+  <header class="region-page__header">
+    <div class="region-page__image-wrap">
+      <picture>
+        {coverImageWebp && <source srcset={coverImageWebp} type="image/webp" />}
+        <img
+          src={coverImage}
+          alt=""
+          loading="eager"
+          decoding="async"
+          width={coverWidth}
+          height={coverHeight}
+        />
+      </picture>
+    </div>
+
+    <div class="region-page__copy">
+      <div class="region-page__intro">
+        <p class="eyebrow">{funnel.heroEyebrow}</p>
+        <h1>{title}</h1>
+        <p class="region-page__lead">{lead}</p>
+      </div>
+      <ContactPrimaryButton
+        locale={locale}
+        whatsappLabel={funnel.isabelCta}
+        wechatLabel={wechatLabel}
+        whatsappPrefill={funnel.isabelPrefill}
+      />
+    </div>
+  </header>
+
+  {
+    tours.length === 0 ? (
+      <p class="region-page__empty">{funnel.emptyRegion}</p>
+    ) : (
+      <ul class="tour-list">
+        {tours.map((tour) => {
+          const tourTitle = tourText(tour.title);
+          const duration = tourText(tour.duration);
+          const description = tourText(tour.description);
+          return (
+            <li class={`tour-option card${tour.image ? " tour-option--with-image" : ""}`}>
+              {tour.image && (
+                <div class="tour-option__media">
+                  <img
+                    src={tour.image}
+                    alt={tourTitle}
+                    loading="lazy"
+                    decoding="async"
+                    width="960"
+                    height="600"
+                  />
+                </div>
+              )}
+              <div class="tour-option__content">
+                <div class="tour-option__body">
+                  <h2>{tourTitle}</h2>
+                  {duration && <p class="tour-option__duration">{duration}</p>}
+                  {description && <p class="tour-option__desc">{description}</p>}
+                </div>
+                <div class="tour-option__footer">
+                  <ContactPrimaryButton
+                    locale={locale}
+                    class="button button-primary tour-option__cta"
+                    whatsappLabel={funnel.bookTourCta}
+                    wechatLabel={wechatLabel}
+                    whatsappPrefill={bookPrefill(tourTitle)}
+                  />
+                  {tour.price && (
+                    <span class="tour-option__price">{tour.price}</span>
+                  )}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    )
+  }
+</div>
+
+<style>
+  .region-page {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3.5rem;
+  }
+
+  .region-page__back {
+    display: inline-block;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+  }
+
+  .region-page__back:hover {
+    text-decoration: underline;
+  }
+
+  .region-page__header {
+    display: grid;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 1rem 1.25rem;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #eef6fb 0%, #f7fafc 100%);
+    border: 1px solid var(--border);
+  }
+
+  .region-page__image-wrap {
+    width: 9.5rem;
+    height: 9.5rem;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    background: var(--brand-pale);
+    box-shadow: var(--shadow);
+  }
+
+  .region-page__image-wrap picture,
+  .region-page__image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .region-page__image-wrap img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .region-page__copy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.25rem;
+    min-width: 0;
+  }
+
+  .region-page__intro {
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
+
+  .region-page__intro .eyebrow {
+    margin: 0 0 0.3rem;
+  }
+
+  .region-page__intro h1 {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.45rem, 3vw, 1.85rem);
+    line-height: 1.2;
+    color: var(--brand-dark);
+  }
+
+  .region-page__lead {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .region-page__empty {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .tour-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .tour-option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .tour-option__media {
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d7e8f2 0%, #eef6fb 100%);
+  }
+
+  .tour-option__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .tour-option__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 1.25rem;
+    padding: 1.15rem 1.25rem 1.2rem;
+  }
+
+  .tour-option:not(.tour-option--with-image) .tour-option__content {
+    padding-top: 1.35rem;
+  }
+
+  .tour-option__body {
+    flex: 1 1 14rem;
+    min-width: 0;
+  }
+
+  .tour-option h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.28rem;
+    line-height: 1.25;
+    color: var(--brand-dark);
+  }
+
+  .tour-option__duration {
+    margin: 0 0 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--brand);
+  }
+
+  .tour-option__desc {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .tour-option__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .tour-option__price {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    background: var(--brand-pale);
+    color: var(--brand-dark);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .tour-option__cta {
+    flex: 0 0 auto;
+    padding: 0.42rem 0.85rem;
+    font-size: 0.84rem;
+  }
+
+  @media (max-width: 560px) {
+    .region-page__header {
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+      gap: 0.9rem;
+      padding: 0.95rem 1rem;
+    }
+
+    .region-page__image-wrap {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+
+    .tour-option__media {
+      aspect-ratio: 16 / 9;
+    }
+
+    .tour-option__content {
+      padding: 1rem 1.05rem 1.1rem;
+    }
+
+    .tour-option h2 {
+      font-size: 1.15rem;
+    }
+
+    .tour-option__price {
+      font-size: 0.85rem;
+      padding: 0.24rem 0.6rem;
+    }
+  }
+</style>

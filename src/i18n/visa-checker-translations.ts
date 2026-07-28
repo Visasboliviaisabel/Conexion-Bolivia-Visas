@@ -71,11 +71,11 @@ const es: VisaCheckerCopy = {
     },
   ],
   group1Redirecting:
-    "Buenas noticias: con tu pasaporte de {country} no necesitas visa para Bolivia. Redirigiendo a información de viajes y tours…",
+    "Buenas noticias: con tu pasaporte de {country} no necesitas visa para Bolivia. Redirigiendo a tours con Isabel…",
   group1RedirectEyebrow: "Resultado de tu consulta",
   group1RedirectTitle: "No necesitas visa",
   group1RedirectBody:
-    "Te llevamos a nuestra sección de viajes, con información turística y tours.",
+    "Te llevamos a nuestra sección de viajes para reservar tours en Cusco y Bolivia con Isabel.",
   group1RedirectProgress: "Redirigiendo automáticamente…",
   group2Title: "Necesitas visa para Bolivia",
   group2Text:
@@ -94,14 +94,14 @@ const es: VisaCheckerCopy = {
     "Hola, soy de [país] y no encontré mi país en el verificador de visa de su web. ¿Pueden confirmarme si necesito visa para Bolivia?",
   travelBannerTitle: "Planifica tu viaje a Bolivia",
   travelBannerText:
-    "No necesitas visa para Bolivia. Aquí encontrarás información de viaje, consejos y tours para Cusco y Bolivia.",
+    "No necesitas visa para Bolivia. Reserva tours en Cusco y Bolivia directamente con Isabel.",
   travelWelcomeEyebrow: "Consulta de visa recibida",
   travelWelcomeTitle: "No necesitas visa para Bolivia",
   travelWelcomeCountry:
     "Tu pasaporte de {country} está en el Grupo I — es decir, no necesitas visa.",
   travelWelcomeBody:
-    "Recibimos tu consulta y te transferimos aquí automáticamente. En esta página puedes conocer más sobre información de viaje y tours para Cusco y Bolivia.",
-  travelWelcomeNext: "Información de viaje y tours a continuación",
+    "Recibimos tu consulta y te transferimos aquí automáticamente. Aquí puedes reservar tours en Cusco y Bolivia con Isabel.",
+  travelWelcomeNext: "Tours con Isabel a continuación",
 };
 
 const en: VisaCheckerCopy = {
@@ -129,11 +129,11 @@ const en: VisaCheckerCopy = {
     },
   ],
   group1Redirecting:
-    "Good news — with a {country} passport you do not need a visa for Bolivia. Redirecting you to travel info and tours…",
+    "Good news — with a {country} passport you do not need a visa for Bolivia. Redirecting you to tours with Isabel…",
   group1RedirectEyebrow: "Your visa check result",
   group1RedirectTitle: "You don't need a visa",
   group1RedirectBody:
-    "We're sending you to our travel section with trip information and tours.",
+    "We're sending you to our travel section to book Cusco and Bolivia tours with Isabel.",
   group1RedirectProgress: "Redirecting you automatically…",
   group2Title: "You need a visa for Bolivia",
   group2Text:
@@ -152,14 +152,14 @@ const en: VisaCheckerCopy = {
     "Hi, I'm from [country] and couldn't find my country on your visa checker. Can you confirm if I need a visa for Bolivia?",
   travelBannerTitle: "Plan your Bolivia trip",
   travelBannerText:
-    "You don't need a visa for Bolivia. Here you'll find travel information, tips, and tours for Cusco and Bolivia.",
+    "You don't need a visa for Bolivia. Book Cusco and Bolivia tours directly with Isabel.",
   travelWelcomeEyebrow: "Visa check received",
   travelWelcomeTitle: "You don't need a visa for Bolivia",
   travelWelcomeCountry:
     "Your {country} passport is in Group I — meaning you do not need a visa.",
   travelWelcomeBody:
-    "We received your visa check and brought you here automatically. On this page you can learn more about travel information and tours for Cusco and Bolivia.",
-  travelWelcomeNext: "Travel info and tours below",
+    "We received your visa check and brought you here automatically. Here you can book Cusco and Bolivia tours with Isabel.",
+  travelWelcomeNext: "Tours with Isabel below",
 };
 
 export const visaCheckerCopy: Record<Locale, VisaCheckerCopy> = {

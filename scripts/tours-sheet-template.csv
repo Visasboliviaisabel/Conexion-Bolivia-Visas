@@ -1,0 +1,7 @@
+region,activo,orden,titulo_es,titulo_en,duracion_es,duracion_en,descripcion_es,descripcion_en,precio,imagen
+cusco,si,1,Cusco + Valle Sagrado,Cusco + Sacred Valley,1 día,1 day,"Tour de la ciudad de Cusco y el Valle Sagrado: mercados, ruinas y pueblos andinos.","Cusco city and Sacred Valley tour: markets, ruins, and Andean towns.",Desde $45,/images/cusco-tours.jpg
+cusco,si,2,Machu Picchu,Machu Picchu,1 día / overnight,1 day / overnight,"Visita a la ciudadela inca. Pregunta a Isabel por opciones de día o con pernocte.","Visit the Inca citadel. Ask Isabel about day-trip or overnight options.",Desde $120,
+cusco,si,3,Montaña de Colores,Rainbow Mountain,1 día,1 day,"Excursión de un día a la Montaña de Colores (Vinicunca).","Day trip to Rainbow Mountain (Vinicunca).",,
+bolivia,si,1,Salar de Uyuni — 1 día,Salar de Uyuni — 1 day,1 día,1 day,"Tour de un día por el Salar de Uyuni, el espejo del cielo.","One-day tour of the Uyuni Salt Flats, the mirror of the sky.",Desde $80,/images/bolivia-tours.jpg
+bolivia,si,2,Salar de Uyuni — 3 días,Salar de Uyuni — 3 days,3 días / 2 noches,3 days / 2 nights,"Tour completo del Salar con paisajes, lagunas y atardeceres.","Full Salar tour with landscapes, lagoons, and sunsets.",Desde $180,/images/salar-mirror.png
+bolivia,si,3,Lago Titicaca / Copacabana,Lake Titicaca / Copacabana,1–2 días,1–2 days,"Copacabana e islas del Lago Titicaca, el lago navegable más alto del mundo.","Copacabana and Lake Titicaca islands, the world's highest navigable lake.",,

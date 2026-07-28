@@ -1,8 +1,8 @@
 import type { Locale } from "./config";
 import { guideContent, guideMeta, guideNav } from "./guide-translations";
 import type { GuideContent } from "./guide-translations";
-import { toursContent, toursMeta, toursNav, travelTipsTab, travelBackLabel, travelReadTime } from "./tours-translations";
-import type { ToursContent } from "./tours-translations";
+import { toursContent, toursMeta, toursNav, travelTipsTab, travelBackLabel, travelReadTime, travelFunnelCopy } from "./tours-translations";
+import type { ToursContent, TravelFunnelCopy } from "./tours-translations";
 import { discoverContent, discoverNav } from "./discover-translations";
 import type { DiscoverContent } from "./discover-translations";
 import { chinaContactCopy, isChinaLocale } from "./china-translations";
@@ -94,7 +94,11 @@ export type Translations = {
   guide: GuideContent;
   tours: ToursContent;
   discover: DiscoverContent;
-  travelHub: { backLabel: string; readTime: { tips: string; discover: string } };
+  travelHub: {
+    backLabel: string;
+    readTime: { tips: string; discover: string };
+    funnel: TravelFunnelCopy;
+  };
   china?: ChinaContactCopy;
 };
 
@@ -1250,7 +1254,11 @@ export function getTranslations(locale: Locale): Translations {
     guide: guideContent[locale],
     tours: toursContent[locale],
     discover: discoverContent[locale],
-    travelHub: { backLabel: travelBackLabel[locale], readTime: travelReadTime[locale] },
+    travelHub: {
+      backLabel: travelBackLabel[locale],
+      readTime: travelReadTime[locale],
+      funnel: travelFunnelCopy[locale],
+    },
     reviews: reviewsCopy[locale],
     ...(isChinaLocale(locale) ? { china: chinaContactCopy[locale] } : {}),
   };

@@ -14,7 +14,7 @@ export type Locale =
 
 export type PageKey = "home" | "services" | "contact" | "guide" | "tours";
 
-export type TravelStory = "index" | "tips" | "discover";
+export type TravelStory = "index" | "tips" | "discover" | "cusco" | "bolivia";
 
 export const defaultLocale: Locale = "es";
 
@@ -25,7 +25,12 @@ export const locales: Record<
     flag: string;
     hreflang: string;
     dir: "ltr" | "rtl";
-    slugs: Record<Exclude<PageKey, "home">, string> & { discover: string; tips: string };
+    slugs: Record<Exclude<PageKey, "home">, string> & {
+      discover: string;
+      tips: string;
+      cusco: string;
+      bolivia: string;
+    };
   }
 > = {
   es: {
@@ -40,6 +45,8 @@ export const locales: Record<
       tours: "viajes",
       tips: "consejos-viaje",
       discover: "descubre-bolivia",
+      cusco: "tours-cusco",
+      bolivia: "tours-bolivia",
     },
   },
   en: {
@@ -54,6 +61,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
   zh: {
@@ -68,6 +77,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
   "zh-tw": {
@@ -82,6 +93,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
   ar: {
@@ -96,6 +109,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
   he: {
@@ -110,6 +125,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
   pt: {
@@ -124,6 +141,8 @@ export const locales: Record<
       tours: "viagens",
       tips: "dicas-viagem",
       discover: "descubra-bolivia",
+      cusco: "tours-cusco",
+      bolivia: "tours-bolivia",
     },
   },
   ru: {
@@ -138,6 +157,8 @@ export const locales: Record<
       tours: "puteshestviya",
       tips: "sovety-puteshestviyam",
       discover: "discover-bolivia",
+      cusco: "tury-kusko",
+      bolivia: "tury-boliviya",
     },
   },
   id: {
@@ -152,6 +173,8 @@ export const locales: Record<
       tours: "perjalanan",
       tips: "tips-perjalanan",
       discover: "discover-bolivia",
+      cusco: "tur-cusco",
+      bolivia: "tur-bolivia",
     },
   },
   uk: {
@@ -166,6 +189,8 @@ export const locales: Record<
       tours: "podorozhi",
       tips: "porady-mandrivnykam",
       discover: "discover-bolivia",
+      cusco: "tury-kusko",
+      bolivia: "tury-boliviya",
     },
   },
   sr: {
@@ -180,6 +205,8 @@ export const locales: Record<
       tours: "putovanja",
       tips: "saveti-za-put",
       discover: "discover-bolivia",
+      cusco: "ture-cusco",
+      bolivia: "ture-bolivija",
     },
   },
   hi: {
@@ -194,6 +221,8 @@ export const locales: Record<
       tours: "travel",
       tips: "travel-tips",
       discover: "discover-bolivia",
+      cusco: "cusco-tours",
+      bolivia: "bolivia-tours",
     },
   },
 };
@@ -208,6 +237,8 @@ export function localePath(locale: Locale, page: PageKey = "home"): string {
 export function travelStoryPath(locale: Locale, story: TravelStory = "index"): string {
   if (story === "discover") return `/${locale}/${locales[locale].slugs.discover}/`;
   if (story === "tips") return `/${locale}/${locales[locale].slugs.tips}/`;
+  if (story === "cusco") return `/${locale}/${locales[locale].slugs.cusco}/`;
+  if (story === "bolivia") return `/${locale}/${locales[locale].slugs.bolivia}/`;
   return `/${locale}/${locales[locale].slugs.tours}/`;
 }
 

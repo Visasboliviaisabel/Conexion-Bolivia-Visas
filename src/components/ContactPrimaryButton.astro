@@ -9,6 +9,8 @@ interface Props {
   whatsappLabel: string;
   wechatLabel: string;
   class?: string;
+  /** Optional WhatsApp message prefill (ignored for WeChat locales). */
+  whatsappPrefill?: string;
 }
 
 const {
@@ -16,7 +18,12 @@ const {
   whatsappLabel,
   wechatLabel,
   class: className = "button button-primary",
+  whatsappPrefill,
 } = Astro.props;
+
+const whatsappHref = whatsappPrefill
+  ? `${business.whatsappUrl}?text=${encodeURIComponent(whatsappPrefill)}`
+  : business.whatsappUrl;
 ---
 
 {
@@ -32,7 +39,7 @@ const {
   ) : (
     <a
       class={className}
-      href={business.whatsappUrl}
+      href={whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
       data-analytics-event="whatsapp_click"

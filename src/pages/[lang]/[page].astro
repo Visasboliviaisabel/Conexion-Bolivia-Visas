@@ -5,6 +5,7 @@ import ChinaContact from "../../components/ChinaContact.astro";
 import ContactPrimaryButton from "../../components/ContactPrimaryButton.astro";
 import TravelIndex from "../../components/TravelIndex.astro";
 import TravelTipsArticle from "../../components/TravelTipsArticle.astro";
+import TravelRegionPage from "../../components/TravelRegionPage.astro";
 import DiscoverArticle from "../../components/DiscoverArticle.astro";
 import NationalityLinks from "../../components/NationalityLinks.astro";
 import { localeList, locales, localePath, travelStoryPath } from "../../i18n/config";
@@ -16,7 +17,17 @@ import { business } from "../../data/business";
 export function getStaticPaths() {
   const paths: {
     params: { lang: string; page: string };
-    props: { pageType: "services" | "contact" | "guide" | "tours" | "tips" | "discover" };
+    props: {
+      pageType:
+        | "services"
+        | "contact"
+        | "guide"
+        | "tours"
+        | "tips"
+        | "discover"
+        | "cusco"
+        | "bolivia";
+    };
   }[] = [];
 
   for (const lang of localeList) {
@@ -39,6 +50,14 @@ export function getStaticPaths() {
     paths.push({
       params: { lang, page: locales[lang].slugs.discover },
       props: { pageType: "discover" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.cusco },
+      props: { pageType: "cusco" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.bolivia },
+      props: { pageType: "bolivia" },
     });
     paths.push({
       params: { lang, page: locales[lang].slugs.contact },
@@ -159,7 +178,14 @@ const t = getTranslations(locale);
   </I18nLayout>
 ) : pageType === "tours" ? (
   <I18nLayout locale={locale} page="tours" travelStory="index">
-    <TravelIndex locale={locale} tips={t.tours} discover={t.discover} readTime={t.travelHub.readTime} />
+    <TravelIndex
+      locale={locale}
+      tips={t.tours}
+      discover={t.discover}
+      readTime={t.travelHub.readTime}
+      funnel={t.travelHub.funnel}
+      wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+    />
   </I18nLayout>
 ) : pageType === "tips" ? (
   <I18nLayout locale={locale} page="tours" travelStory="tips">
@@ -175,6 +201,52 @@ const t = getTranslations(locale);
       discover={t.discover}
       backLabel={t.travelHub.backLabel}
       backPath={travelStoryPath(locale, "index")}
+    />
+  </I18nLayout>
+) : pageType === "cusco" ? (
+  <I18nLayout
+    locale={locale}
+    page="tours"
+    travelStory="cusco"
+    ogImagePath="/images/cusco-tours.jpg"
+    ogImageWidth={1500}
+    ogImageHeight={1000}
+    ogImageAlt={t.travelHub.funnel.cuscoTitle}
+  >
+    <TravelRegionPage
+      locale={locale}
+      region="cusco"
+      funnel={t.travelHub.funnel}
+      wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+      backLabel={t.travelHub.backLabel}
+      backPath={travelStoryPath(locale, "index")}
+      coverImage="/images/cusco-tours.jpg"
+      coverImageWebp="/images/cusco-tours.webp"
+      coverWidth={1000}
+      coverHeight={666}
+    />
+  </I18nLayout>
+) : pageType === "bolivia" ? (
+  <I18nLayout
+    locale={locale}
+    page="tours"
+    travelStory="bolivia"
+    ogImagePath="/images/bolivia-tours.jpg"
+    ogImageWidth={1500}
+    ogImageHeight={1000}
+    ogImageAlt={t.travelHub.funnel.boliviaTitle}
+  >
+    <TravelRegionPage
+      locale={locale}
+      region="bolivia"
+      funnel={t.travelHub.funnel}
+      wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+      backLabel={t.travelHub.backLabel}
+      backPath={travelStoryPath(locale, "index")}
+      coverImage="/images/bolivia-tours.jpg"
+      coverImageWebp="/images/bolivia-tours.webp"
+      coverWidth={820}
+      coverHeight={500}
     />
   </I18nLayout>
 ) : (

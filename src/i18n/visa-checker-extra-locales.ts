@@ -13,10 +13,10 @@ export const zhVisaChecker: VisaCheckerCopy = {
     { label: "第二组", text: "入境玻利维亚前需要旅游签证。" },
     { label: "第三组", text: "需要签证，且须事先经移民局审核。" },
   ],
-  group1Redirecting: "好消息：持 {country} 护照无需玻利维亚签证。正在跳转到旅行信息与行程页面…",
+  group1Redirecting: "好消息：持 {country} 护照无需玻利维亚签证。正在跳转到 Isabel 行程预订页…",
   group1RedirectEyebrow: "签证查询结果",
   group1RedirectTitle: "您无需签证",
-  group1RedirectBody: "我们将带您前往旅行专区，了解旅游信息与行程。",
+  group1RedirectBody: "我们将带您前往旅行专区，通过 Isabel 预订库斯科和玻利维亚行程。",
   group1RedirectProgress: "正在自动跳转…",
   group2Title: "您需要玻利维亚签证",
   group2Text: "可在库斯科（领事馆对面）办理，提供专人指导，支持当天出签。",
@@ -32,13 +32,13 @@ export const zhVisaChecker: VisaCheckerCopy = {
   consultWhatsappPrefill:
     "您好，我来自[国家/地区]，在贵站签证查询中未找到我的国家/地区。请确认我是否需要玻利维亚签证？",
   travelBannerTitle: "规划您的玻利维亚之旅",
-  travelBannerText: "您无需玻利维亚签证。在此可找到库斯科和玻利维亚的旅行信息、贴士与行程。",
+  travelBannerText: "您无需玻利维亚签证。可直接通过 Isabel 预订库斯科和玻利维亚行程。",
   travelWelcomeEyebrow: "已收到签证查询",
   travelWelcomeTitle: "您无需玻利维亚签证",
   travelWelcomeCountry: "您的 {country} 护照属于第一组——无需签证。",
   travelWelcomeBody:
-    "我们已收到您的查询并自动带您来到此页。您可以在此了解库斯科和玻利维亚的旅行信息与行程。",
-  travelWelcomeNext: "下方为旅行信息与行程",
+    "我们已收到您的查询并自动带您来到此页。您可以在此通过 Isabel 预订库斯科和玻利维亚行程。",
+  travelWelcomeNext: "下方为 Isabel 行程",
 };
 
 export const zhTwVisaChecker: VisaCheckerCopy = {
@@ -55,10 +55,10 @@ export const zhTwVisaChecker: VisaCheckerCopy = {
     { label: "第二組", text: "入境玻利維亞前需要旅遊簽證。" },
     { label: "第三組", text: "需要簽證，且須事先經移民局審核。" },
   ],
-  group1Redirecting: "好消息：持 {country} 護照無需玻利維亞簽證。正在跳轉至旅行資訊與行程頁面…",
+  group1Redirecting: "好消息：持 {country} 護照無需玻利維亞簽證。正在跳轉至 Isabel 行程預訂頁…",
   group1RedirectEyebrow: "簽證查詢結果",
   group1RedirectTitle: "您無需簽證",
-  group1RedirectBody: "我們將帶您前往旅行專區，了解旅遊資訊與行程。",
+  group1RedirectBody: "我們將帶您前往旅行專區，透過 Isabel 預訂庫斯科和玻利維亞行程。",
   group1RedirectProgress: "正在自動跳轉…",
   group2Title: "您需要玻利維亞簽證",
   group2Text: "可在庫斯科（領事館對面）辦理，提供專人指導，支援當天出簽。",
@@ -74,13 +74,13 @@ export const zhTwVisaChecker: VisaCheckerCopy = {
   consultWhatsappPrefill:
     "您好，我來自[國家/地區]，在貴站簽證查詢中未找到我的國家/地區。請確認我是否需要玻利維亞簽證？",
   travelBannerTitle: "規劃您的玻利維亞之旅",
-  travelBannerText: "您無需玻利維亞簽證。在此可找到庫斯科和玻利維亞的旅行資訊、貼士與行程。",
+  travelBannerText: "您無需玻利維亞簽證。可直接透過 Isabel 預訂庫斯科和玻利維亞行程。",
   travelWelcomeEyebrow: "已收到簽證查詢",
   travelWelcomeTitle: "您無需玻利維亞簽證",
   travelWelcomeCountry: "您的 {country} 護照屬於第一組——無需簽證。",
   travelWelcomeBody:
-    "我們已收到您的查詢並自動帶您來到此頁。您可以在此了解庫斯科和玻利維亞的旅行資訊與行程。",
-  travelWelcomeNext: "下方為旅行資訊與行程",
+    "我們已收到您的查詢並自動帶您來到此頁。您可以在此透過 Isabel 預訂庫斯科和玻利維亞行程。",
+  travelWelcomeNext: "下方為 Isabel 行程",
 };
 
 export const arVisaChecker: VisaCheckerCopy = {
@@ -96,10 +96,10 @@ export const arVisaChecker: VisaCheckerCopy = {
     { label: "المجموعة II", text: "تحتاج تأشيرة سياحية قبل دخول بوليفيا." },
     { label: "المجموعة III", text: "تحتاج تأشيرة مع موافقة مسبقة من الهجرة." },
   ],
-  group1Redirecting: "أخبار سارة — بجواز {country} لا تحتاج تأشيرة لبوليفيا. جاري التوجيه إلى معلومات السفر…",
+  group1Redirecting: "أخبار سارة — بجواز {country} لا تحتاج تأشيرة لبوليفيا. جاري التوجيه إلى جولات Isabel…",
   group1RedirectEyebrow: "نتيجة فحص التأشيرة",
   group1RedirectTitle: "لا تحتاج تأشيرة",
-  group1RedirectBody: "نوجّهك إلى قسم السفر مع معلومات الرحلات والجولات.",
+  group1RedirectBody: "نوجّهك إلى قسم السفر لحجز جولات كوسكو وبوليفيا مع Isabel.",
   group1RedirectProgress: "جاري التوجيه تلقائياً…",
   group2Title: "تحتاج تأشيرة لبوليفيا",
   group2Text: "يمكنك إنجازها في كوسكو أمام القنصلية، بإرشاد شخصي وخدمة في نفس اليوم.",
@@ -115,13 +115,13 @@ export const arVisaChecker: VisaCheckerCopy = {
   consultWhatsappPrefill:
     "مرحباً، أنا من [البلد] ولم أجد بلدي في فاحص التأشيرة. هل يمكنكم تأكيد إذا كنت أحتاج تأشيرة لبوليفيا؟",
   travelBannerTitle: "خطّط رحلتك إلى بوليفيا",
-  travelBannerText: "لا تحتاج تأشيرة لبوليفيا. هنا ستجد معلومات السفر والنصائح والجولات لكوسكو وبوليفيا.",
+  travelBannerText: "لا تحتاج تأشيرة لبوليفيا. احجز جولات كوسكو وبوليفيا مباشرة مع Isabel.",
   travelWelcomeEyebrow: "تم استلام فحص التأشيرة",
   travelWelcomeTitle: "لا تحتاج تأشيرة لبوليفيا",
   travelWelcomeCountry: "جواز {country} ضمن المجموعة I — أي لا تأشيرة مطلوبة.",
   travelWelcomeBody:
-    "استلمنا استفسارك ووجّهناك هنا تلقائياً. في هذه الصفحة تجد معلومات السفر والجولات لكوسكو وبوليفيا.",
-  travelWelcomeNext: "معلومات السفر والجولات أدناه",
+    "استلمنا استفسارك ووجّهناك هنا تلقائياً. هنا يمكنك حجز جولات كوسكو وبوليفيا مع Isabel.",
+  travelWelcomeNext: "جولات Isabel أدناه",
 };
 
 export const heVisaChecker: VisaCheckerCopy = {
@@ -137,10 +137,10 @@ export const heVisaChecker: VisaCheckerCopy = {
     { label: "קבוצה II", text: "נדרשת ויזת תיירות לפני הכניסה לבוליביה." },
     { label: "קבוצה III", text: "נדרשת ויזה עם אישור מוקדם של ההגירה." },
   ],
-  group1Redirecting: "חדשות טובות — עם דרכון {country} אין צורך בוויזה לבוליביה. מעבירים לדף מידע על נסיעות…",
+  group1Redirecting: "חדשות טובות — עם דרכון {country} אין צורך בוויזה לבוליביה. מעבירים לטיולים עם Isabel…",
   group1RedirectEyebrow: "תוצאת בדיקת הוויזה",
   group1RedirectTitle: "אין צורך בוויזה",
-  group1RedirectBody: "מעבירים אתכם לאזור הנסיעות עם מידע תיירותי וטיולים.",
+  group1RedirectBody: "מעבירים אתכם לאזור הנסיעות להזמנת טיולים בקוסקו ובבוליביה עם Isabel.",
   group1RedirectProgress: "מעבירים אוטומטית…",
   group2Title: "נדרשת ויזה לבוליביה",
   group2Text: "ניתן לטפל בקוסקו מול הקונסוליה, עם ליווי אישי ושירות באותו יום.",
@@ -156,13 +156,13 @@ export const heVisaChecker: VisaCheckerCopy = {
   consultWhatsappPrefill:
     "שלום, אני מ[מדינה] ולא מצאתי את המדינה שלי בבודק הוויזה. האם אני צריך/ה ויזה לבוליביה?",
   travelBannerTitle: "תכננו את הטיול לבוליביה",
-  travelBannerText: "אין צורך בוויזה לבוליביה. כאן תמצאו מידע על נסיעות, טיפים וטיולים לקוסקו ובוליביה.",
+  travelBannerText: "אין צורך בוויזה לבוליביה. הזמינו טיולים בקוסקו ובבוליביה ישירות עם Isabel.",
   travelWelcomeEyebrow: "בדיקת הוויזה התקבלה",
   travelWelcomeTitle: "אין צורך בוויזה לבוליביה",
   travelWelcomeCountry: "דרכון {country} בקבוצה I — כלומר אין צורך בוויזה.",
   travelWelcomeBody:
-    "קיבלנו את הבדיקה שלכם והעברנו אתכם לכאן אוטומטית. בדף זה תמצאו מידע על נסיעות וטיולים לקוסקו ובוליביה.",
-  travelWelcomeNext: "מידע על נסיעות וטיולים למטה",
+    "קיבלנו את הבדיקה שלכם והעברנו אתכם לכאן אוטומטית. כאן תוכלו להזמין טיולים בקוסקו ובבוליביה עם Isabel.",
+  travelWelcomeNext: "טיולים עם Isabel למטה",
 };
 
 export const ptVisaChecker: VisaCheckerCopy = {
@@ -181,11 +181,11 @@ export const ptVisaChecker: VisaCheckerCopy = {
     { label: "Grupo III", text: "Precisa de visto, com verificação prévia da Migração." },
   ],
   group1Redirecting:
-    "Boas notícias: com passaporte de {country} você não precisa de visto para a Bolívia. Redirecionando para viagens e tours…",
+    "Boas notícias: com passaporte de {country} você não precisa de visto para a Bolívia. Redirecionando para tours com Isabel…",
   group1RedirectEyebrow: "Resultado da consulta",
   group1RedirectTitle: "Você não precisa de visto",
   group1RedirectBody:
-    "Vamos levá-lo à nossa seção de viagens, com informações turísticas e tours.",
+    "Vamos levá-lo à nossa seção de viagens para reservar tours em Cusco e na Bolívia com Isabel.",
   group1RedirectProgress: "Redirecionando automaticamente…",
   group2Title: "Você precisa de visto para a Bolívia",
   group2Text:
@@ -204,14 +204,14 @@ export const ptVisaChecker: VisaCheckerCopy = {
     "Olá, sou de [país] e não encontrei meu país no verificador de visto. Podem confirmar se preciso de visto para a Bolívia?",
   travelBannerTitle: "Planeje sua viagem à Bolívia",
   travelBannerText:
-    "Você não precisa de visto para a Bolívia. Aqui você encontra informações de viagem, dicas e tours para Cusco e a Bolívia.",
+    "Você não precisa de visto para a Bolívia. Reserve tours em Cusco e na Bolívia diretamente com Isabel.",
   travelWelcomeEyebrow: "Consulta de visto recebida",
   travelWelcomeTitle: "Você não precisa de visto para a Bolívia",
   travelWelcomeCountry:
     "Seu passaporte de {country} está no Grupo I — ou seja, você não precisa de visto.",
   travelWelcomeBody:
-    "Recebemos sua consulta e trouxemos você aqui automaticamente. Nesta página você encontra informações de viagem e tours para Cusco e a Bolívia.",
-  travelWelcomeNext: "Informações de viagem e tours abaixo",
+    "Recebemos sua consulta e trouxemos você aqui automaticamente. Aqui você pode reservar tours em Cusco e na Bolívia com Isabel.",
+  travelWelcomeNext: "Tours com Isabel abaixo",
 };
 
 export const ruVisaChecker: VisaCheckerCopy = {
@@ -230,10 +230,10 @@ export const ruVisaChecker: VisaCheckerCopy = {
     { label: "Группа III", text: "Нужна виза с предварительным одобрением миграционной службы." },
   ],
   group1Redirecting:
-    "Хорошие новости — с паспортом {country} виза в Боливию не нужна. Перенаправляем на страницу путешествий…",
+    "Хорошие новости — с паспортом {country} виза в Боливию не нужна. Перенаправляем к турам с Isabel…",
   group1RedirectEyebrow: "Результат проверки визы",
   group1RedirectTitle: "Виза не нужна",
-  group1RedirectBody: "Мы отправляем вас в раздел путешествий с информацией и турами.",
+  group1RedirectBody: "Мы отправляем вас в раздел путешествий, чтобы забронировать туры в Куско и Боливию с Isabel.",
   group1RedirectProgress: "Автоматическое перенаправление…",
   group2Title: "Вам нужна виза в Боливию",
   group2Text:
@@ -252,13 +252,13 @@ export const ruVisaChecker: VisaCheckerCopy = {
     "Здравствуйте, я из [страна] и не нашёл(ла) свою страну в проверке визы. Подскажите, нужна ли мне виза в Боливию?",
   travelBannerTitle: "Спланируйте поездку в Боливию",
   travelBannerText:
-    "Виза в Боливию вам не нужна. Здесь вы найдёте информацию о путешествиях, советы и туры по Куско и Боливии.",
+    "Виза в Боливию вам не нужна. Бронируйте туры в Куско и Боливию напрямую с Isabel.",
   travelWelcomeEyebrow: "Проверка визы получена",
   travelWelcomeTitle: "Вам не нужна виза в Боливию",
   travelWelcomeCountry: "Паспорт {country} относится к группе I — виза не нужна.",
   travelWelcomeBody:
-    "Мы получили ваш запрос и автоматически перенаправили вас сюда. На этой странице — информация о путешествиях и турах по Куско и Боливии.",
-  travelWelcomeNext: "Информация о путешествиях и турах ниже",
+    "Мы получили ваш запрос и автоматически перенаправили вас сюда. Здесь вы можете забронировать туры в Куско и Боливию с Isabel.",
+  travelWelcomeNext: "Туры с Isabel ниже",
 };
 
 export const idVisaChecker: VisaCheckerCopy = {
@@ -277,10 +277,10 @@ export const idVisaChecker: VisaCheckerCopy = {
     { label: "Grup III", text: "Perlu visa dengan persetujuan Migrasi terlebih dahulu." },
   ],
   group1Redirecting:
-    "Kabar baik — dengan paspor {country} Anda tidak perlu visa untuk Bolivia. Mengalihkan ke info perjalanan…",
+    "Kabar baik — dengan paspor {country} Anda tidak perlu visa untuk Bolivia. Mengalihkan ke tur dengan Isabel…",
   group1RedirectEyebrow: "Hasil pemeriksaan visa",
   group1RedirectTitle: "Anda tidak perlu visa",
-  group1RedirectBody: "Kami mengarahkan Anda ke bagian perjalanan dengan info wisata dan tur.",
+  group1RedirectBody: "Kami mengarahkan Anda ke bagian perjalanan untuk memesan tur Cusco dan Bolivia dengan Isabel.",
   group1RedirectProgress: "Mengalihkan otomatis…",
   group2Title: "Anda perlu visa untuk Bolivia",
   group2Text:
@@ -299,13 +299,13 @@ export const idVisaChecker: VisaCheckerCopy = {
     "Halo, saya dari [negara] dan tidak menemukan negara saya di pemeriksa visa. Apakah saya perlu visa untuk Bolivia?",
   travelBannerTitle: "Rencanakan perjalanan ke Bolivia",
   travelBannerText:
-    "Anda tidak perlu visa untuk Bolivia. Di sini ada info perjalanan, tips, dan tur untuk Cusco dan Bolivia.",
+    "Anda tidak perlu visa untuk Bolivia. Pesan tur Cusco dan Bolivia langsung dengan Isabel.",
   travelWelcomeEyebrow: "Pemeriksaan visa diterima",
   travelWelcomeTitle: "Anda tidak perlu visa untuk Bolivia",
   travelWelcomeCountry: "Paspor {country} termasuk Grup I — artinya tidak perlu visa.",
   travelWelcomeBody:
-    "Kami menerima pemeriksaan Anda dan membawa Anda ke sini secara otomatis. Di halaman ini ada info perjalanan dan tur untuk Cusco dan Bolivia.",
-  travelWelcomeNext: "Info perjalanan dan tur di bawah",
+    "Kami menerima pemeriksaan Anda dan membawa Anda ke sini secara otomatis. Di sini Anda bisa pesan tur Cusco dan Bolivia dengan Isabel.",
+  travelWelcomeNext: "Tur dengan Isabel di bawah",
 };
 
 export const ukVisaChecker: VisaCheckerCopy = {
@@ -324,10 +324,10 @@ export const ukVisaChecker: VisaCheckerCopy = {
     { label: "Група III", text: "Потрібна віза з попереднім схваленням міграційної служби." },
   ],
   group1Redirecting:
-    "Гарні новини — з паспортом {country} віза до Болівії не потрібна. Перенаправляємо на сторінку подорожей…",
+    "Гарні новини — з паспортом {country} віза до Болівії не потрібна. Перенаправляємо до турів з Isabel…",
   group1RedirectEyebrow: "Результат перевірки візи",
   group1RedirectTitle: "Віза не потрібна",
-  group1RedirectBody: "Ми направляємо вас до розділу подорожей з інформацією та турами.",
+  group1RedirectBody: "Ми направляємо вас до розділу подорожей, щоб забронювати тури в Куско та Болівію з Isabel.",
   group1RedirectProgress: "Автоматичне перенаправлення…",
   group2Title: "Вам потрібна віза до Болівії",
   group2Text:
@@ -346,13 +346,13 @@ export const ukVisaChecker: VisaCheckerCopy = {
     "Вітаю, я з [країна] і не знайшов(ла) свою країну у перевірці візи. Чи потрібна мені віза до Болівії?",
   travelBannerTitle: "Сплануйте подорож до Болівії",
   travelBannerText:
-    "Віза до Болівії вам не потрібна. Тут ви знайдете інформацію про подорожі, поради та тури Куско й Болівії.",
+    "Віза до Болівії вам не потрібна. Бронюйте тури в Куско та Болівію напряму з Isabel.",
   travelWelcomeEyebrow: "Перевірку візи отримано",
   travelWelcomeTitle: "Вам не потрібна віза до Болівії",
   travelWelcomeCountry: "Паспорт {country} належить до групи I — віза не потрібна.",
   travelWelcomeBody:
-    "Ми отримали ваш запит і автоматично перенаправили вас сюди. На цій сторінці — інформація про подорожі та тури Куско й Болівії.",
-  travelWelcomeNext: "Інформація про подорожі та тури нижче",
+    "Ми отримали ваш запит і автоматично перенаправили вас сюди. Тут ви можете забронювати тури в Куско та Болівію з Isabel.",
+  travelWelcomeNext: "Тури з Isabel нижче",
 };
 
 export const srVisaChecker: VisaCheckerCopy = {
@@ -371,10 +371,10 @@ export const srVisaChecker: VisaCheckerCopy = {
     { label: "Grupa III", text: "Potrebna viza sa prethodnom proverom Migracija." },
   ],
   group1Redirecting:
-    "Dobre vesti — sa pasošem {country} vam ne treba viza za Boliviju. Preusmeravamo na informacije o putovanju…",
+    "Dobre vesti — sa pasošem {country} vam ne treba viza za Boliviju. Preusmeravamo na ture sa Isabel…",
   group1RedirectEyebrow: "Rezultat provere vize",
   group1RedirectTitle: "Ne treba vam viza",
-  group1RedirectBody: "Vodimo vas u odeljak o putovanjima sa turističkim informacijama i turama.",
+  group1RedirectBody: "Vodimo vas u odeljak o putovanjima da rezervišete ture u Cuscu i Boliviji sa Isabel.",
   group1RedirectProgress: "Automatsko preusmeravanje…",
   group2Title: "Potrebna vam je viza za Boliviju",
   group2Text:
@@ -393,13 +393,13 @@ export const srVisaChecker: VisaCheckerCopy = {
     "Zdravo, iz [zemlja] sam i nisam našao/la svoju zemlju u proveri vize. Da li mi treba viza za Boliviju?",
   travelBannerTitle: "Planirajte putovanje u Boliviju",
   travelBannerText:
-    "Ne treba vam viza za Boliviju. Ovde su informacije o putovanju, saveti i ture za Kusko i Boliviju.",
+    "Ne treba vam viza za Boliviju. Rezervišite ture u Cuscu i Boliviji direktno sa Isabel.",
   travelWelcomeEyebrow: "Provera vize primljena",
   travelWelcomeTitle: "Ne treba vam viza za Boliviju",
   travelWelcomeCountry: "Pasoš {country} je u Grupi I — viza nije potrebna.",
   travelWelcomeBody:
-    "Primili smo vašu proveru i automatski smo vas doveli ovde. Na ovoj stranici su informacije o putovanju i turama za Kusko i Boliviju.",
-  travelWelcomeNext: "Informacije o putovanju i turama ispod",
+    "Primili smo vašu proveru i automatski smo vas doveli ovde. Ovde možete rezervisati ture u Cuscu i Boliviji sa Isabel.",
+  travelWelcomeNext: "Ture sa Isabel ispod",
 };
 
 export const hiVisaChecker: VisaCheckerCopy = {
@@ -418,10 +418,10 @@ export const hiVisaChecker: VisaCheckerCopy = {
     { label: "समूह III", text: "वीज़ा चाहिए, पहले Migration की मंज़ूरी ज़रूरी।" },
   ],
   group1Redirecting:
-    "अच्छी खबर — {country} पासपोर्ट पर बोलीविया वीज़ा नहीं चाहिए। यात्रा जानकारी पर भेज रहे हैं…",
+    "अच्छी खबर — {country} पासपोर्ट पर बोलीविया वीज़ा नहीं चाहिए। Isabel के टूर पर भेज रहे हैं…",
   group1RedirectEyebrow: "वीज़ा जाँच परिणाम",
   group1RedirectTitle: "आपको वीज़ा नहीं चाहिए",
-  group1RedirectBody: "हम आपको यात्रा अनुभाग में ले जा रहे हैं — जानकारी और टूर।",
+  group1RedirectBody: "हम आपको यात्रा अनुभाग में ले जा रहे हैं — Isabel के साथ कुस्को और बोलीविया टूर बुक करें।",
   group1RedirectProgress: "स्वचालित रूप से भेज रहे हैं…",
   group2Title: "आपको बोलीविया वीज़ा चाहिए",
   group2Text:
@@ -440,11 +440,11 @@ export const hiVisaChecker: VisaCheckerCopy = {
     "नमस्ते, मैं [देश] से हूँ और वीज़ा चेकर में अपना देश नहीं मिला। क्या मुझे बोलीविया वीज़ा चाहिए?",
   travelBannerTitle: "बोलीविया यात्रा की योजना बनाएँ",
   travelBannerText:
-    "बोलीविया वीज़ा नहीं चाहिए। यहाँ कुस्को और बोलीविया की यात्रा जानकारी, सुझाव और टूर हैं।",
+    "बोलीविया वीज़ा नहीं चाहिए। Isabel के साथ सीधे कुस्को और बोलीविया टूर बुक करें।",
   travelWelcomeEyebrow: "वीज़ा जाँच प्राप्त",
   travelWelcomeTitle: "आपको बोलीविया वीज़ा नहीं चाहिए",
   travelWelcomeCountry: "आपका {country} पासपोर्ट समूह I में है — वीज़ा नहीं चाहिए।",
   travelWelcomeBody:
-    "हमने आपकी जाँच प्राप्त की और यहाँ लाया। इस पृष्ठ पर कुस्को और बोलीविया की यात्रा जानकारी और टूर हैं।",
-  travelWelcomeNext: "नीचे यात्रा जानकारी और टूर",
+    "हमने आपकी जाँच प्राप्त की और यहाँ लाया। यहाँ आप Isabel के साथ कुस्को और बोलीविया टूर बुक कर सकते हैं।",
+  travelWelcomeNext: "नीचे Isabel के टूर",
 };

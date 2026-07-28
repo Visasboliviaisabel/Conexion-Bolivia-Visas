@@ -1,6 +1,7 @@
 ---
 import type { ToursContent } from "../i18n/tours-translations";
 import type { DiscoverContent } from "../i18n/discover-translations";
+import type { TravelFunnelCopy } from "../i18n/tours-translations";
 import { tipsCardImage } from "../i18n/tours-translations";
 import { travelStoryPath } from "../i18n/config";
 import type { Locale } from "../i18n/config";
@@ -8,19 +9,24 @@ import { getVisaCheckerCopy } from "../i18n/visa-checker-translations";
 import { getCountryDisplayName } from "../i18n/country-display-names";
 import visaGroupsData from "../data/visa-groups.json";
 import type { VisaGroupsData } from "../data/visa-groups.types";
+import ContactPrimaryButton from "./ContactPrimaryButton.astro";
 
 interface Props {
   locale: Locale;
   tips: ToursContent;
   discover: DiscoverContent;
   readTime: { tips: string; discover: string };
+  funnel: TravelFunnelCopy;
+  wechatLabel: string;
 }
 
-const { locale, tips, discover, readTime } = Astro.props;
+const { locale, tips, discover, readTime, funnel, wechatLabel } = Astro.props;
 const checkerCopy = getVisaCheckerCopy(locale);
 const data = visaGroupsData as VisaGroupsData;
 const tipsPath = travelStoryPath(locale, "tips");
 const discoverPath = travelStoryPath(locale, "discover");
+const cuscoPath = travelStoryPath(locale, "cusco");
+const boliviaPath = travelStoryPath(locale, "bolivia");
 
 const countryNamesByCode = Object.fromEntries(
   data.countries.map((country) => [
@@ -28,7 +34,59 @@ const countryNamesByCode = Object.fromEntries(
     getCountryDisplayName(locale, country.code, country),
   ]),
 );
+
+const DEFAULT_IMAGES = {
+  cusco: {
+    webp: "/images/cusco-tours.webp",
+    jpg: "/images/cusco-tours.jpg",
+    width: 1000,
+    height: 666,
+  },
+  bolivia: {
+    webp: "/images/bolivia-tours.webp",
+    jpg: "/images/bolivia-tours.jpg",
+    width: 820,
+    height: 500,
+  },
+} as const;
+
+const siteOrigin = Astro.site?.origin ?? "https://visasboliviaconexion.com";
+const hubUrl = new URL(travelStoryPath(locale, "index"), siteOrigin).href;
+const hubListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: funnel.heroTitle,
+  description: funnel.heroLead,
+  url: hubUrl,
+  numberOfItems: 2,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "TouristDestination",
+        name: funnel.cuscoTitle,
+        description: funnel.cuscoLead,
+        url: new URL(cuscoPath, siteOrigin).href,
+        image: new URL(DEFAULT_IMAGES.cusco.jpg, siteOrigin).href,
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "TouristDestination",
+        name: funnel.boliviaTitle,
+        description: funnel.boliviaLead,
+        url: new URL(boliviaPath, siteOrigin).href,
+        image: new URL(DEFAULT_IMAGES.bolivia.jpg, siteOrigin).href,
+      },
+    },
+  ],
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(hubListSchema)} />
 
 <section class="travel-welcome" id="travel-welcome" hidden>
   <div class="travel-welcome__inner">
@@ -59,7 +117,7 @@ const countryNamesByCode = Object.fromEntries(
     if (params.get("from") !== "visa-check") return;
 
     const welcome = document.getElementById("travel-welcome");
-    const posts = document.getElementById("travel-posts");
+    const funnelEl = document.getElementById("travel-funnel");
     if (!welcome) return;
 
     const countryCode = params.get("country") ?? "";
@@ -73,47 +131,115 @@ const countryNamesByCode = Object.fromEntries(
     welcome.querySelector(".travel-welcome__next").textContent = travelWelcomeNext;
 
     welcome.hidden = false;
-    posts?.classList.add("travel-posts--after-welcome");
+    funnelEl?.classList.add("travel-funnel--after-welcome");
     window.scrollTo(0, 0);
   })();
 </script>
 
-<div class="travel-posts" id="travel-posts">
-  <a class="travel-post-card" href={tipsPath}>
-    <div class="travel-post-card__image-wrap">
-      <img
-        src={tipsCardImage.src}
-        alt={tipsCardImage.alt}
-        loading="lazy"
-        decoding="async"
-        width="1200"
-        height="720"
-      />
-    </div>
-    <div class="travel-post-card__body">
-      <h2 class="travel-post-card__title">{tips.title}</h2>
-      <p class="travel-post-card__excerpt">{tips.intro}</p>
-      <p class="travel-post-card__meta">{readTime.tips}</p>
-    </div>
-  </a>
+<div class="travel-funnel" id="travel-funnel">
+  <header class="travel-hero">
+    <p class="eyebrow">{funnel.heroEyebrow}</p>
+    <h1>{funnel.heroTitle}</h1>
+    <p class="lead">{funnel.heroLead}</p>
+  </header>
 
-  <a class="travel-post-card" href={discoverPath}>
-    <div class="travel-post-card__image-wrap">
-      <img
-        src={discover.heroImage.src}
-        alt={discover.heroImage.alt}
-        loading="lazy"
-        decoding="async"
-        width="1400"
-        height="605"
-      />
+  <section class="travel-isabel card" aria-labelledby="travel-isabel-title">
+    <div class="travel-isabel__copy">
+      <h2 id="travel-isabel-title">{funnel.isabelTitle}</h2>
+      <p>{funnel.isabelText}</p>
     </div>
-    <div class="travel-post-card__body">
-      <h2 class="travel-post-card__title">{discover.title}</h2>
-      <p class="travel-post-card__excerpt">{discover.intro}</p>
-      <p class="travel-post-card__meta">{readTime.discover}</p>
+    <ContactPrimaryButton
+      locale={locale}
+      whatsappLabel={funnel.isabelCta}
+      wechatLabel={wechatLabel}
+      whatsappPrefill={funnel.isabelPrefill}
+    />
+  </section>
+
+  <div class="travel-posts travel-regions">
+    <a class="travel-post-card" href={cuscoPath}>
+      <div class="travel-post-card__image-wrap">
+        <picture>
+          <source srcset={DEFAULT_IMAGES.cusco.webp} type="image/webp" />
+          <img
+            src={DEFAULT_IMAGES.cusco.jpg}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width={DEFAULT_IMAGES.cusco.width}
+            height={DEFAULT_IMAGES.cusco.height}
+          />
+        </picture>
+      </div>
+      <div class="travel-post-card__body">
+        <h2 class="travel-post-card__title">{funnel.cuscoTitle}</h2>
+        <p class="travel-post-card__excerpt">{funnel.cuscoLead}</p>
+        <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
+      </div>
+    </a>
+
+    <a class="travel-post-card" href={boliviaPath}>
+      <div class="travel-post-card__image-wrap">
+        <picture>
+          <source srcset={DEFAULT_IMAGES.bolivia.webp} type="image/webp" />
+          <img
+            src={DEFAULT_IMAGES.bolivia.jpg}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width={DEFAULT_IMAGES.bolivia.width}
+            height={DEFAULT_IMAGES.bolivia.height}
+          />
+        </picture>
+      </div>
+      <div class="travel-post-card__body">
+        <h2 class="travel-post-card__title">{funnel.boliviaTitle}</h2>
+        <p class="travel-post-card__excerpt">{funnel.boliviaLead}</p>
+        <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
+      </div>
+    </a>
+  </div>
+
+  <section class="travel-guides" aria-labelledby="travel-guides-title">
+    <h2 id="travel-guides-title">{funnel.guidesTitle}</h2>
+    <div class="travel-posts" id="travel-posts">
+      <a class="travel-post-card" href={tipsPath}>
+        <div class="travel-post-card__image-wrap">
+          <img
+            src={tipsCardImage.src}
+            alt={tipsCardImage.alt}
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="720"
+          />
+        </div>
+        <div class="travel-post-card__body">
+          <h3 class="travel-post-card__title">{tips.title}</h3>
+          <p class="travel-post-card__excerpt">{tips.intro}</p>
+          <p class="travel-post-card__meta">{readTime.tips}</p>
+        </div>
+      </a>
+
+      <a class="travel-post-card" href={discoverPath}>
+        <div class="travel-post-card__image-wrap">
+          <img
+            src={discover.heroImage.src}
+            alt={discover.heroImage.alt}
+            loading="lazy"
+            decoding="async"
+            width="1400"
+            height="605"
+          />
+        </div>
+        <div class="travel-post-card__body">
+          <h3 class="travel-post-card__title">{discover.title}</h3>
+          <p class="travel-post-card__excerpt">{discover.intro}</p>
+          <p class="travel-post-card__meta">{readTime.discover}</p>
+        </div>
+      </a>
     </div>
-  </a>
+  </section>
 </div>
 
 <script define:vars={{ tipsPath, discoverPath }}>
@@ -195,17 +321,72 @@ const countryNamesByCode = Object.fromEntries(
     color: var(--brand);
   }
 
-  .travel-posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: 2rem;
+  .travel-funnel {
     max-width: 1100px;
     margin: 0 auto;
     padding: 2.5rem 1.25rem 3.5rem;
   }
 
-  .travel-posts--after-welcome {
+  .travel-funnel--after-welcome {
     padding-top: 1.5rem;
+  }
+
+  .travel-hero {
+    margin-bottom: 2rem;
+  }
+
+  .travel-hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    line-height: 1.15;
+    color: var(--brand-dark);
+  }
+
+  .travel-hero .lead {
+    margin: 0;
+    max-width: 42rem;
+  }
+
+  .travel-isabel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #eef6fb 0%, #f7fafc 100%);
+  }
+
+  .travel-isabel__copy {
+    flex: 1 1 16rem;
+    min-width: 0;
+  }
+
+  .travel-isabel__copy h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .travel-isabel__copy p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .travel-regions {
+    margin-bottom: 3rem;
+  }
+
+  .travel-guides h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.35rem;
+    color: var(--brand-dark);
+  }
+
+  .travel-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 2rem;
   }
 
   .travel-post-card {
@@ -228,10 +409,14 @@ const countryNamesByCode = Object.fromEntries(
     background: var(--brand-pale);
   }
 
+  .travel-post-card__image-wrap picture,
   .travel-post-card__image-wrap img {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .travel-post-card__image-wrap img {
     object-fit: cover;
   }
 
