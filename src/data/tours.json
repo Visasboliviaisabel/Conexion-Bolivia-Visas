@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-30T16:03:34.905Z",
+  "syncedAt": "2026-07-30T16:07:55.482Z",
   "tours": [
     {
       "id": "bolivia-1-salar-de-uyuni",
@@ -19,7 +19,7 @@
         "en": "One-day tour of the Uyuni Salt Flats, the mirror of the sky."
       },
       "price": null,
-      "image": null
+      "image": "/images/bolivia-tours.jpg"
     },
     {
       "id": "bolivia-2-lago-titicaca-copacabana",
@@ -59,7 +59,7 @@
         "en": "Discover the magic of the Andes with our full-day excursion to the breathtaking Humantay Lake"
       },
       "price": "S/120",
-      "image": null
+      "image": "https://i.postimg.cc/RFYLDGb0/Laguna-Humantay.jpg"
     },
     {
       "id": "cusco-2-montana-de-colores",
@@ -79,7 +79,7 @@
         "en": "Excursión de un día a la Montaña de Colores (Vinicunca)."
       },
       "price": null,
-      "image": null
+      "image": "https://i.postimg.cc/xTVkFW9N/Rainbow-Mountain.jpg"
     },
     {
       "id": "cusco-3-machu-picchu",
@@ -99,7 +99,7 @@
         "en": "Visit the Incan cityAsk Isabel about options"
       },
       "price": null,
-      "image": null
+      "image": "https://i.postimg.cc/brh66pL2/Macchu-Picchu.jpg"
     }
   ]
 }

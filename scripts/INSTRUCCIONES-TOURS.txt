@@ -38,10 +38,13 @@ imagen          → Opcional. Foto del tour.
                     /images/bolivia-tours.jpg
                     /images/salar-mirror.png
                   O una URL pública que empiece con https://
+                  (Postimages: copia "Direct link" → i.postimg.cc/...)
                   Si lo dejas vacío, ese tour se muestra sin foto
                   (está bien — el diseño sigue viéndose limpio)
 
 Importante sobre fotos:
+  • El nombre de la columna debe empezar con "imagen"
+    (puedes agregar una nota, pero no borres la palabra imagen).
   • No uses enlaces de Google Drive (no funcionan como imagen).
   • Si quieres una foto nueva, envíasela a Braylen para subirla
     a /images/ y te da la ruta exacta para pegar en la hoja.

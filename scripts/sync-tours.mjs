@@ -92,6 +92,19 @@ function parseCsv(text) {
   const findIndex = (aliases) =>
     header.findIndex((cell) => aliases.includes(cell));
 
+  // Allow Isabel to add notes in the header (e.g. "imagen - postimg directo")
+  const findImageIndex = () => {
+    const exact = findIndex(HEADER_ALIASES.image);
+    if (exact >= 0) return exact;
+    return header.findIndex(
+      (cell) =>
+        cell === "imagen" ||
+        cell === "image" ||
+        cell.startsWith("imagen") ||
+        cell.startsWith("image"),
+    );
+  };
+
   const index = {
     region: findIndex(HEADER_ALIASES.region),
     active: findIndex(HEADER_ALIASES.active),
@@ -103,7 +116,7 @@ function parseCsv(text) {
     descriptionEs: findIndex(HEADER_ALIASES.descriptionEs),
     descriptionEn: findIndex(HEADER_ALIASES.descriptionEn),
     price: findIndex(HEADER_ALIASES.price),
-    image: findIndex(HEADER_ALIASES.image),
+    image: findImageIndex(),
   };
 
   if (index.region < 0 || index.titleEs < 0) {
