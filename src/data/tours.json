@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-30T09:43:56.564Z",
+  "syncedAt": "2026-07-30T16:03:34.905Z",
   "tours": [
     {
       "id": "bolivia-1-salar-de-uyuni",
@@ -19,7 +19,7 @@
         "en": "One-day tour of the Uyuni Salt Flats, the mirror of the sky."
       },
       "price": null,
-      "image": "/images/bolivia-tours.jpg"
+      "image": null
     },
     {
       "id": "bolivia-2-lago-titicaca-copacabana",
@@ -42,10 +42,30 @@
       "image": null
     },
     {
-      "id": "cusco-1-montana-de-colores",
+      "id": "cusco-1-laguna-humantay",
       "region": "cusco",
       "active": true,
       "order": 1,
+      "title": {
+        "es": "Laguna Humantay",
+        "en": "Humantay Lake"
+      },
+      "duration": {
+        "es": "8 horas",
+        "en": "8 hours"
+      },
+      "description": {
+        "es": "Descubre la magia de los Andes con nuestra excursión de día completo al impresionante lago Humantay.",
+        "en": "Discover the magic of the Andes with our full-day excursion to the breathtaking Humantay Lake"
+      },
+      "price": "S/120",
+      "image": null
+    },
+    {
+      "id": "cusco-2-montana-de-colores",
+      "region": "cusco",
+      "active": true,
+      "order": 2,
       "title": {
         "es": "Montaña de Colores",
         "en": "Rainbow Mountain"
@@ -59,13 +79,13 @@
         "en": "Excursión de un día a la Montaña de Colores (Vinicunca)."
       },
       "price": null,
-      "image": "https://i.postimg.cc/xTVkFW9N/Rainbow-Mountain.jpg"
+      "image": null
     },
     {
-      "id": "cusco-2-machu-picchu",
+      "id": "cusco-3-machu-picchu",
       "region": "cusco",
       "active": true,
-      "order": 2,
+      "order": 3,
       "title": {
         "es": "Machu Picchu",
         "en": "Machu Picchu"
@@ -79,7 +99,7 @@
         "en": "Visit the Incan cityAsk Isabel about options"
       },
       "price": null,
-      "image": "https://i.postimg.cc/brh66pL2/Macchu-Picchu.jpg"
+      "image": null
     }
   ]
 }
