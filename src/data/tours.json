@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-30T16:11:11.108Z",
+  "syncedAt": "2026-07-30T20:44:02.996Z",
   "tours": [
     {
       "id": "bolivia-1-salar-de-uyuni",
@@ -19,7 +19,7 @@
         "en": "One-day tour of the Uyuni Salt Flats, the mirror of the sky."
       },
       "price": null,
-      "image": "/images/bolivia-tours.jpg"
+      "image": "https://i.postimg.cc/7htHH9pf/salar-de-uyuni.jpg"
     },
     {
       "id": "bolivia-2-lago-titicaca-copacabana",
@@ -37,6 +37,26 @@
       "description": {
         "es": "Copacabana e islas del Lago Titicaca, el lago navegable más alto del mundo.",
         "en": "Copacabana and Lake Titicaca islands, the world's highest navigable lake."
+      },
+      "price": null,
+      "image": null
+    },
+    {
+      "id": "cusco-0",
+      "region": "cusco",
+      "active": true,
+      "order": 0,
+      "title": {
+        "es": "......",
+        "en": "......"
+      },
+      "duration": {
+        "es": "",
+        "en": ""
+      },
+      "description": {
+        "es": "",
+        "en": ""
       },
       "price": null,
       "image": null
@@ -78,7 +98,7 @@
         "es": "Excursión de un día a la Montaña de Colores (Vinicunca).",
         "en": "Excursión de un día a la Montaña de Colores (Vinicunca)."
       },
-      "price": null,
+      "price": "S/80",
       "image": "https://i.postimg.cc/xTVkFW9N/Rainbow-Mountain.jpg"
     },
     {
