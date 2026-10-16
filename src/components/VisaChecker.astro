@@ -10,6 +10,7 @@ import {
 import { nationalityPath } from "../data/nationalities";
 import type { NationalityId } from "../data/nationalities";
 import { business } from "../data/business";
+import { siteFeatures } from "../data/site-features";
 import visaGroupsData from "../data/visa-groups.json";
 import type { VisaGroupsData } from "../data/visa-groups.types";
 
@@ -45,6 +46,18 @@ const clientCountries = sortedCountries.map((country) => ({
 const chinaContactUrl = `${localePath(locale, "contact")}#wechat`;
 const whatsappUrl = business.whatsappUrl;
 const isChina = isChinaLocale(locale);
+const showTours = siteFeatures.showTours;
+// Keep tour wording out of the page source while tours are switched off.
+const clientCopy = showTours
+  ? copy
+  : {
+      ...copy,
+      group1Redirecting: "",
+      group1RedirectBody: "",
+      travelBannerText: "",
+      travelWelcomeBody: "",
+      travelWelcomeNext: "",
+    };
 ---
 
 <section class="section section-alt visa-checker" id="visa-check">
@@ -126,7 +139,8 @@ const isChina = isChinaLocale(locale);
     whatsappUrl,
     chinaContactUrl,
     isChina,
-    copy,
+    copy: clientCopy,
+    showTours,
   }}
 >
   const form = document.getElementById("visa-checker-form");
@@ -421,9 +435,7 @@ const isChina = isChinaLocale(locale);
     }, 2000);
   }
 
-  function renderVisaRequired(country, group) {
-    const title = group === 3 ? copy.group3Title : copy.group2Title;
-    const text = group === 3 ? copy.group3Text : copy.group2Text;
+  function contactActions(country) {
     const guidePath = nationalityLinks[country.code];
     const contactHref = isChina ? chinaContactUrl : whatsappUrl;
     const contactAttrs = isChina
@@ -431,13 +443,37 @@ const isChina = isChinaLocale(locale);
       : 'target="_blank" rel="noopener noreferrer"';
     const analyticsEvent = isChina ? "wechat_click" : "whatsapp_click";
 
-    trackVisaCheck("visa_check_visa_required", `${country.code}-group-${group}`);
-
     let actions = `<a class="button button-primary" href="${contactHref}" ${contactAttrs} data-analytics-event="${analyticsEvent}" data-analytics-label="visa_checker">${copy.whatsappLabel}</a>`;
 
     if (guidePath) {
       actions += ` <a class="button button-secondary" href="${guidePath}">${copy.guideLinkLabel}</a>`;
     }
+
+    return actions;
+  }
+
+  // Used while tours are switched off: show the result here instead of
+  // redirecting to the tours page.
+  function renderNoVisa(country) {
+    trackVisaCheck("visa_check_no_visa", country.code);
+
+    renderResult(`
+      <div class="visa-checker__message visa-checker__message--visa">
+        <p class="visa-checker__result-country">${country.name}</p>
+        <h3>${copy.group1RedirectTitle}</h3>
+        ${groupExplainHtml(country.group)}
+        <div class="button-row">${contactActions(country)}</div>
+      </div>
+    `);
+  }
+
+  function renderVisaRequired(country, group) {
+    const title = group === 3 ? copy.group3Title : copy.group2Title;
+    const text = group === 3 ? copy.group3Text : copy.group2Text;
+
+    trackVisaCheck("visa_check_visa_required", `${country.code}-group-${group}`);
+
+    const actions = contactActions(country);
 
     renderResult(`
       <div class="visa-checker__message visa-checker__message--visa">
@@ -460,7 +496,11 @@ const isChina = isChinaLocale(locale);
     }
 
     if (country.group === 1) {
-      redirectToTravel(country);
+      if (showTours) {
+        redirectToTravel(country);
+      } else {
+        renderNoVisa(country);
+      }
       return;
     }
 

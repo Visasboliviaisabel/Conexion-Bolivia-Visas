@@ -3,6 +3,7 @@ import type { Locale, PageKey, TravelStory } from "../i18n/config";
 import { localeList, locales, localePath, travelStoryPath } from "../i18n/config";
 import { getTranslations } from "../i18n/translations";
 import { tipsMeta, cuscoToursMeta, boliviaToursMeta } from "../i18n/tours-translations";
+import { siteFeatures } from "../data/site-features";
 import { discoverMeta } from "../i18n/discover-translations";
 import { getNationalityPageContent } from "../i18n/nationality-page-content";
 import { nationalityPath } from "../data/nationalities";
@@ -56,6 +57,12 @@ function resolveMeta(): { title: string; description: string } {
   if (page === "tours" && travelStory === "discover") return discoverMeta[locale];
   if (page === "tours" && travelStory === "cusco") return cuscoToursMeta[locale];
   if (page === "tours" && travelStory === "bolivia") return boliviaToursMeta[locale];
+  if (page === "tours" && travelStory === "index" && !siteFeatures.showTours) {
+    return {
+      title: `${t.travelHub.funnel.guidesTitle} – Conexión Bolivia`,
+      description: tipsMeta[locale].description,
+    };
+  }
   if (page === "home") return t.meta.home;
   return t.meta[page];
 }

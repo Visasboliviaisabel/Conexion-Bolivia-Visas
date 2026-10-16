@@ -8,6 +8,7 @@ import type { VisaGroup } from "../data/visa-groups.types";
 import { getCountryDisplayName } from "./country-display-names";
 import type { Locale } from "./config";
 import { localePath } from "./config";
+import { siteFeatures } from "../data/site-features";
 import type { NationalityContent } from "./nationality-translations";
 import { getNationalityPageTemplates } from "./nationality-page-templates";
 import {
@@ -51,6 +52,9 @@ function buildGroup1Content(
 ): NationalityPageContent {
   const copy = getVisaCheckerCopy(locale);
   const templates = getNationalityPageTemplates(locale);
+  const { showTours } = siteFeatures;
+  // Without tours, drop the "book tours with Isabel" sentences.
+  const noVisaLine = fill(copy.travelWelcomeCountry, countryName);
 
   return {
     group: 1,
@@ -62,12 +66,12 @@ function buildGroup1Content(
     syncedAt,
     meta: {
       title: fill(templates.metaTitleTravel, countryName),
-      description: copy.travelBannerText,
+      description: showTours ? copy.travelBannerText : noVisaLine,
     },
     eyebrow: `${countryName} → Bolivia`,
     title: copy.travelWelcomeTitle,
     subtitle: groupExplain,
-    intro: `${fill(copy.travelWelcomeCountry, countryName)} ${copy.travelWelcomeBody}`,
+    intro: showTours ? `${noVisaLine} ${copy.travelWelcomeBody}` : noVisaLine,
     requirementsTitle: fill(templates.entryRequirementsTitle, countryName),
     requirements: templates.entryRequirements,
     processTitle: templates.processTitle,
@@ -83,7 +87,7 @@ function buildGroup1Content(
       },
     ],
     ctaTitle: copy.travelBannerTitle,
-    ctaText: copy.travelBannerText,
+    ctaText: showTours ? copy.travelBannerText : noVisaLine,
     relatedTitle: templates.relatedTitle,
   };
 }

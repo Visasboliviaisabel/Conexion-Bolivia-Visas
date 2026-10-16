@@ -10,6 +10,7 @@ import { getCountryDisplayName } from "../i18n/country-display-names";
 import visaGroupsData from "../data/visa-groups.json";
 import type { VisaGroupsData } from "../data/visa-groups.types";
 import ContactPrimaryButton from "./ContactPrimaryButton.astro";
+import { siteFeatures } from "../data/site-features";
 
 interface Props {
   locale: Locale;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const { locale, tips, discover, readTime, funnel, wechatLabel } = Astro.props;
+const { showTours } = siteFeatures;
 const checkerCopy = getVisaCheckerCopy(locale);
 const data = visaGroupsData as VisaGroupsData;
 const tipsPath = travelStoryPath(locale, "tips");
@@ -86,7 +88,7 @@ const hubListSchema = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(hubListSchema)} />
+{showTours && <script type="application/ld+json" set:html={JSON.stringify(hubListSchema)} />}
 
 <section class="travel-welcome" id="travel-welcome" hidden>
   <div class="travel-welcome__inner">
@@ -108,11 +110,13 @@ const hubListSchema = {
     travelWelcomeEyebrow: checkerCopy.travelWelcomeEyebrow,
     travelWelcomeTitle: checkerCopy.travelWelcomeTitle,
     travelWelcomeCountry: checkerCopy.travelWelcomeCountry,
-    travelWelcomeBody: checkerCopy.travelWelcomeBody,
-    travelWelcomeNext: checkerCopy.travelWelcomeNext,
+    travelWelcomeBody: showTours ? checkerCopy.travelWelcomeBody : "",
+    travelWelcomeNext: showTours ? checkerCopy.travelWelcomeNext : "",
+    showTours,
   }}
 >
   (function () {
+    if (!showTours) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("from") !== "visa-check") return;
 
@@ -137,71 +141,79 @@ const hubListSchema = {
 </script>
 
 <div class="travel-funnel" id="travel-funnel">
-  <header class="travel-hero">
-    <p class="eyebrow">{funnel.heroEyebrow}</p>
-    <h1>{funnel.heroTitle}</h1>
-    <p class="lead">{funnel.heroLead}</p>
-  </header>
+  {showTours ? (
+    <>
+    <header class="travel-hero">
+      <p class="eyebrow">{funnel.heroEyebrow}</p>
+      <h1>{funnel.heroTitle}</h1>
+      <p class="lead">{funnel.heroLead}</p>
+    </header>
 
-  <section class="travel-isabel card" aria-labelledby="travel-isabel-title">
-    <div class="travel-isabel__copy">
-      <h2 id="travel-isabel-title">{funnel.isabelTitle}</h2>
-      <p>{funnel.isabelText}</p>
+    <section class="travel-isabel card" aria-labelledby="travel-isabel-title">
+      <div class="travel-isabel__copy">
+        <h2 id="travel-isabel-title">{funnel.isabelTitle}</h2>
+        <p>{funnel.isabelText}</p>
+      </div>
+      <ContactPrimaryButton
+        locale={locale}
+        whatsappLabel={funnel.isabelCta}
+        wechatLabel={wechatLabel}
+        whatsappPrefill={funnel.isabelPrefill}
+      />
+    </section>
+
+    <div class="travel-posts travel-regions">
+      <a class="travel-post-card" href={cuscoPath}>
+        <div class="travel-post-card__image-wrap">
+          <picture>
+            <source srcset={DEFAULT_IMAGES.cusco.webp} type="image/webp" />
+            <img
+              src={DEFAULT_IMAGES.cusco.jpg}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width={DEFAULT_IMAGES.cusco.width}
+              height={DEFAULT_IMAGES.cusco.height}
+            />
+          </picture>
+        </div>
+        <div class="travel-post-card__body">
+          <h2 class="travel-post-card__title">{funnel.cuscoTitle}</h2>
+          <p class="travel-post-card__excerpt">{funnel.cuscoLead}</p>
+          <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
+        </div>
+      </a>
+
+      <a class="travel-post-card" href={boliviaPath}>
+        <div class="travel-post-card__image-wrap">
+          <picture>
+            <source srcset={DEFAULT_IMAGES.bolivia.webp} type="image/webp" />
+            <img
+              src={DEFAULT_IMAGES.bolivia.jpg}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width={DEFAULT_IMAGES.bolivia.width}
+              height={DEFAULT_IMAGES.bolivia.height}
+            />
+          </picture>
+        </div>
+        <div class="travel-post-card__body">
+          <h2 class="travel-post-card__title">{funnel.boliviaTitle}</h2>
+          <p class="travel-post-card__excerpt">{funnel.boliviaLead}</p>
+          <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
+        </div>
+      </a>
     </div>
-    <ContactPrimaryButton
-      locale={locale}
-      whatsappLabel={funnel.isabelCta}
-      wechatLabel={wechatLabel}
-      whatsappPrefill={funnel.isabelPrefill}
-    />
-  </section>
 
-  <div class="travel-posts travel-regions">
-    <a class="travel-post-card" href={cuscoPath}>
-      <div class="travel-post-card__image-wrap">
-        <picture>
-          <source srcset={DEFAULT_IMAGES.cusco.webp} type="image/webp" />
-          <img
-            src={DEFAULT_IMAGES.cusco.jpg}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            width={DEFAULT_IMAGES.cusco.width}
-            height={DEFAULT_IMAGES.cusco.height}
-          />
-        </picture>
-      </div>
-      <div class="travel-post-card__body">
-        <h2 class="travel-post-card__title">{funnel.cuscoTitle}</h2>
-        <p class="travel-post-card__excerpt">{funnel.cuscoLead}</p>
-        <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
-      </div>
-    </a>
-
-    <a class="travel-post-card" href={boliviaPath}>
-      <div class="travel-post-card__image-wrap">
-        <picture>
-          <source srcset={DEFAULT_IMAGES.bolivia.webp} type="image/webp" />
-          <img
-            src={DEFAULT_IMAGES.bolivia.jpg}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            width={DEFAULT_IMAGES.bolivia.width}
-            height={DEFAULT_IMAGES.bolivia.height}
-          />
-        </picture>
-      </div>
-      <div class="travel-post-card__body">
-        <h2 class="travel-post-card__title">{funnel.boliviaTitle}</h2>
-        <p class="travel-post-card__excerpt">{funnel.boliviaLead}</p>
-        <p class="travel-post-card__meta">{funnel.viewToursCta} →</p>
-      </div>
-    </a>
-  </div>
-
-  <section class="travel-guides" aria-labelledby="travel-guides-title">
-    <h2 id="travel-guides-title">{funnel.guidesTitle}</h2>
+    </>
+  ) : (
+    <header class="travel-hero">
+      <h1>{funnel.guidesTitle}</h1>
+    </header>
+  )}
+  <section class="travel-guides" aria-labelledby={showTours ? "travel-guides-title" : undefined}>
+    {showTours && <h2 id="travel-guides-title">{funnel.guidesTitle}</h2>}
     <div class="travel-posts" id="travel-posts">
       <a class="travel-post-card" href={tipsPath}>
         <div class="travel-post-card__image-wrap">

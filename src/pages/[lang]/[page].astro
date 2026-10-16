@@ -13,6 +13,7 @@ import type { Locale } from "../../i18n/config";
 import { isChinaLocale } from "../../i18n/china-translations";
 import { getTranslations } from "../../i18n/translations";
 import { business } from "../../data/business";
+import { siteFeatures } from "../../data/site-features";
 
 export function getStaticPaths() {
   const paths: {
@@ -71,6 +72,11 @@ export function getStaticPaths() {
 const locale = Astro.params.lang as Locale;
 const { pageType } = Astro.props;
 const t = getTranslations(locale);
+
+// Tour pages are switched off: send old links to the Viajes page instead.
+if (!siteFeatures.showTours && (pageType === "cusco" || pageType === "bolivia")) {
+  return Astro.redirect(travelStoryPath(locale, "index"), 301);
+}
 ---
 
 {pageType === "services" ? (

@@ -9,6 +9,7 @@ import { getTranslations } from "../../../i18n/translations";
 import { nationalityPath, nationalityList, getNationalityLabel } from "../../../data/nationalities";
 import { localePath } from "../../../i18n/config";
 import { getVisaCheckerCopy } from "../../../i18n/visa-checker-translations";
+import { siteFeatures } from "../../../data/site-features";
 
 export function getStaticPaths() {
   const paths: { params: { lang: string; country: string }; props: { nationalityId: NationalityId } }[] = [];
@@ -112,10 +113,10 @@ const visaCopy = getVisaCheckerCopy(locale);
       <h2>{content.ctaTitle}</h2>
       <p>{content.ctaText}</p>
       <div class="button-row">
-        {!content.showVisaProcess && (
+        {!content.showVisaProcess && siteFeatures.showTours && (
           <a class="button button-primary" href={content.travelPageHref}>{content.ctaTitle}</a>
         )}
-        {content.showVisaProcess && (
+        {(content.showVisaProcess || !siteFeatures.showTours) && (
           <ContactPrimaryButton
             locale={locale}
             whatsappLabel={t.home.ctaWhatsapp}
